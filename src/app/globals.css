@@ -24,6 +24,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+main {
+  margin-top: 100px;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;

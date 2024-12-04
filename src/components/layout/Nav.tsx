@@ -4,6 +4,7 @@ const Nav : React.FC = () => {
 
     return (
         <nav className={styles.nav}>
+
         </nav>
     )
 }

@@ -1,9 +1,11 @@
 const My: React.FC = () => {
-  return (
-    <>
-      <h1>My page</h1>
-    </>
-  );
-};
+
+    return (
+        <main>
+            <h1>My page</h1>
+        </main>
+    )
+}
+
 
 export default My;
