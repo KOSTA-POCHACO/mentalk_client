@@ -1,11 +1,12 @@
 "use client"
 
-import { useRouter } from "next/router";
+interface PageProps {
+    params : {id : string};
+}
 
-const With : React.FC =  () => {
+const With : React.FC<PageProps> =  ({params} ) => {
 
-    const router = useRouter();
-    const {id} = router.query;
+    const {id} = params;
 
     return (
         <>
