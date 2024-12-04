@@ -4,31 +4,6 @@ const CoffeeChat : React.FC =  () => {
         <>
         <main>
         <h1>CoffeeChat page</h1>
-            <h1>CoffeeChat page</h1>
-            <h1>CoffeeChat page</h1>
-            <h1>CoffeeChat page</h1>
-            <h1>CoffeeChat page</h1>
-            <h1>CoffeeChat page</h1>
-            <h1>CoffeeChat page</h1>
-            <h1>CoffeeChat page</h1>
-            <h1>CoffeeChat page</h1>
-            <h1>CoffeeChat page</h1>
-            <h1>CoffeeChat page</h1>
-            <h1>CoffeeChat page</h1>
-            <h1>CoffeeChat page</h1>
-            <h1>CoffeeChat page</h1>
-            <h1>CoffeeChat page</h1>
-            <h1>CoffeeChat page</h1>
-            <h1>CoffeeChat page</h1>
-            <h1>CoffeeChat page</h1>
-            <h1>CoffeeChat page</h1>
-            <h1>CoffeeChat page</h1>
-            <h1>CoffeeChat page</h1>
-            <h1>CoffeeChat page</h1>
-            <h1>CoffeeChat page</h1>
-            <h1>CoffeeChat page</h1>
-            <h1>CoffeeChat page</h1>
-            <h1>CoffeeChat page</h1>
         </main>
            
         </>
