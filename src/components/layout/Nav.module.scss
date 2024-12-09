@@ -1,7 +1,104 @@
 .nav {
     position: fixed;
     display: flex;
-    width: 100vw;
-    height: 100px;
-    background-color: lightgray;
+    width: 100%;
+    height: 70px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    backdrop-filter: blur(20px);
+
+}
+
+.wrap {
+    display: flex;
+    width: 80%;
+    height: 100%;
+    align-items: center;
+    overflow: hidden;
+    justify-content: space-between;
+    gap: 50px;
+
+    .leftMenu,
+    .rightMenu {
+        width: 100%;
+        height: 50%;
+        display: flex;
+        align-items: center;
+        gap: 5vw;
+
+        div {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    }
+}
+
+.leftMenu {
+
+
+    .logoContainer {
+        gap: 10px;
+        letter-spacing: 5pt;
+        font-size: 12pt;
+        font-weight: bold;
+    }
+
+    .menuContainer {
+        font-weight: bold;
+        min-width: 100px;
+
+    }
+
+}
+
+
+.rightMenu {
+
+    .searchContainer {
+        width: 100%;
+        min-width: 250px;
+        background-color: lightgray;
+        padding-inline: 20px;
+        border-radius: 999px;
+
+        input {
+            height: 100%;
+            width: 100%;
+            border: none;
+            background: transparent;
+        }
+
+        .iconFrame {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            width: 10%;
+            justify-content: flex-end;
+        }
+    }
+
+    .profileContainer {
+
+        .nicknameFrame {
+            width: 200px;
+            font-weight: bold;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            word-break: break-all;
+        }
+
+        .profileFrame {
+            width: 35px;
+            height: 35px;
+            background-color: lightgray;
+            border: 1px solid white;
+            border-radius: 999px;
+
+        }
+    }
+
 }
