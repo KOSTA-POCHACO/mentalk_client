@@ -8,66 +8,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const My : React.FC =  () => {
-<<<<<<< HEAD
-
-    const [user, setUser] = useState<Mentor | Mentee | null>({
-        type: "Mentee",
-        id : "test",
-        email : "",
-        nickname : "",
-        img : "",
-        phone : "",
-        company : "",
-        category : "",
-        position : "",
-        career : "",
-        isChecked : false,
-        warningCount : 0,
-        favoriteCount : 0,
-        gender : "",
-        joinDate : "",
-        suspension : false,
-    });
-
-    useEffect(() => {
-        // 쿠키에서 읽어온 user의 타입이 mentor인지 mentee인지 확인
-
-        // 만약에 쿠키에서 얻어온 정보가 mentor면
-        axios.get(`http://localhost:8080/mentor/test`).then((result) => {
-
-            const mentor = result.data;
-
-            const newUser : Mentor = {
-                type: "Mentor",
-                id : mentor.mentor_id,
-                email : mentor.mentor_email,
-                img : mentor.mentor_img,
-                nickname : mentor.mentor_nickname,
-                phone : mentor.mentor_phone,
-                company : mentor.mentor_company,
-                category : mentor.mentor_category,
-                position : mentor.mentor_position,
-                career : mentor.mentor_career,
-                isChecked : mentor.mentor_is_checked,
-                warningCount : mentor.mentor_warning_count,
-                favoriteCount : mentor.mentor_favorite_count,
-                gender : mentor.mentor_gender,
-                joinDate : mentor.mentor_joinDate,
-                suspension : mentor.mentor_suspension,
-            } 
-
-            setUser(newUser);
-
-            
-        }).catch((error) => {
-            console.log(error);
-        })
-
-        // 만약에 쿠키에서 얻어온 정보가 mentee면
-
-        
-    }, [])
-=======
     const router = useRouter();
     const [user, setUser] = useState<Mentor | Mentee | null>(null);
     const userData = useUserData();
@@ -75,7 +15,6 @@ const My : React.FC =  () => {
     useEffect(() => {
         setUser(userData);
     }, [userData])
->>>>>>> d008a2e (introduce 조회)
 
 
     if(user?.type === "Mentor"){
