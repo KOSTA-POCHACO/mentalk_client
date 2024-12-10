@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-const My: React.FC = () => {
-=======
 "use client"
 
 import { useEffect, useState } from "react";
@@ -8,7 +5,6 @@ import styles from "./my.module.scss"
 import axios from "axios";
 
 const My : React.FC =  () => {
->>>>>>> 6aa991a5ce4531b0d661e2ff4de0597511a7dcb7
 
     const [user, setUser] = useState<Mentor | Mentee | null>({
         type: "Mentee",
