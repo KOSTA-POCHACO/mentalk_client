@@ -48,8 +48,9 @@ export default async function Favorite () {
         <main>
             <div className={styles.favoriteContainer}>
                 {
-                    favoriteList?.map((favorite : Mentor) => {
+                    favoriteList?.map((favorite : Mentor, index : number) => {
                         return <MentorProfile
+                        key={index}
                         nickname={favorite.nickname} 
                         position={favorite.position}
                         company={favorite.company}
