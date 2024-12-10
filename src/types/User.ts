@@ -1,8 +1,10 @@
 interface User {
-    _id : string;
+    type:string;
     id : string;
+    img:string;
     phone : string;
     nickname : string;
     email : string;
-    stop : boolean;
+    suspension : boolean;
+    joinDate : string;
 }

@@ -1,3 +1,5 @@
 interface Mentee extends User {
-    wish : string[],
+    wish : string[];
+    gender: string;
+
 }

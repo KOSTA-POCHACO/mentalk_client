@@ -1,0 +1,50 @@
+.wrap {
+    width: 450px;
+    min-width: 450px;
+    background-color: white;
+    border: 1px lightgray solid;
+    border-radius: 15px;
+
+    .titleContainer,
+    .profileContainer {
+        padding: 25px;
+    }
+}
+
+.titleContainer {
+    display: flex;
+    gap: 50px;
+
+    .iconFrame {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+.profileContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+
+    .imgFrame {
+        width: 60px;
+        height: 60px;
+        border: 1px solid white;
+        border-radius: 999px;
+        background-color: black;
+    }
+
+    .infoContainer {
+        display: flex;
+        flex-direction: column;
+        font-size: 10pt;
+        gap: 5px;
+
+        .nickname {
+            font-size: 12pt;
+            font-weight: bold;
+        }
+
+    }
+}
