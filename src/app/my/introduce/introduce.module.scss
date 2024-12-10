@@ -1,0 +1,26 @@
+.wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: flex-start;
+    width: 800px;
+    height: 100%;
+}
+
+.infoContainer {
+    display: flex;
+}
+
+.titleContainer {
+
+    .title {
+        font-size: 20pt;
+        font-weight: bold;
+    }
+
+}
+
+.content {
+    height: 100%;
+    min-height: 30vh;
+}

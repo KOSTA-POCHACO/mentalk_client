@@ -3,8 +3,12 @@
 import { useEffect, useState } from "react";
 import styles from "./my.module.scss"
 import axios from "axios";
+import useUserData from "@/hook/useUserData";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const My : React.FC =  () => {
+<<<<<<< HEAD
 
     const [user, setUser] = useState<Mentor | Mentee | null>({
         type: "Mentee",
@@ -63,6 +67,15 @@ const My : React.FC =  () => {
 
         
     }, [])
+=======
+    const router = useRouter();
+    const [user, setUser] = useState<Mentor | Mentee | null>(null);
+    const userData = useUserData();
+
+    useEffect(() => {
+        setUser(userData);
+    }, [userData])
+>>>>>>> d008a2e (introduce 조회)
 
 
     if(user?.type === "Mentor"){
@@ -90,7 +103,12 @@ const My : React.FC =  () => {
                             <p><strong>직무</strong></p><p>{mentor?.position}</p>
                         </div>
                     </div>
-                <button className={styles.editBtn}>수정하기</button>
+
+                    <div>
+                        <Link href={"/my/edit"}>
+                            <button className={styles.editBtn} onClick={() => {}}>수정하기</button>
+                        </Link>
+                    </div>
                 </div>
             </main>
         )
@@ -111,17 +129,19 @@ const My : React.FC =  () => {
                     </div>
 
                     <div className={styles.wishContainer}>
-                        <div className={styles.item}>
-                            프론트엔드 개발자
-                        </div>
-                        <div className={styles.item}>
-                            백엔드 개발자
-                        </div>
-                        <div className={styles.item}>
-                            풀스택 개발자
-                        </div>
+                        {
+                            mentee.wish.map((position) => {
+                                return (
+                                    <div className={styles.item}>
+                                        {position}
+                                    </div>
+                                )
+                            })
+                        }
+                       
+                       
                     </div>
-                <button className={styles.editBtn}>수정하기</button>
+               <button className={styles.editBtn} onClick={() => {router.push("/my/edit")}}>수정하기</button>
                 </div>
             </main>
         )

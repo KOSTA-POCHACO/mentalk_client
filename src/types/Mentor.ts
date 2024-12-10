@@ -1,4 +1,4 @@
-interface Mentor extends User {
+type Mentor = User & {
     category : string;
     company : string;
     position : string;

@@ -5,6 +5,7 @@
     align-items: center;
     justify-content: center;
     gap: 20px;
+
 }
 
 .profileContainer {
@@ -43,13 +44,25 @@
         border-radius: 999px;
         align-items: center;
 
+
         strong {
             width: 100px;
             display: flex;
             align-items: center;
             justify-content: center;
-
         }
+
+        input {
+            font-size: 12pt;
+            width: 100%;
+            border: none;
+            outline: none;
+        }
+    }
+
+    .item.readonly {
+        background-color: #f3f3f3;
+        color: gray;
     }
 }
 
@@ -70,14 +83,32 @@
         border-radius: 999px;
         align-items: center;
     }
+
+
 }
 
-.editBtn {
-    font-size: 12pt;
-    border: none;
-    border-radius: 15px;
-    padding: 15px 20px;
-    background-color: #AAC11F;
-    color: white;
-    cursor: pointer;
+.buttonContainer {
+    display: flex;
+    gap: 5px;
+
+    button {
+        font-size: 12pt;
+        border: none;
+        border-radius: 15px;
+        padding: 15px 20px;
+        cursor: pointer;
+    }
+
+    .editBtn {
+        background-color: #AAC11F;
+        color: white;
+    }
+
+    .cancelBtn {
+        background-color: lightgray;
+        color: black;
+    }
+
+
+
 }

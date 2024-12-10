@@ -1,4 +1,4 @@
-import MypageNav from "@/components/my/MypageNav";
+import MypageNav from "@/components/layout/my/MypageNav";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

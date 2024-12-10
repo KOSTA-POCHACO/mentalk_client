@@ -1,4 +1,4 @@
-interface Mentee extends User {
+type Mentee = User & {
     wish : string[];
     gender: string;
 
