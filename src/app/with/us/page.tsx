@@ -48,8 +48,9 @@ export default async function WithUs () {
             <div className={styles.favoriteContainer}>
 
                 {
-                    mentors.map((mentor : Mentor) => {
+                    mentors.map((mentor : Mentor, index : number) => {
                         return <MentorProfile 
+                        key={index}
                         nickname={mentor.nickname}
                         company={mentor.company}
                         position={mentor.position}
