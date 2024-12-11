@@ -14,7 +14,9 @@ export const metadata: Metadata = {
     return (
         <>
           <MypageNav/>
-          {children}
+          <div style={{marginLeft : "200px", height : "100%",  paddingTop: "50px"}}>
+            {children}
+          </div>
         </>
     );
   }

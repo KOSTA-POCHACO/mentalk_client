@@ -3,10 +3,11 @@
 import styles from "./edit.module.scss"
 import useUserData from "@/hook/useUserData";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Edit : React.FC = () => {
     const router = useRouter();
+
 
     const [user, setUser] = useState<Mentor | Mentee | null>(null);
     const userData = useUserData();
@@ -52,7 +53,6 @@ const Edit : React.FC = () => {
     }
 
     function handleSubmit () {
-
     }
    
     // 멘토면
@@ -63,7 +63,7 @@ const Edit : React.FC = () => {
         // 멘토 마이페이지
         return (
             <main>
-                <form className={styles.wrap}>
+                <form className={styles.wrap} >
                     <div className={styles.profileContainer}>
                         <div className={styles.profileImg}>
                         </div>
@@ -71,44 +71,49 @@ const Edit : React.FC = () => {
     
                     <div className={styles.infoContainer}>
 
-                        <div className={`${styles.item} ${styles.readonly}`}>
-                            <p><strong>아이디</strong></p><p>{mentor?.id}</p>
-                        </div>
+                        <div className={styles.itemContainer}>
+                            <div className={`${styles.item} ${styles.readonly}`}>
+                                <p><strong>아이디</strong></p><p>{mentor?.id}</p>
+                            </div>
 
-                        <div className={`${styles.item}`}>
-                            <p><strong>닉네임</strong></p>
-                            <input 
-                            name="nickname"
-                            placeholder="변경할 닉네임을 입력하세요"
-                            value={formData?.nickname}
-                            onChange={handleChange}/>
+                            <div className={`${styles.item}`}>
+                                <p><strong>닉네임</strong></p>
+                                <input 
+                                name="nickname"
+                                placeholder="변경할 닉네임을 입력하세요"
+                                value={formData?.nickname}
+                                onChange={handleChange}/>
+                            </div>
+                            <div className={styles.item}>
+                                <p><strong>이메일</strong></p>
+                                <input 
+                                type="email"
+                                name="email"
+                                placeholder="변경할 이메일을 입력하세요"
+                                value={formData?.email}
+                                onChange={handleChange}/>
+                            </div>
+                            
+                            <div className={`${styles.item} ${styles.readonly}`}>
+                                <p><strong>소속</strong></p><p>{mentor?.company}</p>
+                            </div>
+                            <div className={`${styles.item} ${styles.readonly}`}>
+                                <p><strong>카테고리</strong></p><p>{mentor?.category}</p>
+                            </div>
+                            <div className={`${styles.item} ${styles.readonly}`}>
+                                <p><strong>직무</strong></p><p>{mentor?.position}</p>
+                            </div>
                         </div>
-                        <div className={styles.item}>
-                            <p><strong>이메일</strong></p>
-                            <input 
-                            type="email"
-                            name="email"
-                            placeholder="변경할 이메일을 입력하세요"
-                            value={formData?.email}
-                            onChange={handleChange}/>
-                        </div>
-                        
-                        <div className={`${styles.item} ${styles.readonly}`}>
-                            <p><strong>소속</strong></p><p>{mentor?.company}</p>
-                        </div>
-                        <div className={`${styles.item} ${styles.readonly}`}>
-                            <p><strong>카테고리</strong></p><p>{mentor?.category}</p>
-                        </div>
-                        <div className={`${styles.item} ${styles.readonly}`}>
-                            <p><strong>직무</strong></p><p>{mentor?.position}</p>
-                        </div>
-                 
-                    </div>
-                  <div className={styles.buttonContainer}>
-                        <button className={styles.editBtn} onClick={() => {}}>수정</button>
+                       
+
+                        <div className={styles.buttonContainer}>
+                        <button className={styles.editBtn} onClick={handleSubmit}>수정</button>
                         <button className={styles.cancelBtn} onClick={() => {router.push("/my")}}>취소</button>
                     </div>
                
+                 
+                    </div>
+                 
                 </form>
             </main>
         )
@@ -161,7 +166,7 @@ const Edit : React.FC = () => {
                        
                     </div>
                     <div className={styles.buttonContainer}>
-                        <button className={styles.editBtn} onClick={() => {}}>수정</button>
+                        <button className={styles.editBtn} onClick={() => {handleSubmit}}>수정</button>
                         <button className={styles.cancelBtn} onClick={() => {router.push("/my")}}>취소</button>
                     </div>
                
