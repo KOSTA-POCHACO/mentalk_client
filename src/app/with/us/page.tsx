@@ -25,7 +25,7 @@ async function getMentors() {
                 warningCount : mentor.mentor_warning_count,
                 favoriteCount : mentor.mentor_favorite_count,
                 gender : mentor.mentor_gender,
-                joinDate : mentor.mentor_joinDate,
+                joinDate : mentor.mentor_createdAt,
                 suspension : mentor.mentor_suspension,
             }
     

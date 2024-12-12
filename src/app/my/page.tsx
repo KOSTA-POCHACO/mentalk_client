@@ -2,67 +2,20 @@
 
 import { useEffect, useState } from "react";
 import styles from "./my.module.scss"
-import axios from "axios";
+import useUserData from "@/hook/useUser";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import useMyReview from "@/hook/useMyReview";
 
 const My : React.FC =  () => {
+    const router = useRouter();
 
-    const [user, setUser] = useState<Mentor | Mentee | null>({
-        type: "Mentee",
-        id : "test",
-        email : "",
-        nickname : "",
-        img : "",
-        phone : "",
-        company : "",
-        category : "",
-        position : "",
-        career : "",
-        isChecked : false,
-        warningCount : 0,
-        favoriteCount : 0,
-        gender : "",
-        joinDate : "",
-        suspension : false,
-    });
+    const [user, setUser] = useState<Mentor | Mentee | null>(null);
+    const userData = useUserData();
 
     useEffect(() => {
-        // 쿠키에서 읽어온 user의 타입이 mentor인지 mentee인지 확인
-
-        // 만약에 쿠키에서 얻어온 정보가 mentor면
-        axios.get(`http://localhost:8080/mentor/test`).then((result) => {
-
-            const mentor = result.data;
-
-            const newUser : Mentor = {
-                type: "Mentor",
-                id : mentor.mentor_id,
-                email : mentor.mentor_email,
-                img : mentor.mentor_img,
-                nickname : mentor.mentor_nickname,
-                phone : mentor.mentor_phone,
-                company : mentor.mentor_company,
-                category : mentor.mentor_category,
-                position : mentor.mentor_position,
-                career : mentor.mentor_career,
-                isChecked : mentor.mentor_is_checked,
-                warningCount : mentor.mentor_warning_count,
-                favoriteCount : mentor.mentor_favorite_count,
-                gender : mentor.mentor_gender,
-                joinDate : mentor.mentor_joinDate,
-                suspension : mentor.mentor_suspension,
-            } 
-
-            setUser(newUser);
-
-            
-        }).catch((error) => {
-            console.log(error);
-        })
-
-        // 만약에 쿠키에서 얻어온 정보가 mentee면
-
-        
-    }, [])
+        setUser(userData);
+    }, [userData])
 
 
     if(user?.type === "Mentor"){
@@ -90,7 +43,12 @@ const My : React.FC =  () => {
                             <p><strong>직무</strong></p><p>{mentor?.position}</p>
                         </div>
                     </div>
-                <button className={styles.editBtn}>수정하기</button>
+
+                    <div>
+                        <Link href={"/my/edit"}>
+                            <button className={styles.editBtn} onClick={() => {}}>수정하기</button>
+                        </Link>
+                    </div>
                 </div>
             </main>
         )
@@ -111,17 +69,19 @@ const My : React.FC =  () => {
                     </div>
 
                     <div className={styles.wishContainer}>
-                        <div className={styles.item}>
-                            프론트엔드 개발자
-                        </div>
-                        <div className={styles.item}>
-                            백엔드 개발자
-                        </div>
-                        <div className={styles.item}>
-                            풀스택 개발자
-                        </div>
+                        {
+                            mentee.wish.map((position) => {
+                                return (
+                                    <div className={styles.item}>
+                                        {position}
+                                    </div>
+                                )
+                            })
+                        }
+                       
+                       
                     </div>
-                <button className={styles.editBtn}>수정하기</button>
+               <button className={styles.editBtn} onClick={() => {router.push("/my/edit")}}>수정하기</button>
                 </div>
             </main>
         )
