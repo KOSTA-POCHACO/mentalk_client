@@ -7,5 +7,5 @@ type Mentor = User & {
     warningCount : number;
     favoriteCount : number;
     gender : string;
-
+    paperImg: string;
 }

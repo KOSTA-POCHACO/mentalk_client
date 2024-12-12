@@ -15,7 +15,7 @@ export default function useUserData () {
             id:"junesung",
 
             // type:"Mentee",
-            // id : "ju1asd3111"
+            // id : "test1004"
         }
 
         async function fetchUserData () {

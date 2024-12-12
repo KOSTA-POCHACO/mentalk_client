@@ -19,7 +19,7 @@ async function getFavoriteList() {
                 type: "Mentor",
                 id : mentor.mentor_id,
                 email : mentor.mentor_email,
-                img : mentor.mentor_img,
+                profileImg : mentor.mentor_img,
                 nickname : mentor.mentor_nickname,
                 phone : mentor.mentor_phone,
                 company : mentor.mentor_company,
@@ -32,6 +32,7 @@ async function getFavoriteList() {
                 gender : mentor.mentor_gender,
                 joinDate : mentor.mentor_joinDate,
                 suspension : mentor.mentor_suspension,
+                paperImg : mentor.mentor_paper_img,
             })
         })
     }).catch((error) => {
