@@ -99,9 +99,9 @@ const Nav: React.FC = () => {
                 </div>
             ) : (
                 <div className={styles.authContainer}>
-                <Link href="/login">로그인</Link>
-                <span>|</span>
-                <Link href="/signup">회원가입</Link>
+                    <Link href="/login">로그인</Link>
+                    <span>|</span>
+                    <Link href="/signup">회원가입</Link>
                 </div>
             )}
             </div>

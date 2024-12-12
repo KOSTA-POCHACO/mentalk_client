@@ -15,7 +15,7 @@ export default function useUserData () {
             id:"junesung",
 
             // type:"Mentee",
-            // id : "ju1asd3111"
+            // id : "test1004"
         }
 
         async function fetchUserData () {
@@ -57,7 +57,7 @@ export default function useUserData () {
                     img : mentee.mentee_img,
                     nickname : mentee.mentee_nickname,
                     phone : mentee.mentee_phone,
-                    wish: mentee.mentee_position,
+                    position: mentee.mentee_position,
                     gender : mentee.mentee_gender,
                     joinDate : mentee.mentee_createdAt,
                     suspension : mentee.mentee_suspension,

@@ -106,6 +106,8 @@
 
     .authContainer {
         display: flex;
+        min-width: 200px;
+        justify-content: flex-end;
     }
 
 }
