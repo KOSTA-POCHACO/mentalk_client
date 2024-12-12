@@ -1,11 +1,16 @@
-const QnA : React.FC =  () => {
+import styles from "./chatting.module.scss"
+
+const Chatting : React.FC =  () => {
 
     return (
         <main>
-            <h1>chatting page</h1>
-        </main>
+        <div className={styles.wrap}>
+            <h1>Chatting page</h1>
+        </div>
+
+    </main>
     )
 }
 
 
-export default QnA;
+export default Chatting;

@@ -1,4 +1,4 @@
-interface Manager {
+type Manager = {
     id: string;
     nickname: string;
     phone: string;

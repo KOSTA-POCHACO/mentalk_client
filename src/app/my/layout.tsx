@@ -1,4 +1,4 @@
-import MypageNav from "@/components/my/MypageNav";
+import MypageNav from "@/components/layout/my/MypageNav";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -14,7 +14,9 @@ export const metadata: Metadata = {
     return (
         <>
           <MypageNav/>
-          {children}
+          <div style={{marginInline: "10vw", paddingLeft : "200px", height : "100%",  paddingTop: "50px"}}>
+            {children}
+          </div>
         </>
     );
   }
