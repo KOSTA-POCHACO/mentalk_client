@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 
 export default function useUserData () {
 
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
     const [user, setUser] = useState<Mentor | Mentee | null>(null);
 
  
@@ -20,7 +22,7 @@ export default function useUserData () {
 
         async function fetchUserData () {
             // 쿠키에서 얻어온 정보로 Mentor, Mentee 나눠서 요청
-            await axios.get(`http://localhost:8080/${cookie.type}/${cookie.id}`).then((result) => {
+            await axios.get(`${API_URL}/${cookie.type}/${cookie.id}`).then((result) => {
 
             if(cookie.type === "Mentor"){
                 const mentor = result.data;
@@ -29,7 +31,7 @@ export default function useUserData () {
                     type: "Mentor",
                     id : mentor.mentor_id,
                     email : mentor.mentor_email,
-                    img : mentor.mentor_img,
+                    profileImg : mentor.mentor_img,
                     nickname : mentor.mentor_nickname,
                     phone : mentor.mentor_phone,
                     company : mentor.mentor_company,
@@ -42,6 +44,7 @@ export default function useUserData () {
                     gender : mentor.mentor_gender,
                     joinDate : mentor.mentor_joinDate,
                     suspension : mentor.mentor_suspension,
+                    paperImg : mentor.mentor_paper_img
                 } 
 
                 setUser(newUser);
@@ -54,7 +57,7 @@ export default function useUserData () {
                     type: "Mentee",
                     id : mentee.mentee_id,
                     email : mentee.mentee_email,
-                    img : mentee.mentee_img,
+                    profileImg : mentee.mentee_img,
                     nickname : mentee.mentee_nickname,
                     phone : mentee.mentee_phone,
                     position: mentee.mentee_position,
