@@ -1,41 +1,3 @@
-$pointColor : #A47864;
-
-.userType {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 600px;
-  height: 50px;
-  cursor: pointer;
-  
-  label {
-    font-size: 20px;
-    width: 300px;
-    height: 50px;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 15px 15px 0 0;
-    background-color: #d9d9d9;
-    color: #959595;
-    border-bottom: 2px solid $pointColor;
-    cursor: pointer;
-
-    input[type="radio"] {
-      display:none;
-    }
-
-    &.selected {
-      background: #FFFFFF;
-      color: $pointColor;
-      border-width: 2px 2px 0 2px;
-      border-style: solid;
-      border-color: $pointColor;
-      border-radius: 15px 15px 0px 0px;
-    }
-  }
-}
-
 .loginContainer {
   width: 600px;
   height: 400px;
@@ -60,10 +22,10 @@ $pointColor : #A47864;
     align-items: center;
 
     &:focus-within {
-      outline: 1px solid $pointColor;
+      outline: 1px solid var(--primary-color);
 
       .icon {
-        color: $pointColor;
+        color: var(--primary-color);
       }
     }
     
@@ -83,7 +45,7 @@ $pointColor : #A47864;
   .btnLogin {
     color:white;
     font-size: 18px;
-    background-color: $pointColor;
+    background-color: var(--primary-color);
     outline:none;
     cursor: pointer;
     display:block;
@@ -113,7 +75,7 @@ $pointColor : #A47864;
     }
     
     .signup {
-      color:$pointColor;
+      color:var(--primary-color);
     }
   }
 }

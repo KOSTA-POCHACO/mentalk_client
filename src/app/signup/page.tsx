@@ -1,18 +1,17 @@
 "use client"
 
+import UserType from "@/components/UserType";
 import styles from "./signup.module.scss"
+import { Form } from "react-router-dom";
 
 const SignUp: React.FC = () => {
 
     return (
-      <main>
-        <h1 className={styles.h1}>signup page</h1>
-        <div>
-          <div>
-            
-          </div>
-        </div>
-      </main>
+        <main>
+            <form>
+                <UserType/>
+            </form>
+        </main>
     );
 }
 
