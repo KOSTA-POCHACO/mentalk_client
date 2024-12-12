@@ -6,6 +6,7 @@ import useUserData from "@/hook/useUser";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import useMyReview from "@/hook/useMyReview";
+import CustomButton from "@/components/CustomButton";
 
 const My : React.FC =  () => {
     const router = useRouter();
@@ -28,6 +29,7 @@ const My : React.FC =  () => {
                 <div className={styles.wrap}>
                     <div className={styles.profileContainer}>
                         <div className={styles.profileImg}>
+                            <img src={`http://localhost:8080/${mentor.profileImg}` || "/images/default_profile.png"} alt="" />
                         </div>
                         {mentor?.nickname}
                     </div>
@@ -44,9 +46,10 @@ const My : React.FC =  () => {
                         </div>
                     </div>
 
+
                     <div>
                         <Link href={"/my/edit"}>
-                            <button className={styles.editBtn} onClick={() => {}}>수정하기</button>
+                            <CustomButton content="수정하기" onClick={() => {router.push("/my/edit")}}/>
                         </Link>
                     </div>
                 </div>
@@ -68,9 +71,9 @@ const My : React.FC =  () => {
                         닉네임어디까지올라가는거예요닉네임길이테스트
                     </div>
 
-                    <div className={styles.wishContainer}>
+                    <div className={styles.positionContainer}>
                         {
-                            mentee.wish.map((position) => {
+                            mentee.position.map((position) => {
                                 return (
                                     <div className={styles.item}>
                                         {position}
@@ -81,7 +84,7 @@ const My : React.FC =  () => {
                        
                        
                     </div>
-               <button className={styles.editBtn} onClick={() => {router.push("/my/edit")}}>수정하기</button>
+               <CustomButton content="수정하기" onClick={() => {router.push("/my/edit")}}/>
                 </div>
             </main>
         )

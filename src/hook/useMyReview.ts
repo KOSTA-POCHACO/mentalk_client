@@ -5,12 +5,14 @@ import { useEffect, useState } from "react";
 
 export default function useReview () {
 
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
     const [reviews, setReviews] = useState<Review[] | null>(null);
 
     useEffect(() => {
 
         async function fetchMyReviews(userId : string){
-           await axios.get(`http://localhost:8080/review/${userId}`)
+           await axios.get(`${API_URL}/review/${userId}`)
             .then((result)=> {
 
                 console.log(result);
@@ -30,7 +32,8 @@ export default function useReview () {
             })
         }
     
-        fetchMyReviews("mentee123");
+        // TODO : 여기 userId로 변경해야함
+        fetchMyReviews("test1004");
     }, [])
 
     return reviews;

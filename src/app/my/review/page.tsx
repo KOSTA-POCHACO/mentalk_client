@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import styles from "./review.module.scss"
-import useMyReview from "@/hook/useMyReview";
 import Review from "@/components/Review";
+import useMyReview from "@/hook/useMyReview";
 
 const ReviewPage : React.FC =  () => {
 

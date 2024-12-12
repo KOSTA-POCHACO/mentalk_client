@@ -8,7 +8,6 @@ const CoffeeChat : React.FC =  () => {
             <div className={styles.wrap}>
                 <h1>CoffeeChat page</h1>
             </div>
-
         </main>
            
         </>

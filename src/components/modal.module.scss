@@ -1,0 +1,39 @@
+.wrap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 999;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 50%;
+    background-color: white;
+    border: 1px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    @media (max-width: 992px) {
+        width: 80%;
+    }
+
+
+    .title {
+        font-weight: bold;
+        font-size: 16pt;
+    }
+
+    .buttonContainer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+    }
+}
