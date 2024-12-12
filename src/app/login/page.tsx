@@ -5,11 +5,15 @@ import { FaUser } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import styles from "./login.module.scss";
 import axios from 'axios';
+import Link from 'next/link';
+import { useRouter } from "next/navigation";
 
 const Login: React.FC = () => {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
+  const [nickname, setNickname] = useState("");
   const [userType, setUserType] = useState("mentor");
+  const router = useRouter();
 
   // 아이디 입력 핸들러
   const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,28 +35,34 @@ const Login: React.FC = () => {
         e.preventDefault(); // 폼 제출 시 페이지 리로드 방지
 
         try {
-          // userType에 따라 데이터를 다르게 설정
-          const data =
-            userType === "mentor"
-              ? { mentor_id: id, mentor_pw: pw } // 멘토일 때
-              : { mentee_id: id, mentee_pw: pw }; // 멘티일 때
-        
-          // 로그인 요청
-          const res = await axios.post(
-            `http://localhost:8080/login/${userType}`,
-            data,
-            {
-              withCredentials: true,    // 쿠키 포함
-            }
-          );
-          
-          console.log("res : ", res);
+            // userType에 따라 데이터를 다르게 설정
+            const data =
+                userType === "mentor"
+                    ? { mentor_id: id, mentor_pw: pw } // 멘토일 때
+                    : { mentee_id: id, mentee_pw: pw }; // 멘티일 때
+
+            // 로그인 요청
+            const res = await axios.post(
+                `http://localhost:8080/login/${userType}`,
+                data,
+                {
+                    withCredentials: true, // 쿠키 포함
+                }
+            );  // 쿠키로 userType 저장
+
+            console.log("res : ", res);
+            console.log(res.data.data)
             console.log(data);
+
+            // 로그인 성공 시 리다이렉트
+            if (res.status === 200) {
+                router.push("/with/us"); // 성공 시 이동
+            }
             
         } catch (error) {
             console.error("로그인 실패 : ", error);
         }
-}
+    };
 
   return (
     <main>
@@ -102,13 +112,15 @@ const Login: React.FC = () => {
           </div>
           <div className={styles.linkContainer}>
             <div className={styles.findContainer}>
-              <p>아이디 찾기</p>
+              아이디 찾기
               <span className={styles.span}> | </span>
-              <p>비밀번호 찾기</p>
+              비밀번호 찾기
             </div>
-            <p className={styles.signup}>
-              <strong>회원가입</strong>
-            </p>
+            <Link href="/signup">
+              <p className={styles.signup}>
+                <strong>회원가입</strong>
+              </p>
+            </Link>
           </div>
           <button
             className={`${styles.inputContainer} ${styles.btnLogin}`}
