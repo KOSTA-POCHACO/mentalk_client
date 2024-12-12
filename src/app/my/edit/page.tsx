@@ -2,12 +2,14 @@
 
 import styles from "./edit.module.scss"
 import useUserData from "@/hook/useUser";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const Edit : React.FC = () => {
     const router = useRouter();
 
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
     const [user, setUser] = useState<Mentor | Mentee | null>(null);
     const userData = useUserData();
@@ -24,19 +26,19 @@ const Edit : React.FC = () => {
     function handleChange (e :React.ChangeEvent<HTMLInputElement>) {
         const { name, value } = e.target;
 
-        if(name == "wish"){
-            const updateWish = value.split(",").map((item) => item.trim());
+        if(name == "position"){
+            const updatePosition = value.split(",").map((item) => item.trim());
 
-            console.log(updateWish);
+            console.log(updatePosition);
 
-            if(updateWish.length > 3){
+            if(updatePosition.length > 3){
                 alert("희망 직무는 세개까지만 등록할 수 있습니다.");
                 return;
             }
 
             setFormData((prevState) => ({
                 ...prevState,
-                wish : updateWish,
+                position : updatePosition,
             }));
 
             console.log(formData);
@@ -52,8 +54,17 @@ const Edit : React.FC = () => {
         console.log(formData);
     }
 
-    function handleSubmit () {
+    function handleSubmit() {
+        axios.put(`${API_URL}/${user?.type}/${user?.id}`, {
+            mentor_nickname : formData?.nickname,
+            mentor_email : formData?.email,
+        }).then((result) => {
+            console.log(result.data.message);
+        }).catch((error) => {
+            console.log(error);
+        })
     }
+
    
     // 멘토면
     if(user?.type === "Mentor"){
@@ -72,10 +83,11 @@ const Edit : React.FC = () => {
                     <div className={styles.infoContainer}>
 
                         <div className={styles.itemContainer}>
+                            <h3>기본 정보</h3>
                             <div className={`${styles.item} ${styles.readonly}`}>
                                 <p><strong>아이디</strong></p><p>{mentor?.id}</p>
                             </div>
-
+                      
                             <div className={`${styles.item}`}>
                                 <p><strong>닉네임</strong></p>
                                 <input 
@@ -93,7 +105,10 @@ const Edit : React.FC = () => {
                                 value={formData?.email}
                                 onChange={handleChange}/>
                             </div>
+                        
                             
+                            <br></br>
+                            <h3>직무</h3>
                             <div className={`${styles.item} ${styles.readonly}`}>
                                 <p><strong>소속</strong></p><p>{mentor?.company}</p>
                             </div>
@@ -154,8 +169,12 @@ const Edit : React.FC = () => {
                             <p><strong>희망 직무</strong></p>
                             <input 
                             name="wish"
-                            placeholder="변경할 닉네임을 입력하세요"
-                            value={`${formData?.wish?.join(", ")}`}
+                            placeholder="변경할 직무를 입력하세요"
+                            value={`${
+                                Array.isArray(formData?.position) 
+                                ? formData?.position.join(", ") // Mentee의 position 처리
+                                : ""     // Mentor의 position 처리
+                            }`}
                             onChange={handleChange}/>
                         </div>
                        

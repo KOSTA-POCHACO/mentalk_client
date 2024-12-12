@@ -69,9 +69,9 @@ const My : React.FC =  () => {
                         닉네임어디까지올라가는거예요닉네임길이테스트
                     </div>
 
-                    <div className={styles.wishContainer}>
+                    <div className={styles.positionContainer}>
                         {
-                            mentee.wish.map((position) => {
+                            mentee.position.map((position) => {
                                 return (
                                     <div className={styles.item}>
                                         {position}

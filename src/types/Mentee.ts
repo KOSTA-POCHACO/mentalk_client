@@ -1,5 +1,4 @@
 type Mentee = User & {
-    wish : string[];
+    position : string[];
     gender: string;
-
 }

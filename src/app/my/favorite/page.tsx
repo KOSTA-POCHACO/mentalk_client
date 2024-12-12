@@ -3,13 +3,16 @@ import styles from "./favorite.module.scss";
 import axios from "axios";
 
 async function getFavoriteList() {
+
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+    
     // 쿠키에서 불러온 값이 멘토라면 튕겨냄
 
     // 멘티 아이디로 즐겨찾기 멘토 목록 불러옴
     const newFavoriteList : Mentor[] = [];
     
-    // url이 http://localhost:8080/mentor/:user?.id 이렇게 가야됨
-    await axios.get(`http://localhost:8080/mentor`).then((result : any) => {
+    // url이 ${API_URL}/mentor/:user?.id 이렇게 가야됨
+    await axios.get(`${API_URL}/mentor`).then((result : any) => {
         console.log(result.data);
         result.data.map((mentor : any) => {
             newFavoriteList.push({
