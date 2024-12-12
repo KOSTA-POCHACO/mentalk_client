@@ -25,24 +25,25 @@ export default function useUserData () {
             if(cookie.type === "Mentor"){
                 const mentor = result.data;
 
-                const newUser : Mentor = {
-                    type: "Mentor",
-                    id : mentor.mentor_id,
-                    email : mentor.mentor_email,
-                    img : mentor.mentor_img,
-                    nickname : mentor.mentor_nickname,
-                    phone : mentor.mentor_phone,
-                    company : mentor.mentor_company,
-                    category : mentor.mentor_category,
-                    position : mentor.mentor_position,
-                    career : mentor.mentor_career,
-                    isChecked : mentor.mentor_is_checked,
-                    warningCount : mentor.mentor_warning_count,
-                    favoriteCount : mentor.mentor_favorite_count,
-                    gender : mentor.mentor_gender,
-                    joinDate : mentor.mentor_joinDate,
-                    suspension : mentor.mentor_suspension,
-                } 
+                const newUser: Mentor = {
+                  type: "Mentor",
+                  id: mentor.mentor_id,
+                  email: mentor.mentor_email,
+                  profileImg: mentor.mentor_img,
+                  nickname: mentor.mentor_nickname,
+                  phone: mentor.mentor_phone,
+                  company: mentor.mentor_company,
+                  category: mentor.mentor_category,
+                  position: mentor.mentor_position,
+                  career: mentor.mentor_career,
+                  isChecked: mentor.mentor_is_checked,
+                  warningCount: mentor.mentor_warning_count,
+                  favoriteCount: mentor.mentor_favorite_count,
+                  gender: mentor.mentor_gender,
+                  joinDate: mentor.mentor_joinDate,
+                  suspension: mentor.mentor_suspension,
+                  paperImg: mentor.mentor_paper_img
+                }; 
 
                 setUser(newUser);
             }
@@ -54,7 +55,7 @@ export default function useUserData () {
                     type: "Mentee",
                     id : mentee.mentee_id,
                     email : mentee.mentee_email,
-                    img : mentee.mentee_img,
+                    profileImg : mentee.mentee_img,
                     nickname : mentee.mentee_nickname,
                     phone : mentee.mentee_phone,
                     wish: mentee.mentee_position,

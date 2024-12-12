@@ -1,7 +1,7 @@
 interface User {
     type:string;
     id : string;
-    img:string;
+    profileImg:string;
     phone : string;
     nickname : string;
     email : string;
