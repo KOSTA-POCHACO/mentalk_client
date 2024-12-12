@@ -7,13 +7,15 @@ import styles from "./login.module.scss";
 import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
+import UserType from "@/components/UserType";
+import { useUserContext } from '@/context/UserContext';
 
 const Login: React.FC = () => {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
-  const [nickname, setNickname] = useState("");
   const [userType, setUserType] = useState("mentor");
   const router = useRouter();
+  const { setUser } = useUserContext();
 
   // 아이디 입력 핸들러
   const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,11 +25,6 @@ const Login: React.FC = () => {
   // 비밀번호 입력 핸들러
   const handlePwChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPw(e.target.value);
-  };
-
-  // 역할 선택 핸들러
-  const handleUserTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserType(e.target.value);
   };
   
 // 로그인 요청 핸들러
@@ -48,15 +45,51 @@ const Login: React.FC = () => {
                 {
                     withCredentials: true, // 쿠키 포함
                 }
-            );  // 쿠키로 userType 저장
-
-            console.log("res : ", res);
-            console.log(res.data.data)
-            console.log(data);
+            );
 
             // 로그인 성공 시 리다이렉트
             if (res.status === 200) {
-                router.push("/with/us"); // 성공 시 이동
+              const userData = res.data.data;
+
+              const newUser =
+                userType === "mentor"
+                  ? {
+                      type: "Mentor",
+                      id: userData.mentor_id,
+                      email: userData.mentor_email,
+                      profileImg: userData.mentor_img,
+                      nickname: userData.mentor_nickname,
+                      phone: userData.mentor_phone,
+                      company: userData.mentor_company,
+                      category: userData.mentor_category,
+                      position: userData.mentor_position,
+                      career: userData.mentor_career,
+                      isChecked: userData.mentor_is_checked,
+                      warningCount: userData.mentor_warning_count,
+                      favoriteCount: userData.mentor_favorite_count,
+                      gender: userData.mentor_gender,
+                      joinDate: userData.mentor_joinDate,
+                      suspension: userData.mentor_suspension,
+                      paperImg: userData.mentor_paper_img,
+                    }
+                  : {
+                      type: "Mentee",
+                      id: userData.mentee_id,
+                      email: userData.mentee_email,
+                      profileImg: userData.mentee_img,
+                      nickname: userData.mentee_nickname,
+                      phone: userData.mentee_phone,
+                      wish: userData.mentee_position,
+                      gender: userData.mentee_gender,
+                      joinDate: userData.mentee_createdAt,
+                      suspension: userData.mentee_suspension,
+                  };
+              
+              // Context에 저장
+              setUser(newUser);
+
+              // 로그인 성공 후 리다이렉트
+              router.push("/with/us");
             }
             
         } catch (error) {
@@ -66,29 +99,8 @@ const Login: React.FC = () => {
 
   return (
     <main>
-      <form>
-        <div className={styles.userType}>
-          <label className={userType === "mentor" ? styles.selected : ""}>
-            <strong>멘토</strong>
-            <input
-              type="radio"
-              name="userType"
-              value="mentor"
-              checked={userType === "mentor"}
-              onChange={(e) => setUserType(e.target.value)}
-            />
-          </label>
-          <label className={userType === "mentee" ? styles.selected : ""}>
-            <strong>멘티</strong>
-            <input
-              type="radio"
-              name="userType"
-              value="mentee"
-              checked={userType === "mentee"}
-              onChange={(e) => setUserType(e.target.value)}
-            />
-          </label>
-        </div>
+      <form onSubmit={handleLogin}>
+        <UserType/>
         <div className={styles.loginContainer}>
           <div className={styles.inputContainer}>
             <FaUser className={styles.icon} />
@@ -123,8 +135,8 @@ const Login: React.FC = () => {
             </Link>
           </div>
           <button
+            type='submit'
             className={`${styles.inputContainer} ${styles.btnLogin}`}
-            onClick={handleLogin}
           >
             <strong>로그인</strong>
           </button>
