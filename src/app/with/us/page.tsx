@@ -5,10 +5,12 @@ import MentorProfile from "@/components/MentorProfile";
 
 
 async function getMentors() {
+
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
     
     const mentorList : Mentor[] = []; 
 
-    await axios.get(`http://localhost:8080/mentor`).then((result) => {
+    await axios.get(`${API_URL}/mentor`).then((result) => {
         result.data.map((mentor : any) => {
             const newMentor = {
                 type: "Mentor",

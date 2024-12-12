@@ -11,6 +11,8 @@ import CustomButton from "@/components/CustomButton";
 const My : React.FC =  () => {
     const router = useRouter();
 
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
     const [user, setUser] = useState<Mentor | Mentee | null>(null);
     const userData = useUserData();
 
@@ -29,7 +31,7 @@ const My : React.FC =  () => {
                 <div className={styles.wrap}>
                     <div className={styles.profileContainer}>
                         <div className={styles.profileImg}>
-                            <img src={`http://localhost:8080/${mentor.profileImg}` || "/images/default_profile.png"} alt="" />
+                            <img src={`${API_URL}/${mentor.profileImg}` || "/images/default_profile.png"} alt="" />
                         </div>
                         {mentor?.nickname}
                     </div>

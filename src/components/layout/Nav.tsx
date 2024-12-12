@@ -113,6 +113,7 @@ const Nav: React.FC = () => {
                 <div className={styles.profileFrame}></div>
               </div>
             ) : (
+
               <div className={styles.authContainer}>
                 <Link href="/login">로그인</Link>
                 <span>|</span>
