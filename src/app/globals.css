@@ -3,7 +3,6 @@
   --foreground: #171717;
 
   --primary-color : #A57865;
-
 }
 
 @media (prefers-color-scheme: dark) {
@@ -37,9 +36,8 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  min-height: calc(100vh - 70px);
   margin: 0 auto;
-  margin-top: 70px;
 }
 
 * {

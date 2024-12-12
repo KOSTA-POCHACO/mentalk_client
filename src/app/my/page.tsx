@@ -44,6 +44,7 @@ const My : React.FC =  () => {
                         </div>
                     </div>
 
+
                     <div>
                         <Link href={"/my/edit"}>
                             <button className={styles.editBtn} onClick={() => {}}>수정하기</button>

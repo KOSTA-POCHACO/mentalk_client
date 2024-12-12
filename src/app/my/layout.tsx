@@ -14,8 +14,10 @@ export const metadata: Metadata = {
     return (
         <>
           <MypageNav/>
-          <div style={{marginInline: "10vw", paddingLeft : "200px", height : "100%",  paddingTop: "50px"}}>
-            {children}
+          <div style={{marginInline: "10vw", paddingLeft : "200px", height : "100%",  paddingTop: "calc(70px)"}}>
+            <div className="myWrap" style={{paddingTop : "50px", height : "100%"}}>
+              {children}
+            </div>
           </div>
         </>
     );
