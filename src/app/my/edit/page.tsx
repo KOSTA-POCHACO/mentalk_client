@@ -5,7 +5,8 @@ import styles from "./edit.module.scss"
 import useUserData from "@/hook/useUser";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import CustomButton from "@/components/CustomButton";
 
 const Edit : React.FC = () => {
     const router = useRouter();
@@ -15,16 +16,20 @@ const Edit : React.FC = () => {
     const [user, setUser] = useState<Mentor | Mentee | null>(null);
     const userData = useUserData();
 
+    const [imgSrc, setImgSrc] = useState<string | null>(null);
+    const fileInputRef = useRef<HTMLInputElement>(null); 
+
     useEffect(() => {
         setUser(userData);
         setFormData(userData);
+        setImgSrc(userData?.profileImg || "/images/default_profile.png")
     }, [userData])
 
     const [modalMessage, setModalMessage] = useState<string>("");
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
 
-    const [formData, setFormData] = useState<Partial<Mentor | Mentee | null>>(null);
+    const [formData, setFormData] = useState<Partial<Mentor | Mentee | null>>({});
 
  
     function handleChange (e :React.ChangeEvent<HTMLInputElement>) {
@@ -62,16 +67,22 @@ const Edit : React.FC = () => {
     function handleSubmit(e : React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
+        const data = new FormData();
+
+            // 이미지 파일 추가
+        if (fileInputRef.current?.files?.[0]) {
+            data.append(`${user?.type.toLowerCase()}_img`, fileInputRef.current.files[0]); // 프로필 이미지 추가
+        }
+
+            // 다른 폼 데이터 추가
+        data.append(`${user?.type.toLowerCase()}_nickname`, formData?.nickname || "");
+        data.append(`${user?.type.toLowerCase()}_email`, formData?.email || "");
+
+
         axios.put(`${API_URL}/${user?.type}/${user?.id}`, 
-            user?.type === "Mentor" ? 
+            data,
             {
-                mentor_nickname : formData?.nickname,
-                mentor_email : formData?.email,
-            }
-            :
-            {
-                mentee_nickname : formData?.nickname,
-                mentee_email : formData?.email,
+                headers: { "Content-Type": "multipart/form-data" },
             }
         ).then((result) => {
             console.log(result.data.message);
@@ -81,6 +92,21 @@ const Edit : React.FC = () => {
             console.log(error);
         })
     }
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]; // 파일 가져오기
+        if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+            setImgSrc(reader.result as string); // 미리보기 이미지 설정
+            setFormData((prevState) => ({
+                ...prevState,
+                profileImg : reader.result as string,
+            }));
+        };
+        reader.readAsDataURL(file);
+        }
+    };
 
    
     // 멘토면
@@ -95,10 +121,14 @@ const Edit : React.FC = () => {
                 isModalOpen ? <Modal title="유저 수정" content={modalMessage} onConfirmClick={() => {router.push("/my")}} onCancelClick={() => {setIsModalOpen(false)}}/> : ""
             }
             <main>
-                <form className={styles.wrap} onSubmit={(e) => {e.preventDefault(); handleSubmit(e)}} method="put">
+                <form className={styles.wrap} onSubmit={(e) => {e.preventDefault(); handleSubmit(e)}} method="put" encType="multipart/form-data">
                     <div className={styles.profileContainer}>
-                        <div className={styles.profileImg}>
+                        <div className={styles.profileImg} onClick={() => fileInputRef.current?.click()}>
+                            <p>사진 변경</p>
+                            <img src={imgSrc || "/images/default_profile.png"} alt="" />
                         </div>
+                        {/* <CustomButton content="사진 변경" onClick={() => {}}/> */}
+                        <input ref={fileInputRef} type="file" name="profileImg" id="" style={{display: "none"}} onChange={handleFileChange} accept="image/*"/>
                     </div>
     
                     <div className={styles.infoContainer}>
@@ -143,8 +173,9 @@ const Edit : React.FC = () => {
                        
 
                         <div className={styles.buttonContainer}>
-                        <button className={styles.editBtn}>수정</button>
-                        <button className={styles.cancelBtn} onClick={() => {router.push("/my")}}>취소</button>
+
+                        <CustomButton content="수정" onClick={() => {}}/>
+                        <CustomButton content="취소" onClick={() => {router.push("/my")}} backgroundColor="lightgray" color="black"/>
                     </div>
                
                  
@@ -211,8 +242,8 @@ const Edit : React.FC = () => {
                         </div>
 
                         <div className={styles.buttonContainer}>
-                            <button className={styles.editBtn}>수정</button>
-                            <button className={styles.cancelBtn} onClick={() => {router.push("/my")}}>취소</button>
+                            <CustomButton content="수정" onClick={() => {}}/>
+                            <CustomButton content="취소" onClick={() => {router.push("/my")}} backgroundColor="lightgray" color="black"/>
                         </div>
                    
                        
