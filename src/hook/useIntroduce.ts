@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 
 export default function useUserData () {
 
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
     const [introduce, setIntroduce] = useState<Introduce | null>(null);
  
     useEffect(() => {
@@ -17,7 +19,7 @@ export default function useUserData () {
         }
 
         async function fetchIntroduceData () {
-            await axios.get(`http://localhost:8080/intro/${cookie.id}`).then((result) => {
+            await axios.get(`${API_URL}/intro/${cookie.id}`).then((result) => {
 
                 const introduce = result.data.mentor_intro;
 

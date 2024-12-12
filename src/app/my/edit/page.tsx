@@ -125,7 +125,7 @@ const Edit : React.FC = () => {
                     <div className={styles.profileContainer}>
                         <div className={styles.profileImg} onClick={() => fileInputRef.current?.click()}>
                             <p>사진 변경</p>
-                            <img src={imgSrc || "/images/default_profile.png"} alt="" />
+                            <img src={`${API_URL}/${imgSrc}` || "/images/default_profile.png"} alt="" />
                         </div>
                         {/* <CustomButton content="사진 변경" onClick={() => {}}/> */}
                         <input ref={fileInputRef} type="file" name="profileImg" id="" style={{display: "none"}} onChange={handleFileChange} accept="image/*"/>
