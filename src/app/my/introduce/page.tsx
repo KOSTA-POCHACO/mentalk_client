@@ -1,8 +1,8 @@
 "use client"
 
 import styles from "./introduce.module.scss"
-import useIntroduceData from "@/hook/useIntroduceData";
-import useUserData from "@/hook/useUserData";
+import useIntroduceData from "@/hook/useIntroduce";
+import useUserData from "@/hook/useUser";
 import { useEffect, useState } from "react";
 
 const Intro : React.FC = () => {
@@ -27,7 +27,7 @@ const Intro : React.FC = () => {
                 <div className={styles.infoContainer}>
                     <p>{user?.nickname}</p>
                     <p>{introduce?.coffeechatCount}회</p>
-                    <p>⭐️{introduce?.rating}</p>
+                    <p>{"⭐️ ".repeat(introduce?.rating)}</p>
                 </div>
                 
                 <div className={styles.content}>

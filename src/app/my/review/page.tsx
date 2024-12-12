@@ -1,11 +1,31 @@
-import styles from "./review.module.scss"
+"use client"
 
-const Review : React.FC =  () => {
+import { useEffect, useState } from "react";
+import styles from "./review.module.scss"
+import useMyReview from "@/hook/useMyReview";
+import Review from "@/components/Review";
+
+const ReviewPage : React.FC =  () => {
+
+    const [reviews, setReviews] = useState<Review[] | null>(null);
+
+    const myReviewData = useMyReview();
+
+    useEffect(() => {
+        setReviews(myReviewData);
+    }, [myReviewData])
 
     return (
         <main>
         <div className={styles.wrap}>
-            <h1>Review page</h1>
+            {
+                reviews?.map((review) => {
+                    return <Review 
+                    coffeechatId={review.coffeechatId}
+                    content={review.content}
+                    rating={review.rating}  />
+                })
+            }
         </div>
 
     </main>
@@ -14,4 +34,4 @@ const Review : React.FC =  () => {
 }
 
 
-export default Review;
+export default ReviewPage;

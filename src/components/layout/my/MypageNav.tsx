@@ -4,7 +4,7 @@ import styles from "./MypageNav.module.scss"
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import useUserData from "@/hook/useUserData";
+import useUserData from "@/hook/useUser";
 
 const Nav : React.FC = () => {
 

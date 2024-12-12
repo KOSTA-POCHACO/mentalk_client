@@ -19,7 +19,7 @@ export default function useUserData () {
         async function fetchIntroduceData () {
             await axios.get(`http://localhost:8080/intro/${cookie.id}`).then((result) => {
 
-                const introduce = result.data;
+                const introduce = result.data.mentor_intro;
 
                 const newIntroduce = {
                     mentorId : introduce.mentor_id,

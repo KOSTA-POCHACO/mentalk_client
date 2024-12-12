@@ -2,13 +2,14 @@
 
 import { useEffect, useState } from "react";
 import styles from "./my.module.scss"
-import axios from "axios";
-import useUserData from "@/hook/useUserData";
+import useUserData from "@/hook/useUser";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import useMyReview from "@/hook/useMyReview";
 
 const My : React.FC =  () => {
     const router = useRouter();
+
     const [user, setUser] = useState<Mentor | Mentee | null>(null);
     const userData = useUserData();
 

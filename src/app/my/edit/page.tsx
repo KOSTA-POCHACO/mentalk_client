@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./edit.module.scss"
-import useUserData from "@/hook/useUserData";
+import useUserData from "@/hook/useUser";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
