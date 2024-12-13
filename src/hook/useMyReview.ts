@@ -1,5 +1,6 @@
 "use client"
 
+import { useUserContext } from "@/context/UserContext";
 import axios from "axios"
 import { useEffect, useState } from "react";
 
@@ -7,9 +8,15 @@ export default function useReview () {
 
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
+    const { user } = useUserContext();
+
     const [reviews, setReviews] = useState<Review[] | null>(null);
 
     useEffect(() => {
+
+        if(!user?.id){
+            return;
+        }
 
         async function fetchMyReviews(userId : string){
            await axios.get(`${API_URL}/review/${userId}`)
@@ -32,8 +39,7 @@ export default function useReview () {
             })
         }
     
-        // TODO : 여기 userId로 변경해야함
-        fetchMyReviews("test1004");
+        fetchMyReviews(user?.id);
     }, [])
 
     return reviews;

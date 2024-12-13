@@ -18,6 +18,8 @@ async function getMentors() {
                 email : mentor.mentor_email,
                 img : mentor.mentor_img,
                 nickname : mentor.mentor_nickname,
+                profileImg : mentor.mentor_img,
+                paperImg : mentor.mentor_paper_img,
                 phone : mentor.mentor_phone,
                 company : mentor.mentor_company,
                 category : mentor.mentor_category,
@@ -47,19 +49,22 @@ export default async function WithUs () {
     return (
         <>
         <main>
-            <div className={styles.favoriteContainer}>
-
-                {
-                    mentors.map((mentor : Mentor, index : number) => {
-                        return <MentorProfile 
-                        key={index}
-                        nickname={mentor.nickname}
-                        company={mentor.company}
-                        position={mentor.position}
-                        career={mentor.career}/>
-                    })
-                }
+            <div className={styles.wrap}>
+                <div className={styles.favoriteContainer}>
+                    {
+                        mentors.map((mentor : Mentor, index : number) => {
+                            return <MentorProfile 
+                            key={index}
+                            nickname={mentor.nickname}
+                            company={mentor.company}
+                            position={mentor.position}
+                            career={mentor.career}
+                            profileImg={mentor.profileImg}/>
+                        })
+                    }
+                </div>
             </div>
+           
         </main>
 
         </>

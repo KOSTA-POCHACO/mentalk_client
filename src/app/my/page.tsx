@@ -1,24 +1,22 @@
 "use client"
 
-import { useEffect, useState } from "react";
 import styles from "./my.module.scss"
-import useUserData from "@/hook/useUser";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import useMyReview from "@/hook/useMyReview";
 import CustomButton from "@/components/CustomButton";
+import { useUserContext } from "@/context/UserContext";
+import { useEffect } from "react";
 
 const My : React.FC =  () => {
     const router = useRouter();
 
+    const { user } = useUserContext();
+
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-    const [user, setUser] = useState<Mentor | Mentee | null>(null);
-    const userData = useUserData();
-
     useEffect(() => {
-        setUser(userData);
-    }, [userData])
+        console.log(user);
+    })
 
 
     if(user?.type === "Mentor"){
@@ -31,7 +29,10 @@ const My : React.FC =  () => {
                 <div className={styles.wrap}>
                     <div className={styles.profileContainer}>
                         <div className={styles.profileImg}>
-                            <img src={`${API_URL}/${mentor.profileImg}` || "/images/default_profile.png"} alt="" />
+                            <img src={
+                            user.profileImg ? 
+                            `${API_URL}/${user.profileImg}` : "/images/default_profile.png"
+                            } alt="" />
                         </div>
                         {mentor?.nickname}
                     </div>
@@ -66,7 +67,6 @@ const My : React.FC =  () => {
         // 멘티 마이페이지
         return (
             <main>
-                <div className={styles.wrap}>
                     <div className={styles.profileContainer}>
                         <div className={styles.profileImg}>
                         </div>
@@ -87,7 +87,6 @@ const My : React.FC =  () => {
                        
                     </div>
                <CustomButton content="수정하기" onClick={() => {router.push("/my/edit")}}/>
-                </div>
             </main>
         )
     }

@@ -30,7 +30,9 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <UserProvider>
           <Nav />
-          {children}
+          <main style={{width : "100%", height : "100%", paddingTop : "70px", }}>
+            {children}
+          </main>
         </UserProvider>
       </body>
     </html>

@@ -7,6 +7,8 @@ import axios from "axios";
 import { useUserContext } from "@/context/UserContext";
 
 const Nav: React.FC = () => {
+
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
     const [isLogin, setIsLogin] = useState<boolean>(false);
     const { user, setUser } = useUserContext();
 
@@ -110,7 +112,9 @@ const Nav: React.FC = () => {
                   {/* 닉네임어디까지올라가는거예요오오오오옹 */}
                   {user?.nickname}
                 </Link>
-                <div className={styles.profileFrame}></div>
+                <div className={styles.profileFrame}>
+                  <img src={`${API_URL}/${user?.profileImg}` || "/images/default_profile.png"} alt="" />
+                </div>
               </div>
             ) : (
 

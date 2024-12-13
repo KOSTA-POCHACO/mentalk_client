@@ -2,28 +2,26 @@
 
 import Modal from "@/components/Modal";
 import styles from "./edit.module.scss"
-import useUserData from "@/hook/useUser";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import CustomButton from "@/components/CustomButton";
+import { useUserContext } from "@/context/UserContext";
 
 const Edit : React.FC = () => {
     const router = useRouter();
 
-    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+    const { user } = useUserContext();
 
-    const [user, setUser] = useState<Mentor | Mentee | null>(null);
-    const userData = useUserData();
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
     const [imgSrc, setImgSrc] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null); 
 
     useEffect(() => {
-        setUser(userData);
-        setFormData(userData);
-        setImgSrc(userData?.profileImg || "/images/default_profile.png")
-    }, [userData])
+        setFormData(user);
+        setImgSrc( user?.profileImg ? `${API_URL}/${user?.profileImg}` : "/images/default_profile.png")
+    }, [])
 
     const [modalMessage, setModalMessage] = useState<string>("");
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -69,42 +67,49 @@ const Edit : React.FC = () => {
 
         const data = new FormData();
 
-            // 이미지 파일 추가
         if (fileInputRef.current?.files?.[0]) {
-            data.append(`${user?.type.toLowerCase()}_img`, fileInputRef.current.files[0]); // 프로필 이미지 추가
+            // 프로필 이미지
+            data.append(`${user?.type.toLowerCase()}_img`, fileInputRef.current.files[0]); 
         }
 
-            // 다른 폼 데이터 추가
+        // 다른 폼 데이터 추가
         data.append(`${user?.type.toLowerCase()}_nickname`, formData?.nickname || "");
         data.append(`${user?.type.toLowerCase()}_email`, formData?.email || "");
 
 
+        // 변경 요청
         axios.put(`${API_URL}/${user?.type}/${user?.id}`, 
             data,
             {
                 headers: { "Content-Type": "multipart/form-data" },
             }
         ).then((result) => {
-            console.log(result.data.message);
+            // 모달 띄우기
             setModalMessage(result.data.message);
             setIsModalOpen(true);
         }).catch((error) => {
             console.log(error);
         })
+
+        // 끝나고 여기 유저 정보를 새로 불러와야되는데 그걸 어케 하지?
+
     }
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0]; // 파일 가져오기
+        // 파일 가져오기
+        const file = e.target.files?.[0]; 
         if (file) {
-        const reader = new FileReader();
-        reader.onload = () => {
-            setImgSrc(reader.result as string); // 미리보기 이미지 설정
-            setFormData((prevState) => ({
-                ...prevState,
-                profileImg : reader.result as string,
-            }));
-        };
-        reader.readAsDataURL(file);
+            const reader = new FileReader();
+            reader.onload = () => {
+                // 미리보기 이미지
+                setImgSrc(reader.result as string); 
+                setFormData((prevState) => ({
+                    ...prevState,
+                }));
+
+                console.log(reader.result as string);
+            };
+            reader.readAsDataURL(file);
         }
     };
 
@@ -118,17 +123,35 @@ const Edit : React.FC = () => {
         return (
             <>
             {
-                isModalOpen ? <Modal title="유저 수정" content={modalMessage} onConfirmClick={() => {router.push("/my")}} onCancelClick={() => {setIsModalOpen(false)}}/> : ""
+                isModalOpen ? 
+                <Modal 
+                title="유저 수정" 
+                content={modalMessage} 
+                onConfirmClick={() => {router.push("/my")}} 
+                onCancelClick={() => {setIsModalOpen(false)}}/> 
+                : 
+                ""
             }
             <main>
-                <form className={styles.wrap} onSubmit={(e) => {e.preventDefault(); handleSubmit(e)}} method="put" encType="multipart/form-data">
+                <form 
+                className={styles.wrap} 
+                onSubmit={(e) => {e.preventDefault(); handleSubmit(e)}} 
+                method="put" 
+                encType="multipart/form-data">
                     <div className={styles.profileContainer}>
                         <div className={styles.profileImg} onClick={() => fileInputRef.current?.click()}>
                             <p>사진 변경</p>
-                            <img src={`${API_URL}/${imgSrc}` || "/images/default_profile.png"} alt="" />
+                            <img src={imgSrc || "/images/default_profile.png"} alt="" />
                         </div>
                         {/* <CustomButton content="사진 변경" onClick={() => {}}/> */}
-                        <input ref={fileInputRef} type="file" name="profileImg" id="" style={{display: "none"}} onChange={handleFileChange} accept="image/*"/>
+                        <input 
+                        ref={fileInputRef} 
+                        type="file" 
+                        name="profileImg" 
+                        id="" 
+                        style={{display: "none"}} 
+                        onChange={handleFileChange} 
+                        accept="image/*"/>
                     </div>
     
                     <div className={styles.infoContainer}>
@@ -174,8 +197,14 @@ const Edit : React.FC = () => {
 
                         <div className={styles.buttonContainer}>
 
-                        <CustomButton content="수정" onClick={() => {}}/>
-                        <CustomButton content="취소" onClick={() => {router.push("/my")}} backgroundColor="lightgray" color="black"/>
+                        <CustomButton 
+                        content="수정" 
+                        onClick={() => {}}/>
+                        <CustomButton 
+                        content="취소" 
+                        onClick={() => {router.push("/my")}} 
+                        backgroundColor="lightgray" 
+                        color="black"/>
                     </div>
                
                  
@@ -195,10 +224,26 @@ const Edit : React.FC = () => {
 
         // 멘티 마이페이지
         return (
+            <>
+            {
+                isModalOpen ? 
+                <Modal 
+                title="유저 수정" 
+                content={modalMessage} 
+                onConfirmClick={() => {router.push("/my")}} 
+                onCancelClick={() => {setIsModalOpen(false)}}/> 
+                : 
+                ""
+            }
             <main>
-                <form className={styles.wrap} onSubmit={(e) => {e.preventDefault(); handleSubmit(e);}} method="put">
+                <form 
+                className={styles.wrap} 
+                onSubmit={(e) => {e.preventDefault(); handleSubmit(e);}} 
+                method="put"
+                encType="multipart/form-data">
                     <div className={styles.profileContainer}>
                         <div className={styles.profileImg}>
+                            <img src={imgSrc || "/images/default_profile.png"} alt="" />
                         </div>
                     </div>
 
@@ -251,6 +296,8 @@ const Edit : React.FC = () => {
                
                 </form>
             </main>
+            </>
+
         )
     }
 
