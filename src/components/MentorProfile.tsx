@@ -5,9 +5,12 @@ interface MentorProfileProps {
     company : string;
     position: string;
     career : string;
+    profileImg : string;
 }
 
-const MentorProfile : React.FC<MentorProfileProps> = ({nickname, company, position}) => {
+const MentorProfile : React.FC<MentorProfileProps> = ({nickname, company, position, profileImg}) => {
+
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
     return (
         <section className={styles.wrap}>
@@ -20,7 +23,10 @@ const MentorProfile : React.FC<MentorProfileProps> = ({nickname, company, positi
         <div className={styles.profileContainer}>
 
             <div className={styles.imgFrame}>
-
+                <img src={
+                    profileImg ? 
+                    `${API_URL}/${profileImg}` : "/images/default_profile.png"
+                    } alt="" />
             </div>
             <div className={styles.infoContainer}>
                 <p className={styles.nickname}>{nickname}</p>
