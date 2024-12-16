@@ -14,7 +14,7 @@ const Login: React.FC = () => {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
   const router = useRouter();
-  const { userType, setUserType, setIsLogin } = useUserContext();
+  const { userType, setUserType, setIsLogin, setUser } = useUserContext();
 
   // 아이디 입력 핸들러
   const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,33 +30,37 @@ const Login: React.FC = () => {
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault(); // 폼 제출 시 페이지 리로드 방지
 
-        try {
-            // userType에 따라 데이터를 다르게 설정
-            const data =
-                userType === "mentor"
-                    ? { mentor_id: id, mentor_pw: pw } // 멘토일 때
-                    : { mentee_id: id, mentee_pw: pw }; // 멘티일 때
+        // userType에 따라 데이터를 다르게 설정
+        const data =
+          userType === "mentor"
+              ? { mentor_id: id, mentor_pw: pw } // 멘토일 때
+              : { mentee_id: id, mentee_pw: pw }; // 멘티일 때
 
-            // 로그인 요청
-            const res = await axios.post(
-                `http://localhost:8080/login/${userType}`,
-                data,
-                {
-                    withCredentials: true, // 쿠키 포함
-                }
-            );
-
-            // 로그인 성공
-            if (res.status === 200) {
-              setIsLogin(true);
-              setUserType(userType);
-              // 로그인 성공 후 리다이렉트
-              router.push("/with/us");
+        // 로그인 요청
+        axios.post(
+            `http://localhost:8080/login/${userType}`,
+            data,
+            {
+                withCredentials: true, // 쿠키 포함
             }
-            
-        } catch (error) {
-            console.error("로그인 실패 : ", error);
-        }
+        ).then(() => {
+            // 로그인 성공 요청
+            return axios({
+              url: `http://localhost:8080/login/${userType}/success`,
+              method: "GET",
+              withCredentials: true,
+            })
+        }).then((result) => {
+            // 로그인 성공
+            setIsLogin(true);
+            setUser(result.data, userType);
+            // 로그인 성공 후 리다이렉트
+            router.push("/with/us");
+
+        }).catch((error) => {
+          console.error("로그인 실패 : ", error);
+        });
+
     };
 
   return (

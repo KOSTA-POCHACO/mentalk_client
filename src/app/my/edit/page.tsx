@@ -11,7 +11,7 @@ import { useUserContext } from "@/context/UserContext";
 const Edit : React.FC = () => {
     const router = useRouter();
 
-    const { user } = useUserContext();
+    const { user, checkAccessToken } = useUserContext();
 
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -87,11 +87,16 @@ const Edit : React.FC = () => {
             // 모달 띄우기
             setModalMessage(result.data.message);
             setIsModalOpen(true);
+            
+            // 끝나고 여기 유저 정보를 새로 불러와야되는데 그걸 어케 하지?
+            checkAccessToken();
+
+
+            
         }).catch((error) => {
             console.log(error);
         })
 
-        // 끝나고 여기 유저 정보를 새로 불러와야되는데 그걸 어케 하지?
 
     }
 
