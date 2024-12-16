@@ -8,6 +8,8 @@ import { useUserContext } from "@/context/UserContext";
 
 const Nav: React.FC = () => {
   // const [isLogin, setIsLogin] = useState<boolean>(false);
+
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const { user, setUser, userType, isLogin, setIsLogin } = useUserContext();
 
   console.log("여기", userType);
