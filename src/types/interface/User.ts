@@ -5,6 +5,8 @@ interface User {
     phone : string;
     nickname : string;
     email : string;
-    suspension : boolean;
+    suspension: boolean;
+    warningCount : number;
+    favoriteCount : number;
     joinDate : string;
 }

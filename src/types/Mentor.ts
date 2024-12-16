@@ -4,8 +4,6 @@ type Mentor = User & {
     position : string;
     career : string;
     isChecked : boolean;
-    warningCount : number;
-    favoriteCount : number;
     gender : string;
     paperImg: string;
 }
