@@ -8,7 +8,7 @@ interface MentorProfileProps {
     profileImg : string;
 }
 
-const MentorProfile : React.FC<MentorProfileProps> = ({nickname, company, position, profileImg}) => {
+const MentorProfile : React.FC<MentorProfileProps> = ({nickname, company, position, profileImg, career}) => {
 
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -31,7 +31,7 @@ const MentorProfile : React.FC<MentorProfileProps> = ({nickname, company, positi
             <div className={styles.infoContainer}>
                 <p className={styles.nickname}>{nickname}</p>
                 <p>{company}</p>
-                <p>빅데이터 분석 전문가 | 시니어(5년차)</p>
+                <p> {position} | {career}</p>
             </div>
         </div>
         </section>

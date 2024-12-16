@@ -105,7 +105,6 @@ const Introduce : React.FC = () => {
 
                 <div className={styles.content}>
                     <div>{introduce?.content}</div>
-
                 </div>
                 </div>
                 :

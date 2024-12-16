@@ -51,6 +51,7 @@ export default async function WithUs () {
         <main>
             <div className={styles.wrap}>
                 <div className={styles.favoriteContainer}>
+
                     {
                         mentors.map((mentor : Mentor, index : number) => {
                             return <MentorProfile 
