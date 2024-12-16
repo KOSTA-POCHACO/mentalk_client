@@ -1,7 +1,12 @@
+.wrap {
+    padding-top: 50px;
+    height: 100%;
+}
+
 .favoriteContainer {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: 2vw;
+    gap: 24px;
 }

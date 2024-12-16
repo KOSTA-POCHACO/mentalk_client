@@ -1,22 +1,15 @@
 "use client"
 
 import styles from "./MypageNav.module.scss"
-import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import useUserData from "@/hook/useUser";
+import { useUserContext } from "@/context/UserContext";
 
 const Nav : React.FC = () => {
 
     const pathname = usePathname();
 
-    const [user, setUser] = useState<Mentor | Mentee | null>(null);
-    const userData = useUserData();
-
-    useEffect(() => {
-        setUser(userData);
-    }, [userData])
-
+    const { user } = useUserContext();
 
     // 만약 유저가 멘토라면
     if(user?.type === "Mentor"){

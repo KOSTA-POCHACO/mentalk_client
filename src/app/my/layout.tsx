@@ -13,11 +13,12 @@ export const metadata: Metadata = {
   }>) {
     return (
         <>
-          <MypageNav/>
-          <div style={{marginInline: "10vw", paddingLeft : "200px", height : "100%",  paddingTop: "calc(70px)"}}>
-            <div className="myWrap" style={{paddingTop : "50px", height : "100%"}}>
+          <div style={{ width : "80%", height : "100%",marginTop : "50px"}}>
+            <MypageNav/>
+            <div style={{height : "100%", width : "100%", paddingLeft: "200px"}}>
               {children}
             </div>
+          
           </div>
         </>
     );
