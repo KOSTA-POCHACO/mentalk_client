@@ -78,7 +78,7 @@ const Edit : React.FC = () => {
 
 
         // 변경 요청
-        axios.put(`${API_URL}/${user?.type}/${user?.id}`, 
+        axios.put(`${API_URL}/${user?.type.toLowerCase()}/${user?.id}`, 
             data,
             {
                 headers: { "Content-Type": "multipart/form-data" },
@@ -146,7 +146,6 @@ const Edit : React.FC = () => {
                             <p>사진 변경</p>
                             <img src={imgSrc || "/images/default_profile.png"} alt="" />
                         </div>
-                        {/* <CustomButton content="사진 변경" onClick={() => {}}/> */}
                         <input 
                         ref={fileInputRef} 
                         type="file" 
@@ -238,7 +237,7 @@ const Edit : React.FC = () => {
                 : 
                 ""
             }
-            <main>
+                 <main>
                 <form 
                 className={styles.wrap} 
                 onSubmit={(e) => {e.preventDefault(); handleSubmit(e)}} 
@@ -259,7 +258,6 @@ const Edit : React.FC = () => {
                         onChange={handleFileChange} 
                         accept="image/*"/>
                     </div>
-    
                     <div className={styles.infoContainer}>
 
                    
@@ -304,8 +302,8 @@ const Edit : React.FC = () => {
                         <div className={styles.buttonContainer}>
 
                         <CustomButton 
-                        content="수정" 
-                        onClick={() => {}}/>
+                            content="수정" 
+                            onClick={() => {}}/>
                         <CustomButton 
                         content="취소" 
                         onClick={() => {router.push("/my")}} 

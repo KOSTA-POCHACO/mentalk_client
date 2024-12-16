@@ -6,8 +6,11 @@ import useIntroduceData from "@/hook/useIntroduce";
 import { useEffect, useState } from "react";
 import Modal from "@/components/Modal";
 import CustomButton from "@/components/CustomButton";
+import axios from "axios";
 
 const Introduce : React.FC = () => {
+
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
     const { user } = useUserContext();
     const [introduce, setIntroduce] = useState<Introduce | null>(null);
@@ -47,6 +50,16 @@ const Introduce : React.FC = () => {
     }, []);
 
     function handleSubmit(){
+
+        const data = {
+            title : formData.title,
+            content : formData.content
+        }
+
+        axios.post(`${API_URL}/introduce/${user?.id}`, data)
+        .then((result) => {
+            
+        })
 
     }
 
@@ -88,7 +101,7 @@ const Introduce : React.FC = () => {
         <>
         <main>
             {
-                  isModalOpen ? <Modal title={modalData.title} content={modalData.content} onConfirmClick={modalConfirm} onCancelClick={() => {setIsModalOpen(false)}}/> : ""
+                isModalOpen ? <Modal title={modalData.title} content={modalData.content} onConfirmClick={modalConfirm} onCancelClick={() => {setIsModalOpen(false)}}/> : ""
             }
           
             {
