@@ -7,68 +7,13 @@ import axios from "axios";
 import { useUserContext } from "@/context/UserContext";
 
 const Nav: React.FC = () => {
-  // const [isLogin, setIsLogin] = useState<boolean>(false);
-
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
-  const { user, setUser, userType, isLogin, setIsLogin } = useUserContext();
-
-  console.log("여기", userType);
-  console.log(isLogin);
+  const { user, isLogin, checkAccessToken } = useUserContext();
 
   // 엑세스 토큰 유효성 검사
   useEffect(() => {
-    const checkAccessToken = async () => {
-      console.log("여기 들어오니");
-      console.log("여기서 유저타입은?", userType);
-      try {
-        await axios({
-          url: `http://localhost:8080/login/${userType}/accesstoken`,
-          method: "GET",
-          withCredentials: true,
-        });
-        // 엑세스 토큰이 유효한 경우 로그인 성공 요청
-        getLoginSuccess();
-      } catch (error) {
-        console.log("엑세스 토큰 검증 실패:", error);
-        // 엑세스 토큰이 유효하지 않으면 리프레시 토큰으로 새로운 엑세스 토큰을 발급받기
-        refreshAccessToken();
-      }
-    };
-
-    // 리프레시 토큰으로 새로운 엑세스 토큰 발급
-    const refreshAccessToken = async () => {
-      try {
-        await axios({
-          url: `http://localhost:8080/login/${userType}/refreshtoken`,
-          method: "GET",
-          withCredentials: true,
-        });
-        // 새로운 엑세스 토큰 발급 후 로그인 성공 요청
-        getLoginSuccess();
-      } catch (error) {
-        console.log("리프레시 토큰으로 엑세스 토큰 발급 실패:", error);
-        // 로그아웃 요청
-        setIsLogin(false);
-      }
-    };
-
-    // 로그인 성공 요청
-    const getLoginSuccess = async () => {
-      try {
-        const result = await axios({
-          url: `http://localhost:8080/login/${userType}/success`,
-          method: "GET",
-          withCredentials: true,
-        });
-        if (result.data) {
-          console.log("로그인 성공:", result.data); // 로그인 성공 데이터 확인
-          setIsLogin(true);
-          setUser(result.data, userType);
-        }
-      } catch (error) {
-        console.log("로그인 성공 요청 실패:", error);
-      }
-    };
+    console.log("nav user");
+    console.log(user);
 
     checkAccessToken();
   }, [isLogin]);
@@ -116,7 +61,6 @@ const Nav: React.FC = () => {
           {isLogin ? (
             <div className={styles.profileContainer}>
               <Link href={"/my"} className={styles.nicknameFrame}>
-                {/* 닉네임어디까지올라가는거예요오오오오옹 */}
                 {user?.nickname}
               </Link>
               <div className={styles.profileFrame}>
