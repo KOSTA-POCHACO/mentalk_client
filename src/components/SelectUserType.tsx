@@ -1,8 +1,8 @@
-import { useState } from "react";
-import styles from "./userType.module.scss";
+import styles from "./SelectuserType.module.scss";
+import { useUserContext } from "@/context/UserContext";
 
-const UserType: React.FC = () => {
-    const [userType, setUserType] = useState("mentor");
+const SelectUserType: React.FC = () => {
+  const { userType, setUserType } = useUserContext();
 
     return (
       <div className={styles.userType}>
@@ -30,4 +30,4 @@ const UserType: React.FC = () => {
     );
 }
 
-export default UserType;
+export default SelectUserType;

@@ -1,6 +1,6 @@
 "use client"
 
-import UserType from "@/components/UserType";
+import UserType from "@/components/SelectUserType";
 import styles from "./signup.module.scss"
 import { Form } from "react-router-dom";
 

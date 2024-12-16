@@ -7,15 +7,14 @@ import styles from "./login.module.scss";
 import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
-import UserType from "@/components/UserType";
+import SelectUserType from "@/components/SelectUserType";
 import { useUserContext } from '@/context/UserContext';
 
 const Login: React.FC = () => {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
-  const [userType, setUserType] = useState("mentor");
   const router = useRouter();
-  const { setUser } = useUserContext();
+  const { userType, setUserType, setIsLogin } = useUserContext();
 
   // 아이디 입력 핸들러
   const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,47 +46,10 @@ const Login: React.FC = () => {
                 }
             );
 
-            // 로그인 성공 시 리다이렉트
+            // 로그인 성공
             if (res.status === 200) {
-              const userData = res.data.data;
-
-              const newUser =
-                userType === "mentor"
-                  ? {
-                      type: "Mentor",
-                      id: userData.mentor_id,
-                      email: userData.mentor_email,
-                      profileImg: userData.mentor_img,
-                      nickname: userData.mentor_nickname,
-                      phone: userData.mentor_phone,
-                      company: userData.mentor_company,
-                      category: userData.mentor_category,
-                      position: userData.mentor_position,
-                      career: userData.mentor_career,
-                      isChecked: userData.mentor_is_checked,
-                      warningCount: userData.mentor_warning_count,
-                      favoriteCount: userData.mentor_favorite_count,
-                      gender: userData.mentor_gender,
-                      joinDate: userData.mentor_joinDate,
-                      suspension: userData.mentor_suspension,
-                      paperImg: userData.mentor_paper_img,
-                    }
-                  : {
-                      type: "Mentee",
-                      id: userData.mentee_id,
-                      email: userData.mentee_email,
-                      profileImg: userData.mentee_img,
-                      nickname: userData.mentee_nickname,
-                      phone: userData.mentee_phone,
-                      wish: userData.mentee_position,
-                      gender: userData.mentee_gender,
-                      joinDate: userData.mentee_createdAt,
-                      suspension: userData.mentee_suspension,
-                  };
-              
-              // Context에 저장
-              setUser(newUser);
-
+              setIsLogin(true);
+              setUserType(userType);
               // 로그인 성공 후 리다이렉트
               router.push("/with/us");
             }
@@ -100,7 +62,7 @@ const Login: React.FC = () => {
   return (
     <main>
       <form onSubmit={handleLogin}>
-        <UserType/>
+        <SelectUserType/>
         <div className={styles.loginContainer}>
           <div className={styles.inputContainer}>
             <FaUser className={styles.icon} />
