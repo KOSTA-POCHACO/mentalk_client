@@ -67,13 +67,18 @@ const My : React.FC =  () => {
         // 멘티 마이페이지
         return (
             <main>
-                    <div className={styles.profileContainer}>
-                        <div className={styles.profileImg}>
-                        </div>
-                        닉네임어디까지올라가는거예요닉네임길이테스트
+            <div className={styles.wrap}>
+                <div className={styles.profileContainer}>
+                    <div className={styles.profileImg}>
+                        <img src={
+                        user.profileImg ? 
+                        `${API_URL}/${user.profileImg}` : "/images/default_profile.png"
+                        } alt="" />
                     </div>
+                    {mentee?.nickname}
+                </div>
 
-                    <div className={styles.positionContainer}>
+                <div className={styles.positionContainer}>
                         {
                             mentee.position.map((position) => {
                                 return (
@@ -86,8 +91,15 @@ const My : React.FC =  () => {
                        
                        
                     </div>
-               <CustomButton content="수정하기" onClick={() => {router.push("/my/edit")}}/>
-            </main>
+
+
+                <div>
+                    <Link href={"/my/edit"}>
+                        <CustomButton content="수정하기" onClick={() => {router.push("/my/edit")}}/>
+                    </Link>
+                </div>
+            </div>
+        </main>
         )
     }
 

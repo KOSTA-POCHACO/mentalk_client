@@ -88,11 +88,9 @@ const Edit : React.FC = () => {
             setModalMessage(result.data.message);
             setIsModalOpen(true);
             
-            // 끝나고 여기 유저 정보를 새로 불러와야되는데 그걸 어케 하지?
+            // 수정 성공하면 context 유저 정보 갱신
             checkAccessToken();
 
-
-            
         }).catch((error) => {
             console.log(error);
         })
@@ -243,19 +241,30 @@ const Edit : React.FC = () => {
             <main>
                 <form 
                 className={styles.wrap} 
-                onSubmit={(e) => {e.preventDefault(); handleSubmit(e);}} 
-                method="put"
+                onSubmit={(e) => {e.preventDefault(); handleSubmit(e)}} 
+                method="put" 
                 encType="multipart/form-data">
                     <div className={styles.profileContainer}>
-                        <div className={styles.profileImg}>
+                        <div className={styles.profileImg} onClick={() => fileInputRef.current?.click()}>
+                            <p>사진 변경</p>
                             <img src={imgSrc || "/images/default_profile.png"} alt="" />
                         </div>
+                        {/* <CustomButton content="사진 변경" onClick={() => {}}/> */}
+                        <input 
+                        ref={fileInputRef} 
+                        type="file" 
+                        name="profileImg" 
+                        id="" 
+                        style={{display: "none"}} 
+                        onChange={handleFileChange} 
+                        accept="image/*"/>
                     </div>
-
-
+    
                     <div className={styles.infoContainer}>
 
-                        <div className={styles.itemContainer}>
+                   
+
+                     <div className={styles.itemContainer}>
                             <div className={`${styles.item} ${styles.readonly}`}>
                                 <p><strong>아이디</strong></p><p>{mentee?.id}</p>
                             </div>
@@ -290,15 +299,23 @@ const Edit : React.FC = () => {
                                 onChange={handleChange}/>
                             </div>
                         </div>
+                       
 
                         <div className={styles.buttonContainer}>
-                            <CustomButton content="수정" onClick={() => {}}/>
-                            <CustomButton content="취소" onClick={() => {router.push("/my")}} backgroundColor="lightgray" color="black"/>
-                        </div>
-                   
-                       
+
+                        <CustomButton 
+                        content="수정" 
+                        onClick={() => {}}/>
+                        <CustomButton 
+                        content="취소" 
+                        onClick={() => {router.push("/my")}} 
+                        backgroundColor="lightgray" 
+                        color="black"/>
                     </div>
                
+                 
+                    </div>
+                 
                 </form>
             </main>
             </>
