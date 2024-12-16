@@ -29,6 +29,9 @@ export default function useUserData () {
                 }
 
                 setIntroduce(newIntroduce);
+            }).catch((error) => {
+                console.log(error.response.data.message);
+                return null;
             })
 
 
