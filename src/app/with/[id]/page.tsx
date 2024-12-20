@@ -30,11 +30,11 @@ const With : React.FC<PageProps> =  ({params} ) => {
         };
 
         const fetchIntroduce = async () => {
-            // console.log("여긴 타니?")
+            console.log("여긴 타니?")
             try {
                 const introduce = await axios.get(`${API_URL}/introduce/${id}`);
-                setIntroduce(DBIntroduceTrans(introduce.data.mentor_intro))
-                // console.log("이건 나오니?", introduce.data.mentor_intro)
+                setIntroduce(DBIntroduceTrans(introduce.data.mentor_introduce))
+                console.log("이건 나오니?", introduce)
             } catch (error) {
                 console.log(error);
             }
