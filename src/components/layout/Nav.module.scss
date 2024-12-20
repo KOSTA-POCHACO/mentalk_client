@@ -5,7 +5,7 @@
     height: 70px;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    // overflow: hidden;
     backdrop-filter: blur(20px);
     z-index: 999;
 
@@ -17,9 +17,10 @@
     padding-inline: 10vw;
     height: 100%;
     align-items: center;
-    overflow: hidden;
+    // overflow: hidden;
     justify-content: space-between;
     gap: 50px;
+    position: relative;
 
     .leftMenu,
     .rightMenu {
@@ -58,11 +59,12 @@
 
 
 .rightMenu {
+    border: 1px solid blue;
 
     .searchContainer {
         width: 100%;
         min-width: 250px;
-        background-color: lightgray;
+        background-color: #f3f3f3;
         padding-inline: 20px;
         border-radius: 999px;
 
@@ -84,15 +86,32 @@
     }
 
     .profileContainer {
+        cursor: pointer;
+        border: 1px solid red;
+
+        .dropdownMenu {
+            position: absolute;
+            cursor: default;
+            background-color: var(--primary-color);
+            border-radius: 8px;
+            color: white;
+            right: 10vw;
+            top: 100%;
+            width: 120px;
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+        }
 
         .nicknameFrame {
-            width: 200px;
+            width: auto;
             font-weight: bold;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
             word-break: break-all;
-            text-align: right;
+            justify-content: flex-end;
+            padding-left: 10px;
         }
 
         .profileFrame {

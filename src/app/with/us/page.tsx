@@ -1,7 +1,9 @@
+"use client"
 
 import axios from "axios";
 import styles from "./us.module.scss"
 import MentorProfile from "@/components/MentorProfile";
+import { useRouter } from "next/navigation";
 
 
 async function getMentors() {
@@ -45,24 +47,32 @@ async function getMentors() {
 export default async function WithUs () {
 
     const mentors = await getMentors();
+    const router = useRouter();
+    
+    const handleClick = (id: string) => {
+        router.push(`/with/${id}`);
+    };
 
     return (
         <>
         <main>
             <div className={styles.wrap}>
                 <div className={styles.favoriteContainer}>
-
-                    {
-                        mentors.map((mentor : Mentor, index : number) => {
-                            return <MentorProfile 
-                            key={index}
-                            nickname={mentor.nickname}
-                            company={mentor.company}
-                            position={mentor.position}
-                            career={mentor.career}
-                            profileImg={mentor.profileImg}/>
-                        })
-                    }
+                    {mentors.map((mentor : Mentor, index : number) => {
+                        return (
+                            <div
+                                key={index}
+                                onClick={() => handleClick(mentor.id)}
+                            >
+                            <MentorProfile
+                                nickname={mentor.nickname}
+                                company={mentor.company}
+                                position={mentor.position}
+                                career={mentor.career}
+                                profileImg={mentor.profileImg} />
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
            

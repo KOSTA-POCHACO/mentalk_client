@@ -21,11 +21,11 @@ export default function useUserData () {
 
                 const newIntroduce = {
                     mentorId : introduce.mentor_id,
-                    title : introduce.mentor_title,
-                    content :introduce.mentor_content,
+                    title : introduce.introduce_title,
+                    content :introduce.introduce_content,
                     reviewCount : introduce.review_count,  
                     coffeechatCount : introduce.coffeechat_count,
-                    rating : introduce.mentor_rating,
+                    rating : introduce.introduce_rating,
                 }
 
                 setIntroduce(newIntroduce);

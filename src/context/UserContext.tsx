@@ -42,21 +42,21 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
 
   const checkAccessToken = async () => {
-    console.log("여기 들어오니");
-    console.log("여기서 유저타입은?", userType);
-    console.log("로그인 여부?", isLogin);
+    // console.log("여기 들어오니");
+    // console.log("여기서 유저타입은?", userType);
+    // console.log("로그인 여부?", isLogin);
     try {
       await axios({
         url: `http://localhost:8080/login/${userType}/accesstoken`,
         method: "GET",
         withCredentials: true,
       }).then((result) => {
-        console.log("login/userType/accessToken");
-        console.log(result.data.data);
+        // console.log("login/userType/accessToken");
+        // console.log(result.data.data);
         setIsLogin(true);
         handleSetUser(result.data.data, userType);
-        console.log("user?");
-        console.log(user);
+        // console.log("user?");
+        // console.log(user);
       });
     } catch (error) {
       console.log("엑세스 토큰 검증 실패:", error);

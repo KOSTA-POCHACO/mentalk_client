@@ -9,17 +9,15 @@ import { useUserContext } from "@/context/UserContext";
 const Nav: React.FC = () => {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const { user, isLogin, checkAccessToken } = useUserContext();
+  const [ dropMenu, setDropMenu ] = useState<boolean>(false);
 
   // 엑세스 토큰 유효성 검사
   useEffect(() => {
-    console.log("nav user");
-    console.log(user);
-
     checkAccessToken();
   }, [isLogin]);
 
   return (
-    <nav className={styles.nav}>
+    <nav className={styles.nav} onMouseLeave={() => setDropMenu(false)}>
       <section className={styles.wrap}>
         <div className={styles.leftMenu}>
           <div className={styles.logoContainer}>
@@ -59,12 +57,28 @@ const Nav: React.FC = () => {
             </div>
           </div>
           {isLogin ? (
-            <div className={styles.profileContainer}>
-              <Link href={"/my"} className={styles.nicknameFrame}>
+            <div
+              className={styles.profileContainer}
+              onMouseOver={() => setDropMenu(true)}
+              // onClick={() => setDropMenu(true)}
+            >
+              <div className={styles.nicknameFrame}>
                 {user?.nickname}
-              </Link>
+              </div>
               <div className={styles.profileFrame}>
-                <img src={`${API_URL}/${user?.profileImg}` || "/images/default_profile.png"} alt="" />
+                <img
+                  src={
+                    `${API_URL}/${user?.profileImg}` ||
+                    "/images/default_profile.png"
+                  }
+                  alt="프로필 이미지"
+                />
+                {dropMenu && (
+                  <div className={styles.dropdownMenu}>
+                    <Link href="/my">마이페이지</Link>
+                    <div>로그아웃</div>
+                  </div>
+                )}
               </div>
             </div>
           ) : (
