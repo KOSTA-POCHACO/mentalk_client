@@ -5,7 +5,8 @@ const DBIntroduceTrans = (data: DBIntroduce): Introduce => {
         content :data.introduce_content,
         reviewCount : data.review_count,  
         coffeechatCount : data.coffeechat_count,
-        rating : data.introduce_rating,
+        rating: data.introduce_rating,
+        // 태그
     };
 };
 

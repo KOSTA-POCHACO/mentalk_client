@@ -5,4 +5,5 @@ type DBIntroduce = {
     review_count: number;
     coffeechat_count: number;
     introduce_rating: number;
+    // 태그
 }
