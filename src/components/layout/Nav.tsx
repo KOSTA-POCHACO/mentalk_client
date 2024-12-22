@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import Link from "next/link";
 import styles from "./Nav.module.scss";
@@ -8,8 +8,8 @@ import { useUserContext } from "@/context/UserContext";
 
 const Nav: React.FC = () => {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
-  const { user, isLogin, checkAccessToken } = useUserContext();
-  const [ dropMenu, setDropMenu ] = useState<boolean>(false);
+  const { user, isLogin, checkAccessToken, logOut } = useUserContext();
+  const [dropMenu, setDropMenu] = useState<boolean>(false);
 
   // 엑세스 토큰 유효성 검사
   useEffect(() => {
@@ -17,7 +17,7 @@ const Nav: React.FC = () => {
   }, [isLogin]);
 
   return (
-    <nav className={styles.nav} onMouseLeave={() => setDropMenu(false)}>
+    <nav className={styles.nav}>
       <section className={styles.wrap}>
         <div className={styles.leftMenu}>
           <div className={styles.logoContainer}>
@@ -60,11 +60,10 @@ const Nav: React.FC = () => {
             <div
               className={styles.profileContainer}
               onMouseOver={() => setDropMenu(true)}
+              onMouseLeave={() => setDropMenu(false)}
               // onClick={() => setDropMenu(true)}
             >
-              <div className={styles.nicknameFrame}>
-                {user?.nickname}
-              </div>
+              <div className={styles.nicknameFrame}>{user?.nickname}</div>
               <div className={styles.profileFrame}>
                 <img
                   src={
@@ -76,7 +75,11 @@ const Nav: React.FC = () => {
                 {dropMenu && (
                   <div className={styles.dropdownMenu}>
                     <Link href="/my">마이페이지</Link>
-                    <div>로그아웃</div>
+                    <span/>
+                    <label
+                      style={{ cursor: "pointer" }}
+                      onClick={logOut}
+                    >로그아웃</label>
                   </div>
                 )}
               </div>

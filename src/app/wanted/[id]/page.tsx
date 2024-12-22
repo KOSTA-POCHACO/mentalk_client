@@ -1,10 +1,16 @@
-"use client";
+"use client"
 
 import SelectDateTime from "@/components/SelectDateTime";
 import styles from "./wanted.module.scss";
-import { useState } from "react";
+import { use, useState } from "react";
 
-const Wanted: React.FC = () => {
+interface PageProps {
+    params: Promise<{ id: string }>;
+}
+
+const Wanted: React.FC<PageProps> = ({ params }) => {
+    
+    const { id } = use(params);
 
   return (
     <main>
