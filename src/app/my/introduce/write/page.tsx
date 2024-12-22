@@ -1,24 +1,20 @@
 "use client"
 
-import { useUserContext } from "@/context/UserContext";
-import styles from "../introduce.module.scss"
-import useIntroduceData from "@/hook/useIntroduce";
 import { useEffect, useState } from "react";
-import Modal from "@/components/Modal";
-import CustomButton from "@/components/CustomButton";
-import { useRouter } from "next/navigation";
+import styles from "../introduce.module.scss"
+import { redirect, useRouter } from "next/navigation";
 import axios from "axios";
+import CustomButton from "@/components/CustomButton";
+import { useUserContext } from "@/context/UserContext";
+import Modal from "@/components/Modal";
 
-const Introduce : React.FC = () => {
+const IntroduceWrite : React.FC = () => {
 
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
-    const { user, userType, isLogin, checkAccessToken } = useUserContext();
 
     const router = useRouter();
+    const { user, isLogin, checkAccessToken } = useUserContext();
 
-    // hook에서 불러옴 현재 로그인한 아이디로
-    const introduceData = useIntroduceData();
-    
     const [modalData, setModalData] = useState({
         title : "",
         content : "",
@@ -28,12 +24,13 @@ const Introduce : React.FC = () => {
 
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [formData, setFormData] = useState({
-        title : "제목",
-        content : "내용",
+        title : "",
+        content : "",
+        tag : []
     });
 
-    useEffect(() => {
 
+    useEffect(() => {
         // 토큰 검증
         checkAccessToken();
 
@@ -47,54 +44,37 @@ const Introduce : React.FC = () => {
             })
             setIsModalOpen(true);
         }
-
-        // 멘티면 튕겨냄 
-        if(userType === "mentee"){
-            setModalData({
-                title: "잘못된 접근입니다",
-                content : "경로가 올바르지 않습니다.",
-                onConfirmClick : () => router.push("/my"),
-                onCancelClick : () => router.push("/my"),
-            })
-            setIsModalOpen(true);
-        }
-
-
-        if(introduceData){
-            setFormData(introduceData);
-        }else{
-           
-        }
-    }, [introduceData]);
+    }, [])
 
     function handleSubmit(){
+
         const data = {
             introduce_title : formData.title,
             introduce_content : formData.content
         }
 
-        axios.put(`${API_URL}/introduce/${user?.id}`, data)
+        axios.post(`${API_URL}/introduce/${user?.id}`, data)
         .then((result) => {
             console.log(result);
             setModalData({
                 title: "소개글 등록",
                 content : result.data.message,
-                onConfirmClick : () => router.push("/my/introduce"),
-                onCancelClick : () => router.push("/my/introduce"),
-
+                onConfirmClick : () => redirect("/my/introduce"),
+                onCancelClick : () => redirect("/my/introduce")
             })
-            setIsModalOpen(true);
 
+            setIsModalOpen(true);
         }).catch((error) => {
             setModalData({
                 title: "소개글 등록",
                 content : error.data.message,
-                onConfirmClick : () => router.push("/my/introduce"),
-                onCancelClick : () => router.push("/my/introduce"),
+                onConfirmClick : () => redirect("/my/introduce"),
+                onCancelClick : () => setIsModalOpen(false)
             })
         }).finally(() => {
 
         })
+
     }
 
     function handleClickInit(){
@@ -108,13 +88,10 @@ const Introduce : React.FC = () => {
                     content : ""
                 }));
                 setIsModalOpen(false);
-                
-            },
+            }, 
             onCancelClick : () => setIsModalOpen(false)
         })
-
         setIsModalOpen(true);
-
     }
 
     function handleChange(e : React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) {
@@ -130,46 +107,28 @@ const Introduce : React.FC = () => {
 
     }
 
-    if(!isLogin){
-        return (
-            <>
-                {
-                  isModalOpen ? <Modal title={modalData.title} content={modalData.content} onConfirmClick={modalData.onConfirmClick} onCancelClick={modalData.onCancelClick}/> : ""
-                }
-            </>
-        )
-    }
 
     return (
         <>
-        <main>
+          <div className={styles.wrap}>
             {
-                  isModalOpen ? <Modal title={modalData.title} content={modalData.content} onConfirmClick={modalData.onConfirmClick} onCancelClick={modalData.onCancelClick}/> : ""
+                isModalOpen ? <Modal title={modalData.title} content={modalData.content} onConfirmClick={modalData.onConfirmClick} onCancelClick={modalData.onCancelClick}/>
+                :
+                ""
             }
-              
-            {
-                // 멘티가 접근하면 화면 안 띄움
-                userType === "mentor" ?
-                    <div className={styles.wrap}>
-                    <h1>소개글 수정</h1>
+                    <h1>소개글 작성</h1>
 
                     <div className={styles.inputContainer}>
                         <input type="text" value={formData.title} name="title" onChange={handleChange} placeholder="제목을 입력해주세요"/>
                         <textarea value={formData.content} name="content" onChange={handleChange} placeholder="내용을 입력해주세요"></textarea>
                     </div>
                     <div className={styles.buttonContainer}>
-                        <CustomButton content="수정" onClick={handleSubmit}/>
+                        <CustomButton content="작성" onClick={handleSubmit}/>
+                        <CustomButton content="초기화" backgroundColor="lightgray" color="black" onClick={handleClickInit}/>
                     </div>
                 </div>
-                :
-                ""
-            }
-               
-                    
-        </main>
         </>
-
     )
 }
 
-export default Introduce;
+export default IntroduceWrite

@@ -15,14 +15,16 @@ export default function useUserData () {
     useEffect(() => {
 
         async function fetchIntroduceData () {
-            await axios.get(`${API_URL}/intro/${user?.id}`).then((result) => {
+            await axios.get(`${API_URL}/introduce/${user?.id}`).then((result) => {
 
-                const introduce = result.data.mentor_intro;
+                const introduce = result.data.mentor_introduce;
+                console.log("introduce");
+                console.log(introduce);
 
                 const newIntroduce = {
                     mentorId : introduce.mentor_id,
-                    title : introduce.mentor_title,
-                    content :introduce.mentor_content,
+                    title : introduce.introduce_title,
+                    content :introduce.introduce_content,
                     reviewCount : introduce.review_count,  
                     coffeechatCount : introduce.coffeechat_count,
                     rating : introduce.mentor_rating,
@@ -30,15 +32,15 @@ export default function useUserData () {
 
                 setIntroduce(newIntroduce);
             }).catch((error) => {
+                console.log(error);
                 console.log(error.response.data.message);
-                return null;
+                setIntroduce(null);
             })
 
 
         }
 
         fetchIntroduceData();
-       
     }, [])
 
     

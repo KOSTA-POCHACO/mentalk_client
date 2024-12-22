@@ -1,6 +1,6 @@
 import styles from "./chatting.module.scss"
 
-const Chatting : React.FC =  () => {
+const ChattingListPage : React.FC =  () => {
 
     return (
         <main>
@@ -13,4 +13,4 @@ const Chatting : React.FC =  () => {
 }
 
 
-export default Chatting;
+export default ChattingListPage;

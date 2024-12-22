@@ -5,19 +5,52 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import CustomButton from "@/components/CustomButton";
 import { useUserContext } from "@/context/UserContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Modal from "@/components/Modal";
 
 const My : React.FC =  () => {
     const router = useRouter();
 
-    const { user } = useUserContext();
+    const { user, isLogin } = useUserContext();
 
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-    useEffect(() => {
-        console.log(user);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [modalData, setModalData] = useState({
+        title : "",
+        content : "",
+        onConfirmClick : () => {},
+        onCancelClick : () => {}
+
     })
 
+    useEffect(() => {
+        console.log(user);
+
+        if(!isLogin){
+            setModalData({
+                title:"잘못된 접근입니다.",
+                content : "접근 권한이 없습니다.",
+                onConfirmClick : () => router.back(),
+                onCancelClick :() => router.back()
+            })
+            setIsModalOpen(true);
+        }
+    }, [])
+
+
+    if(!isLogin){
+        return (
+            <>
+            {
+                isModalOpen ? <Modal title={modalData.title} content={modalData.content} onConfirmClick={modalData.onConfirmClick} onCancelClick={modalData.onCancelClick}/>
+                :
+                ""
+            }
+            </>
+
+        )
+    }
 
     if(user?.type === "Mentor"){
         // 멘토로 타입 변환
@@ -25,7 +58,13 @@ const My : React.FC =  () => {
 
         // 멘토 마이페이지
         return (
+                <>
             <main>
+                {
+                    isModalOpen ? <Modal title={modalData.title} content={modalData.content} onConfirmClick={modalData.onConfirmClick} onCancelClick={modalData.onCancelClick}/>
+                    :
+                    ""
+                }
                 <div className={styles.wrap}>
                     <div className={styles.profileContainer}>
                         <div className={styles.profileImg}>
@@ -57,6 +96,7 @@ const My : React.FC =  () => {
                     </div>
                 </div>
             </main>
+                </>
         )
     }
    

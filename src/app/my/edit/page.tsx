@@ -11,7 +11,7 @@ import { useUserContext } from "@/context/UserContext";
 const Edit : React.FC = () => {
     const router = useRouter();
 
-    const { user, checkAccessToken } = useUserContext();
+    const { user, checkAccessToken, userType } = useUserContext();
 
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -34,8 +34,8 @@ const Edit : React.FC = () => {
         const { name, value } = e.target;
 
         if(name == "position"){
-            const updatePosition = value.split(",").map((item) => item.trim());
-
+            const updatePosition = value.split(", ").map((item) => item.trim());
+            console.log("updatePosition?");
             console.log(updatePosition);
 
             if(updatePosition.length > 3){
@@ -49,6 +49,7 @@ const Edit : React.FC = () => {
                 position : updatePosition,
             }));
 
+            console.log("formDATA?");
             console.log(formData);
 
             return;
@@ -70,6 +71,10 @@ const Edit : React.FC = () => {
         if (fileInputRef.current?.files?.[0]) {
             // 프로필 이미지
             data.append(`${user?.type.toLowerCase()}_img`, fileInputRef.current.files[0]); 
+        }
+
+        if(userType === "mentee"){
+            data.append(`mentee_position`, formData?.position || []);
         }
 
         // 다른 폼 데이터 추가
@@ -291,8 +296,8 @@ const Edit : React.FC = () => {
                                 placeholder="변경할 직무를 입력하세요"
                                 value={`${
                                     Array.isArray(formData?.position) 
-                                    ? formData?.position.join(", ") // Mentee의 position 처리
-                                    : ""     // Mentor의 position 처리
+                                    ? formData?.position.join(", ") // [position1, position2, position3]
+                                    : ""  
                                 }`}
                                 onChange={handleChange}/>
                             </div>
