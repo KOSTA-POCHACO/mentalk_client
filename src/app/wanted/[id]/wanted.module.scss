@@ -1,0 +1,101 @@
+.wantedContainer {
+    border: 2px solid lightgray;
+    border-radius: 15px;
+    width: 80vw;
+    height: 70vh;
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    text-align: center;
+
+    .dateContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .rightItems {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .timeContainer {
+            display: flex;
+            flex-direction: row;
+    
+            div {
+                label {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 50px;
+                    padding: 0 30px;
+                    background-color: #f3f3f3;
+                    color: #6b6b6b;
+                    cursor: pointer;
+                    transition: all .2s ease-in-out;
+                    
+                    &:hover {
+                        background-color: #ddd;
+                    }
+                }
+            }
+
+            :first-child {
+                label {
+                    border-radius: 15px 0 0 15px;
+                }
+            }
+    
+            :last-child {
+                label {
+                    border-radius: 0 15px 15px 0;
+                }
+            }
+    
+            input[type="radio"] {
+                display: none;
+            }
+
+            input[type="radio"]:checked + label {
+                background-color: var(--primary-color);
+                color: white;
+            }
+        }
+
+        .tagContainer {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+
+            label {
+                background-color: #f3f3f3;
+                color: #6b6b6b;
+                border-radius: 30px; 
+                width: fit-content;
+                height: 50px;
+                padding: 0 30px;
+                display: flex;
+                align-items: center;
+                transition: all .2s ease-in-out;
+                cursor: pointer;
+                
+                &:hover {
+                    background-color: #ddd;
+                }
+                
+                
+                input[type="checkbox"] {
+                    display: none;
+                    
+                    &:checked {
+                        background-color: var(--primary-color);
+                    }
+                }
+
+            }
+        }
+    }
+    
+}

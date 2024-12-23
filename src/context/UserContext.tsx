@@ -14,7 +14,8 @@ type UserContextType = {
   isLogin: boolean;
   setIsLogin: (isLogin: boolean) => void;
   checkAccessToken : () => void;
-  refreshAccessToken : () => void;
+  refreshAccessToken: () => void;
+  logOut: () => void;
 };
 
 // Context 생성
@@ -25,6 +26,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<Mentor | Mentee | null>(null);
   const [userType, setUserType] = useState<string>(Cookies.get('userType') || "mentor");
   const [isLogin, setIsLogin] = useState<boolean>(false);
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   const handleSetUser = (
     user: DBMentor | DBMentee,
@@ -44,12 +46,12 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const checkAccessToken = async () => {
     try {
       await axios({
-        url: `http://localhost:8080/login/${userType}/accesstoken`,
+        url: `${API_URL}/login/${userType}/accesstoken`,
         method: "GET",
         withCredentials: true,
       }).then((result) => {
-        console.log("login/userType/accessToken");
-        console.log(result.data.data);
+        // console.log("login/userType/accessToken");
+        // console.log(result.data.data);
         setIsLogin(true);
         handleSetUser(result.data.data, userType);
       });
@@ -65,7 +67,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const refreshAccessToken = async () => {
     try {
       await axios({
-        url: `http://localhost:8080/login/${userType}/refreshtoken`,
+        url: `${API_URL}/login/${userType}/refreshtoken`,
         method: "GET",
         withCredentials: true,
       });
@@ -76,6 +78,23 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       setIsLogin(false);
     }
   };
+
+  const logOut = async () => {
+    try {
+      await axios({
+        url: `${API_URL}/logout/${userType}`,
+        method: "POST",
+        withCredentials: true,
+      }).then(() => {
+        setIsLogin(false);
+        setUser(null);
+        setUserType("mentor")
+        Cookies.remove('userType');
+      });
+    } catch (error) {
+      console.log("로그아웃 실패 : ", error);
+    }
+  }
 
 
   useEffect(() => {
@@ -93,7 +112,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         isLogin,
         setIsLogin,
         checkAccessToken,
-        refreshAccessToken
+        refreshAccessToken,
+        logOut,
       }}>
             {children}
         </UserContext.Provider>
