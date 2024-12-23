@@ -54,6 +54,7 @@ const Login: React.FC = () => {
             // 로그인 성공
             setIsLogin(true);
             setUser(result.data, userType);
+            setUserType(userType);
             // 로그인 성공 후 리다이렉트
             router.push("/with/us");
 

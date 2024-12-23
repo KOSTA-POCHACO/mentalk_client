@@ -18,6 +18,7 @@ export default function useReview () {
             return;
         }
 
+
         async function fetchMyReviews(userId : string){
            await axios.get(`${API_URL}/review/${userId}`)
             .then((result)=> {

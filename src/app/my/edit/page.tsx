@@ -11,7 +11,7 @@ import { useUserContext } from "@/context/UserContext";
 const Edit : React.FC = () => {
     const router = useRouter();
 
-    const { user, checkAccessToken } = useUserContext();
+    const { user, checkAccessToken, userType } = useUserContext();
 
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -34,8 +34,8 @@ const Edit : React.FC = () => {
         const { name, value } = e.target;
 
         if(name == "position"){
-            const updatePosition = value.split(",").map((item) => item.trim());
-
+            const updatePosition = value.split(", ").map((item) => item.trim());
+            console.log("updatePosition?");
             console.log(updatePosition);
 
             if(updatePosition.length > 3){
@@ -49,6 +49,7 @@ const Edit : React.FC = () => {
                 position : updatePosition,
             }));
 
+            console.log("formDATA?");
             console.log(formData);
 
             return;
@@ -72,13 +73,17 @@ const Edit : React.FC = () => {
             data.append(`${user?.type.toLowerCase()}_img`, fileInputRef.current.files[0]); 
         }
 
+        if(userType === "mentee"){
+            data.append(`mentee_position`, formData?.position || []);
+        }
+
         // 다른 폼 데이터 추가
         data.append(`${user?.type.toLowerCase()}_nickname`, formData?.nickname || "");
         data.append(`${user?.type.toLowerCase()}_email`, formData?.email || "");
 
 
         // 변경 요청
-        axios.put(`${API_URL}/${user?.type}/${user?.id}`, 
+        axios.put(`${API_URL}/${user?.type.toLowerCase()}/${user?.id}`, 
             data,
             {
                 headers: { "Content-Type": "multipart/form-data" },
@@ -88,11 +93,9 @@ const Edit : React.FC = () => {
             setModalMessage(result.data.message);
             setIsModalOpen(true);
             
-            // 끝나고 여기 유저 정보를 새로 불러와야되는데 그걸 어케 하지?
+            // 수정 성공하면 context 유저 정보 갱신
             checkAccessToken();
 
-
-            
         }).catch((error) => {
             console.log(error);
         })
@@ -148,7 +151,6 @@ const Edit : React.FC = () => {
                             <p>사진 변경</p>
                             <img src={imgSrc || "/images/default_profile.png"} alt="" />
                         </div>
-                        {/* <CustomButton content="사진 변경" onClick={() => {}}/> */}
                         <input 
                         ref={fileInputRef} 
                         type="file" 
@@ -240,22 +242,32 @@ const Edit : React.FC = () => {
                 : 
                 ""
             }
-            <main>
+                 <main>
                 <form 
                 className={styles.wrap} 
-                onSubmit={(e) => {e.preventDefault(); handleSubmit(e);}} 
-                method="put"
+                onSubmit={(e) => {e.preventDefault(); handleSubmit(e)}} 
+                method="put" 
                 encType="multipart/form-data">
                     <div className={styles.profileContainer}>
-                        <div className={styles.profileImg}>
+                        <div className={styles.profileImg} onClick={() => fileInputRef.current?.click()}>
+                            <p>사진 변경</p>
                             <img src={imgSrc || "/images/default_profile.png"} alt="" />
                         </div>
+                        {/* <CustomButton content="사진 변경" onClick={() => {}}/> */}
+                        <input 
+                        ref={fileInputRef} 
+                        type="file" 
+                        name="profileImg" 
+                        id="" 
+                        style={{display: "none"}} 
+                        onChange={handleFileChange} 
+                        accept="image/*"/>
                     </div>
-
-
                     <div className={styles.infoContainer}>
 
-                        <div className={styles.itemContainer}>
+                   
+
+                     <div className={styles.itemContainer}>
                             <div className={`${styles.item} ${styles.readonly}`}>
                                 <p><strong>아이디</strong></p><p>{mentee?.id}</p>
                             </div>
@@ -284,21 +296,29 @@ const Edit : React.FC = () => {
                                 placeholder="변경할 직무를 입력하세요"
                                 value={`${
                                     Array.isArray(formData?.position) 
-                                    ? formData?.position.join(", ") // Mentee의 position 처리
-                                    : ""     // Mentor의 position 처리
+                                    ? formData?.position.join(", ") // [position1, position2, position3]
+                                    : ""  
                                 }`}
                                 onChange={handleChange}/>
                             </div>
                         </div>
+                       
 
                         <div className={styles.buttonContainer}>
-                            <CustomButton content="수정" onClick={() => {}}/>
-                            <CustomButton content="취소" onClick={() => {router.push("/my")}} backgroundColor="lightgray" color="black"/>
-                        </div>
-                   
-                       
+
+                        <CustomButton 
+                            content="수정" 
+                            onClick={() => {}}/>
+                        <CustomButton 
+                        content="취소" 
+                        onClick={() => {router.push("/my")}} 
+                        backgroundColor="lightgray" 
+                        color="black"/>
                     </div>
                
+                 
+                    </div>
+                 
                 </form>
             </main>
             </>

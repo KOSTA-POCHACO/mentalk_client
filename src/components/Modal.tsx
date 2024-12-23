@@ -8,7 +8,14 @@ interface ModalProps {
     onCancelClick : () => void;
 }
 
-
+/**
+ * 
+ * @title 모달 제목
+ * @content 모달 내용
+ * @onConfirmClick 확인 누르면 실행될 함수
+ * @onCancelClick 취소 누르면 실행될 함수
+ * 
+ */
 const Modal : React.FC<ModalProps> = ({title, content, onConfirmClick, onCancelClick}) => {
 
     return (

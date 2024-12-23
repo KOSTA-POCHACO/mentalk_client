@@ -42,9 +42,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
 
   const checkAccessToken = async () => {
-    console.log("여기 들어오니");
-    console.log("여기서 유저타입은?", userType);
-    console.log("로그인 여부?", isLogin);
     try {
       await axios({
         url: `http://localhost:8080/login/${userType}/accesstoken`,
@@ -55,11 +52,10 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         console.log(result.data.data);
         setIsLogin(true);
         handleSetUser(result.data.data, userType);
-        console.log("user?");
-        console.log(user);
       });
     } catch (error) {
       console.log("엑세스 토큰 검증 실패:", error);
+
       // 엑세스 토큰이 유효하지 않으면 리프레시 토큰으로 새로운 엑세스 토큰을 발급받기
       refreshAccessToken();
     }
@@ -75,6 +71,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       });
     } catch (error) {
       console.log("리프레시 토큰으로 엑세스 토큰 발급 실패:", error);
+
       // 로그아웃 요청
       setIsLogin(false);
     }
