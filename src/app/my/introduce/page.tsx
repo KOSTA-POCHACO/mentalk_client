@@ -66,18 +66,25 @@ const Introduce : React.FC = () => {
             //     content : "작성된 소개글이 없습니다. 소개글을 작성해주세요."
             // })
             // setIsModalOpen(true);
+            setModalData({
+              title: "불러오기 오류",
+              content: "작성된 소개글이 없습니다. 작성하시겠습니까?",
+              onConfirmClick: () => router.push("/my/introduce/write"),
+              onCancelClick: () => router.push("/my"),
+            });
+            setIsModalOpen(true);
         }
         console.log(user);
 
-        if(!introduce){
-            setModalData({
-                title : "불러오기 오류",
-                content : "작성된 소개글이 없습니다. 작성하시겠습니까?",
-                onConfirmClick : () => router.push("/my/introduce/write"),
-                onCancelClick : () => router.push("/my")
-            })
-            setIsModalOpen(true);
-        }
+        // if(!introduce){
+        //     setModalData({
+        //         title : "불러오기 오류",
+        //         content : "작성된 소개글이 없습니다. 작성하시겠습니까?",
+        //         onConfirmClick : () => router.push("/my/introduce/write"),
+        //         onCancelClick : () => router.push("/my")
+        //     })
+        //     setIsModalOpen(true);
+        // }
     }, [introduceData]);
 
     if(!isLogin){
