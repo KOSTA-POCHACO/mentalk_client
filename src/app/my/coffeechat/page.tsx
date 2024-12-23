@@ -5,21 +5,23 @@ import styles from "./coffeechat.module.scss"
 import axios from "axios";
 import Coffeechat from "@/components/Coffeechat";
 import { useRouter } from "next/navigation";
+import { useUserContext } from "@/context/UserContext";
 
 const CoffeeChatPage : React.FC =  () => {
 
+    const {user} = useUserContext();
 
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
     const [coffeechatList, setCoffeechatList] = useState<any[]>([]);
     const newCoffeechatList : any[] = [];
 
-  
     
     useEffect(() => {
         
-        axios.get(`${API_URL}/coffeechat`).then(async (result) => {
+        axios.get(`${API_URL}/coffeechat/mentor/${user?.id}`).then(async (result) => {
             console.log("data");
             console.log(result.data.data);
+            console.log(result.data.data._id);
             await result.data.data.map((coffeechat : any) => {
                 const newCoffeechat = {
                     coffeechat_id : coffeechat._id,

@@ -19,7 +19,7 @@ const Nav : React.FC = () => {
                         <Link href={"/my"} className={ pathname === "/my" || pathname === "/my/edit" ? styles.active : ""}>내 정보</Link>
                         <Link href={"/my/introduce"} className={ pathname === "/my/introduce" ? styles.active : ""}>내 포스팅</Link>
                         <Link href={"/my/coffeechat"} className={ pathname === "/my/coffeechat" ? styles.active : ""}>커피챗</Link>
-                        <Link href={"/my/chatting"} className={ pathname === "/my/chatting" ? styles.active : ""}>채팅</Link>
+                        {/* <Link href={"/my/chatting"} className={ pathname === "/my/chatting" ? styles.active : ""}>채팅</Link> */}
                         <Link href={"/my/review"} className={ pathname === "/my/review" ? styles.active : ""}>받은 리뷰</Link>
             </nav>
         )
