@@ -27,7 +27,7 @@ export default function useUserData () {
                     content :introduce.introduce_content,
                     reviewCount : introduce.review_count,  
                     coffeechatCount : introduce.coffeechat_count,
-                    rating : introduce.mentor_rating,
+                    rating : introduce.introduce_rating,
                 }
 
                 setIntroduce(newIntroduce);

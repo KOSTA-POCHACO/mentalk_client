@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import Link from "next/link";
 import styles from "./Nav.module.scss";
@@ -8,13 +8,11 @@ import { useUserContext } from "@/context/UserContext";
 
 const Nav: React.FC = () => {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
-  const { user, isLogin, checkAccessToken } = useUserContext();
+  const { user, isLogin, checkAccessToken, logOut } = useUserContext();
+  const [dropMenu, setDropMenu] = useState<boolean>(false);
 
   // 엑세스 토큰 유효성 검사
   useEffect(() => {
-    console.log("nav user");
-    console.log(user);
-
     checkAccessToken();
   }, [isLogin]);
 
@@ -59,12 +57,31 @@ const Nav: React.FC = () => {
             </div>
           </div>
           {isLogin ? (
-            <div className={styles.profileContainer}>
-              <Link href={"/my"} className={styles.nicknameFrame}>
-                {user?.nickname}
-              </Link>
+            <div
+              className={styles.profileContainer}
+              onMouseOver={() => setDropMenu(true)}
+              onMouseLeave={() => setDropMenu(false)}
+              // onClick={() => setDropMenu(true)}
+            >
+              <div className={styles.nicknameFrame}>{user?.nickname}</div>
               <div className={styles.profileFrame}>
-                <img src={`${API_URL}/${user?.profileImg}` || "/images/default_profile.png"} alt="" />
+                <img
+                  src={
+                    `${API_URL}/${user?.profileImg}` ||
+                    "/images/default_profile.png"
+                  }
+                  alt="프로필 이미지"
+                />
+                {dropMenu && (
+                  <div className={styles.dropdownMenu}>
+                    <Link href="/my">마이페이지</Link>
+                    <span/>
+                    <label
+                      style={{ cursor: "pointer" }}
+                      onClick={logOut}
+                    >로그아웃</label>
+                  </div>
+                )}
               </div>
             </div>
           ) : (
