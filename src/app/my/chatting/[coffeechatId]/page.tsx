@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import styles from "./chattingPage.module.scss"
 import { io, Socket } from "socket.io-client";
 import { useUserContext } from "@/context/UserContext";
@@ -31,6 +31,7 @@ const ChattingPage : React.FC = () => {
 
     const [message, setMessage] = useState<string>("");
 
+    const [beforeChatLog, setBeforeChatLog] = useState<Chat[]>([]);
     const [chatLog, setChatLog] = useState<Chat[]>([]);
 
 
@@ -135,9 +136,13 @@ const ChattingPage : React.FC = () => {
                     beforeChatLog.push(chat);
                 })
 
+                setBeforeChatLog(beforeChatLog);
                 setChatLog(beforeChatLog);
+                scrollToBottom();
             })
         }
+
+
       
     }, [coffeechatId])
 
@@ -147,6 +152,11 @@ const ChattingPage : React.FC = () => {
             scrollToBottom();
         }
     }, [chatLog]);
+    
+    // 이전 챗로그 불러오면 맨 밑으로 스크롤 
+    useLayoutEffect(() => {
+        scrollToBottom();
+    }, [beforeChatLog]);
 
     return (
         <>

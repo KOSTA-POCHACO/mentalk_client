@@ -3,6 +3,7 @@ import styles from "./coffeechat.module.scss"
 import CustomButton from "./CustomButton";
 import { useState } from "react";
 import Modal from "./Modal";
+import { useRouter } from "next/navigation";
 
 
 
@@ -19,6 +20,9 @@ interface coffeechatProps {
 
 
 const Coffeechat : React.FC<coffeechatProps> = ({coffeechat_id, mentor_id, mentee_id, introduce_id, meeting_date, wanted, status}) => {
+
+    const router = useRouter();
+
 
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -81,6 +85,10 @@ const Coffeechat : React.FC<coffeechatProps> = ({coffeechat_id, mentor_id, mente
             setIsModalOpen(true);
         })
     }
+
+    function handleClick(coffeechatId : string) {
+        router.push(`/my/chatting/${coffeechatId}`);
+    }
     
 
     return (
@@ -117,7 +125,7 @@ const Coffeechat : React.FC<coffeechatProps> = ({coffeechat_id, mentor_id, mente
                      {
                          status === "진행중" ?
                          <div>
-                            <CustomButton content="채팅방 입장" onClick={() => {}}/>
+                            <CustomButton content="채팅방 입장" onClick={() => {handleClick(coffeechat_id)}}/>
                             <CustomButton content="종료" onClick={() => {}}/>
                          </div>
                          :
