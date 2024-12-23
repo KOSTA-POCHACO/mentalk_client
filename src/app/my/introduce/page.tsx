@@ -77,6 +77,8 @@ const Introduce : React.FC = () => {
                 onCancelClick : () => router.push("/my")
             })
             setIsModalOpen(true);
+        }else{
+            setIsModalOpen(false);
         }
     }, [introduceData]);
 
