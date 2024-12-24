@@ -59,7 +59,6 @@ const My : React.FC =  () => {
         // 멘토 마이페이지
         return (
                 <>
-            <main>
                 {
                     isModalOpen ? <Modal title={modalData.title} content={modalData.content} onConfirmClick={modalData.onConfirmClick} onCancelClick={modalData.onCancelClick}/>
                     :
@@ -95,7 +94,6 @@ const My : React.FC =  () => {
                         </Link>
                     </div>
                 </div>
-            </main>
                 </>
         )
     }

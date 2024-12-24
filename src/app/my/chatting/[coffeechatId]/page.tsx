@@ -161,6 +161,9 @@ const ChattingPage : React.FC = () => {
     return (
         <>
         <div className={styles.wrap}>
+            <div className={styles.profileContainer}>
+                
+            </div>
             <div ref={chattingBoardRef} className={styles.chattingBoard} onScroll={handleScroll}> 
                 {
                     chatLog.map((chat) => {

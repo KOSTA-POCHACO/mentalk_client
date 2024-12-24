@@ -1,3 +1,139 @@
 .wrap {
     height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.titleContainer {
+
+    .title {
+        font-size: 20pt;
+        font-weight: bold;
+    }
+
+}
+
+.coffeechatContainer {
+    width: 100%;
+}
+
+.tempContainer {
+    width: 100%;
+    border-collapse: collapse;
+
+    th,
+    tr,
+    td {
+        padding: 10px 20px;
+    }
+
+    thead tr {
+        text-align: left;
+    }
+
+    tbody {
+        cursor: pointer;
+    }
+
+
+
+    th {
+        background-color: var(--primary-color);
+        color: white;
+        max-width: 100px;
+    }
+
+    tr:nth-of-type(even) {
+        // background-color: var(--primary-color);
+        /* 짝수 행 배경색 */
+    }
+
+    tr:last-of-type {
+        border-bottom: 2px solid var(--primary-color);
+        /* 마지막 행 구분선 */
+    }
+
+    tr:hover {
+        background-color: var(--secondary-color);
+    }
+
+    tr {
+        border-bottom: 1px solid lightgray;
+    }
+
+    td {
+        max-width: 200px;
+    }
+
+
+    .titleContainer {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        word-break: break-all;
+    }
+
+    .tagContainer {
+        display: flex;
+        overflow-x: auto;
+        gap: 5px;
+
+        .tag {
+            padding: 8px 12px;
+            white-space: nowrap;
+            font-size: 0.8rem;
+            border-radius: 30px;
+            background-color: var(--secondary-color);
+        }
+    }
+
+    .status {
+        padding: 5px 10px;
+        border-radius: 999px;
+        width: fit-content;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        .statusColor {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+        }
+
+        .statusColor.register {
+            background-color: rgba(var(--register-color-rgb), 1);
+        }
+
+        .statusColor.ongoing {
+            background-color: rgba(var(--ongoing-color-rgb), 1);
+        }
+
+        .statusColor.cancel {
+            background-color: rgba(var(--cancel-color-rgb), 1);
+        }
+
+        .statusColor.done {
+            background-color: rgba(var(--done-color-rgb), 1);
+        }
+    }
+
+    .status.register {
+        background-color: rgba(var(--register-color-rgb), 0.3);
+    }
+
+    .status.ongoing {
+        background-color: rgba(var(--ongoing-color-rgb), 0.3);
+    }
+
+    .status.cancel {
+        background-color: rgba(var(--cancel-color-rgb), 0.3)
+    }
+
+    .status.done {
+        background-color: rgba(var(--done-color-rgb), 0.3)
+    }
+
 }

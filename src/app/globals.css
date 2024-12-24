@@ -3,6 +3,13 @@
   --foreground: #171717;
 
   --primary-color : #A57865;
+  --primary-color-rgb : 165, 120, 101;
+  --secondary-color : #f3f3f3;
+
+  --register-color-rgb : 185, 185, 185;
+  --ongoing-color-rgb: 203, 148, 51;
+  --cancel-color-rgb: 255, 111, 100;
+  --done-color-rgb: 30, 200, 20;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -33,12 +40,25 @@ body {
 
 main {
   height: 100%;
-  width: 80%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: calc(100vh - 70px);
   margin: 0 auto;
+  padding-top: calc(70px + 30px);
+}
+
+.myPage {
+  padding-left: 200px;
+  height: 100%;
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .myPage {
+    padding-left: 0;
+  }
 }
 
 * {
