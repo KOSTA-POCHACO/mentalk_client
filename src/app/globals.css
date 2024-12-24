@@ -3,6 +3,7 @@
   --foreground: #171717;
 
   --primary-color : #A57865;
+  --secondary-color : #f3f3f3;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -39,6 +40,7 @@ main {
   justify-content: center;
   min-height: calc(100vh - 70px);
   margin: 0 auto;
+  padding-top: 70px;
 }
 
 * {

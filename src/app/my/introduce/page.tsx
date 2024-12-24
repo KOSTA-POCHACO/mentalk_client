@@ -16,6 +16,7 @@ const Introduce : React.FC = () => {
     const { user, userType, checkAccessToken, isLogin } = useUserContext();
     const [introduce, setIntroduce] = useState<Introduce | null>(null);
     const introduceData = useIntroduceData();
+    const [isLoading, setIsLoading] = useState(true);
     
     const [modalData, setModalData] = useState({
         title : "",
@@ -51,25 +52,18 @@ const Introduce : React.FC = () => {
             })
             setIsModalOpen(true);
         }
+    }, [])
 
+    useEffect(() => {
         if(introduceData){
             setIntroduce(introduceData);
-        }else{
-            // 이게 소개글 데이터 로딩 되기 전에 바로 뜨네...
-            // setModalConfirm(() => {
-            //     return () => {
-            //         setIsModalOpen(false);
-            //     }
-            // })
-            // setModalData({
-            //     title: "소개글 불러오기 실패",
-            //     content : "작성된 소개글이 없습니다. 소개글을 작성해주세요."
-            // })
-            // setIsModalOpen(true);
+            setIsLoading(false);
         }
-        console.log(user);
+        
+    }, [introduceData]);
 
-        if(!introduce){
+    useEffect(() => {
+        if(!introduce && !isLoading){
             setModalData({
                 title : "불러오기 오류",
                 content : "작성된 소개글이 없습니다. 작성하시겠습니까?",
@@ -80,13 +74,14 @@ const Introduce : React.FC = () => {
         }else{
             setIsModalOpen(false);
         }
-    }, [introduceData]);
+    }, [introduce])
+
 
     if(!isLogin){
         return (
             <>
             {
-                isModalOpen ? <Modal title={modalData.title} content={modalData.content} onConfirmClick={modalData.onConfirmClick} onCancelClick={modalData.onCancelClick}/>
+                isModalOpen && !isLoading ? <Modal title={modalData.title} content={modalData.content} onConfirmClick={modalData.onConfirmClick} onCancelClick={modalData.onCancelClick}/>
                 :
                 ""
             }

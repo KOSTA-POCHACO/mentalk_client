@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import styles from "./coffeechat.module.scss"
 import axios from "axios";
 import Coffeechat from "@/components/Coffeechat";
-import { useRouter } from "next/navigation";
 import { useUserContext } from "@/context/UserContext";
 
 const CoffeeChatPage : React.FC =  () => {
@@ -49,22 +48,18 @@ const CoffeeChatPage : React.FC =  () => {
         <>
         <main>
             <div className={styles.wrap}>
-                <h1>CoffeeChat page</h1>
                 <>
-
+                <div className={styles.coffeechatContainer}>
                 {
                     coffeechatList.map((coffeechat) => {
                         return (
                         <>
-                         
-                            <div className={styles.coffeechatContainer}>
-                                <Coffeechat coffeechat_id={coffeechat.coffeechat_id} mentor_id={coffeechat.mentor_id} mentee_id={coffeechat.mentee_id} introduce_id={coffeechat.introduce_id} meeting_date="today" wanted={coffeechat.wanted} status={coffeechat.status}/>
-                            </div>
-
+                            <Coffeechat coffeechat_id={coffeechat.coffeechat_id} mentor_id={coffeechat.mentor_id} mentee_id={coffeechat.mentee_id} introduce_id={coffeechat.introduce_id} meeting_date="today" wanted={coffeechat.wanted} status={coffeechat.status}/>
                         </>
                         )
                     })
                 }
+                </div>
              
                 </>
                 

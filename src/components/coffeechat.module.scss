@@ -1,14 +1,116 @@
 .wrap {
-    width: 450px;
-    min-width: 450px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 400px;
     background-color: white;
     border: 1px lightgray solid;
     border-radius: 15px;
+    min-height: 150px;
     display: flex;
+    gap: 30px;
+    align-items: center;
 }
 
-.statusContainer {
+.userContainer {
+    width: 100%;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+
+    .profileContainer {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .profileFrame {
+            width: 50px;
+            height: 50px;
+            background-color: var(--secondary-color);
+            border-radius: 999px;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .nicknameFrame {
+            display: flex;
+            align-items: flex-start;
+        }
+    }
+
+    .statusContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .iconFrame {
+            width: 30px;
+            height: 30px;
+        }
+
+        .status {
+            background-color: rgb(208, 255, 198);
+            padding: 5px 10px;
+            border-radius: 999px;
+            width: fit-content;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            .statusColor {
+                width: 10px;
+                height: 10px;
+                border-radius: 999px;
+                background-color: rgba(30, 165, 0, 0.5);
+            }
+
+
+        }
+    }
+}
+
+
+
+.infoContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .tagContainer {
+        display: flex;
+        gap: 5px;
+
+        .tag {
+            padding: 8px 12px;
+            font-size: 0.8rem;
+            border-radius: 30px;
+            background-color: var(--secondary-color);
+        }
+    }
+
+    .titleContainer {
+        font-size: 1.2rem;
+        font-weight: bold;
+        max-width: 400px;
+        text-overflow: hidden;
+    }
+}
+
+
+.buttonContainer {
+    width: 100%;
+    display: flex;
+    gap: 5px;
+    justify-content: flex-end;
+
+    button {
+        width: 100%;
+    }
 }

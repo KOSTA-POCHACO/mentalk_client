@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   }>) {
     return (
         <>
-          <div style={{ width : "80%", height : "100%",marginTop : "50px"}}>
+          <div style={{ width : "80%", height : "100%"}}>
             <MypageNav/>
             <div style={{height : "100%", width : "100%", paddingLeft: "200px"}}>
               {children}
