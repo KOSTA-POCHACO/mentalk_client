@@ -74,12 +74,23 @@ const CoffeeChatPage : React.FC =  () => {
                                 <td>{coffeechat.menteeNickname}</td>
                                 <td>{coffeechat.meetingDate}</td>
                                 <td>
-                                    <div className={styles.status} style=
-                                    {{backgroundColor : "rgba(var(--ongoing-color-rgb), 0.3)"}}>
-                                        <p className={styles.statusColor} style=
-                                         {{backgroundColor : "rgba(var(--ongoing-color-rgb), 1)"}}></p>
-                                    {coffeechat.status}
+                                    <div className={`${styles.status} 
+                                        ${coffeechat.status === "신청" ? styles.register : ""}
+                                        ${coffeechat.status === "진행중" ? styles.ongoing : ""}
+                                        ${coffeechat.status === "취소" ? styles.cancel : ""}
+                                        ${coffeechat.status === "완료" ? styles.done : ""}
+                                        `
+                                    }>
+                                            <p className={`${styles.statusColor}
+                                                ${coffeechat.status === "신청" ? styles.register : ""}
+                                                ${coffeechat.status === "진행중" ? styles.ongoing : ""}
+                                                ${coffeechat.status === "취소" ? styles.cancel : ""}
+                                                ${coffeechat.status === "완료" ? styles.done : ""}
+                                            
+                                            `}></p>
+                                            {coffeechat.status}
                                     </div>
+                                
                                 </td> 
                                 <td>
                                     <CustomButton content="입장" onClick={() => {router.push(`/my/chatting/${coffeechat.coffeechatId}`)}}/>

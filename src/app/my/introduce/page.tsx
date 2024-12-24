@@ -58,12 +58,14 @@ const Introduce : React.FC = () => {
         if(introduceData){
             setIntroduce(introduceData);
             setIsLoading(false);
+        }else{
+            setIsLoading(false);
         }
         
     }, [introduceData]);
 
     useEffect(() => {
-        if(!introduce && !isLoading){
+        if(!introduce){
             setModalData({
                 title : "불러오기 오류",
                 content : "작성된 소개글이 없습니다. 작성하시겠습니까?",
@@ -81,7 +83,7 @@ const Introduce : React.FC = () => {
         return (
             <>
             {
-                isModalOpen && !isLoading ? <Modal title={modalData.title} content={modalData.content} onConfirmClick={modalData.onConfirmClick} onCancelClick={modalData.onCancelClick}/>
+                isModalOpen ? <Modal title={modalData.title} content={modalData.content} onConfirmClick={modalData.onConfirmClick} onCancelClick={modalData.onCancelClick}/>
                 :
                 ""
             }

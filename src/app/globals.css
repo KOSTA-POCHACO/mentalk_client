@@ -49,6 +49,18 @@ main {
   padding-top: calc(70px + 30px);
 }
 
+.myPage {
+  padding-left: 200px;
+  height: 100%;
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .myPage {
+    padding-left: 0;
+  }
+}
+
 * {
   box-sizing: border-box;
   padding: 0;

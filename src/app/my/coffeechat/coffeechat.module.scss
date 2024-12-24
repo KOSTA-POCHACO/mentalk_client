@@ -103,7 +103,37 @@
             border-radius: 999px;
         }
 
+        .statusColor.register {
+            background-color: rgba(var(--register-color-rgb), 1);
+        }
 
+        .statusColor.ongoing {
+            background-color: rgba(var(--ongoing-color-rgb), 1);
+        }
+
+        .statusColor.cancel {
+            background-color: rgba(var(--cancel-color-rgb), 1);
+        }
+
+        .statusColor.done {
+            background-color: rgba(var(--done-color-rgb), 1);
+        }
+    }
+
+    .status.register {
+        background-color: rgba(var(--register-color-rgb), 0.3);
+    }
+
+    .status.ongoing {
+        background-color: rgba(var(--ongoing-color-rgb), 0.3);
+    }
+
+    .status.cancel {
+        background-color: rgba(var(--cancel-color-rgb), 0.3)
+    }
+
+    .status.done {
+        background-color: rgba(var(--done-color-rgb), 0.3)
     }
 
 }
