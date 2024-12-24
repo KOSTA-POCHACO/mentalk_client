@@ -44,6 +44,7 @@ const Nav: React.FC = () => {
                   </svg>
                     </div>
                 </div>
+                <h3 onClick={() => {setSidebarOpen(false); router.push("/");}}>홈</h3>
                 <h3 onClick={() => {setSidebarOpen(false); router.push("/with/us");}}>멘토 찾기</h3>
                 <h3 onClick={() => {setSidebarOpen(false); router.push("/my");}}>마이페이지</h3>
                 <p onClick={() => {setSidebarOpen(false); router.push("/my");}}>내 정보</p>
