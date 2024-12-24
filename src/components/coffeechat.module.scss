@@ -2,8 +2,6 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
-    width: 100%;
-    min-width: 400px;
     background-color: white;
     border: 1px lightgray solid;
     border-radius: 15px;
@@ -55,7 +53,6 @@
         }
 
         .status {
-            background-color: rgb(208, 255, 198);
             padding: 5px 10px;
             border-radius: 999px;
             width: fit-content;
@@ -67,7 +64,6 @@
                 width: 10px;
                 height: 10px;
                 border-radius: 999px;
-                background-color: rgba(30, 165, 0, 0.5);
             }
 
 
@@ -98,7 +94,6 @@
     .titleContainer {
         font-size: 1.2rem;
         font-weight: bold;
-        max-width: 400px;
         text-overflow: hidden;
     }
 }

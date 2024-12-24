@@ -5,8 +5,12 @@ import styles from "./coffeechat.module.scss"
 import axios from "axios";
 import Coffeechat from "@/components/Coffeechat";
 import { useUserContext } from "@/context/UserContext";
+import CustomButton from "@/components/CustomButton";
+import { useRouter } from "next/navigation";
 
 const CoffeeChatPage : React.FC =  () => {
+
+    const router = useRouter();
 
     const {user} = useUserContext();
 
@@ -18,18 +22,17 @@ const CoffeeChatPage : React.FC =  () => {
     useEffect(() => {
         
         axios.get(`${API_URL}/coffeechat/mentor/${user?.id}`).then(async (result) => {
-            console.log("data");
-            console.log(result.data.data);
-            console.log(result.data.data._id);
-            await result.data.data.map((coffeechat : any) => {
+            console.log("result.data.data[0].coffeechat");
+            console.log(result.data.data[0].coffeechat);
+            await result.data.data.map((el : any) => {
                 const newCoffeechat = {
-                    coffeechat_id : coffeechat._id,
-                    mentor_id : coffeechat.mentor_id,
-                    mentee_id : coffeechat.mentee_id,
-                    introduce_id : coffeechat.introduce_id,
-                    meeting_date : "today",
-                    wanted : coffeechat.coffee_wanted,
-                    status : coffeechat.coffee_status,
+                    coffeechatId : el.coffeechat.coffeechat_id,
+                    introduceId : el.coffeechat.coffeechat_introduce_id,
+                    wanted : el.coffeechat.coffeechat_coffee_wanted,
+                    status : el.coffeechat.coffeechat_status,
+                    meetingDate : el.coffeechat.coffeechat_meeting_date,
+                    mentorNickname : el.mentor.mentor_nickname,
+                    menteeNickname : el.mentee.mentee_nickname,
                 }
 
                 newCoffeechatList.push(newCoffeechat);
@@ -46,27 +49,49 @@ const CoffeeChatPage : React.FC =  () => {
 
     return (
         <>
-        <main>
             <div className={styles.wrap}>
-                <>
-                <div className={styles.coffeechatContainer}>
-                {
-                    coffeechatList.map((coffeechat) => {
-                        return (
-                        <>
-                            <Coffeechat coffeechat_id={coffeechat.coffeechat_id} mentor_id={coffeechat.mentor_id} mentee_id={coffeechat.mentee_id} introduce_id={coffeechat.introduce_id} meeting_date="today" wanted={coffeechat.wanted} status={coffeechat.status}/>
-                        </>
-                        )
-                    })
-                }
+                <div className={styles.titleContainer}>
+                    <div className={styles.title}>내 커피챗 목록</div>
                 </div>
-             
-                </>
+                <div className={styles.coffeechatContainer}>
+                    <table className={styles.tempContainer}>
+                        <thead>
+                            <tr>
+                                <th>소개글</th>
+                                <th>멘티</th>
+                                <th>날짜</th>
+                                <th>상태</th>
+                                <th>채팅</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {coffeechatList.map((coffeechat) => (
+                            <tr key={coffeechat.coffeechat_id}>
+                                <td>
+                                    <p className={styles.titleContainer}
+                                    >막연하게 느껴지는 서비스 기획, 핵심은 “이것"입니다{coffeechat.title}</p>
+                                </td> 
+                                <td>{coffeechat.menteeNickname}</td>
+                                <td>{coffeechat.meetingDate}</td>
+                                <td>
+                                    <div className={styles.status} style=
+                                    {{backgroundColor : "rgba(var(--ongoing-color-rgb), 0.3)"}}>
+                                        <p className={styles.statusColor} style=
+                                         {{backgroundColor : "rgba(var(--ongoing-color-rgb), 1)"}}></p>
+                                    {coffeechat.status}
+                                    </div>
+                                </td> 
+                                <td>
+                                    <CustomButton content="입장" onClick={() => {router.push(`/my/chatting/${coffeechat.coffeechatId}`)}}/>
+                                </td>
+                            </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 
-                
+                </div>
 
             </div>
-        </main>
            
         </>
     )

@@ -65,7 +65,7 @@ const Login: React.FC = () => {
     };
 
   return (
-    <main>
+    <>
       <form onSubmit={handleLogin}>
         <SelectUserType/>
         <div className={styles.loginContainer}>
@@ -109,7 +109,7 @@ const Login: React.FC = () => {
           </button>
         </div>
       </form>
-    </main>
+    </>
   );
 }
 

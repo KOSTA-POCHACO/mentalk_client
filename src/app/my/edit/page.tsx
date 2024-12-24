@@ -140,7 +140,7 @@ const Edit : React.FC = () => {
                 : 
                 ""
             }
-            <main>
+            <>
                 <form 
                 className={styles.wrap} 
                 onSubmit={(e) => {e.preventDefault(); handleSubmit(e)}} 
@@ -218,7 +218,7 @@ const Edit : React.FC = () => {
                     </div>
                  
                 </form>
-            </main>
+            </>
             </>
 
         )

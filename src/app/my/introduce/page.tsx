@@ -93,7 +93,6 @@ const Introduce : React.FC = () => {
 
     return (
         <>
-        <main>
             {
                 isModalOpen ? 
                 <Modal title={modalData.title} content={modalData.content} onConfirmClick={modalData.onConfirmClick} onCancelClick={modalData.onCancelClick}/>
@@ -128,7 +127,6 @@ const Introduce : React.FC = () => {
             }
         
           
-        </main>
         </>
 
     )

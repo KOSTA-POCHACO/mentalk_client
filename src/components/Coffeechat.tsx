@@ -110,7 +110,7 @@ const Coffeechat : React.FC<coffeechatProps> = ({coffeechat_id, mentor_id, mente
                     </div>
                    
                     <div className={styles.statusContainer}>
-                        <div className={styles.status}><p className={styles.statusColor}></p>{status}</div>
+                        <div className={styles.status} style={{backgroundColor : "rgb(208, 255, 198)"}}><p className={styles.statusColor} style={{backgroundColor : "rgba(30, 165, 0, 0.5)"}}></p>{status}</div>
                     </div>
                 </div>
                 
