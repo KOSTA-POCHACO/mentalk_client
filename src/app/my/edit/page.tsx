@@ -73,9 +73,9 @@ const Edit : React.FC = () => {
             data.append(`${user?.type.toLowerCase()}_img`, fileInputRef.current.files[0]); 
         }
 
-        if(userType === "mentee"){
-            data.append(`mentee_position`, formData?.position || []);
-        }
+        // if(userType === "mentee"){
+        //     data.append(`mentee_position`, formData?.position || []);
+        // }
 
         // 다른 폼 데이터 추가
         data.append(`${user?.type.toLowerCase()}_nickname`, formData?.nickname || "");

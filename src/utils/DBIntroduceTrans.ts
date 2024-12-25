@@ -6,7 +6,7 @@ const DBIntroduceTrans = (data: DBIntroduce): Introduce => {
         reviewCount : data.review_count,  
         coffeechatCount : data.coffeechat_count,
         rating: data.introduce_rating,
-        // 태그
+        tag: data.tags,
     };
 };
 

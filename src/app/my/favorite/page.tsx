@@ -19,9 +19,9 @@ export default async function Favorite () {
     const { user } = useUserContext();
 
     useEffect(() => {
-        if(favoriteMentorData) {
-            setFavoriteList(favoriteMentorData);
-        }
+        // if(favoriteMentorData) {
+        //     setFavoriteList(favoriteMentorData);
+        // }
     }, [])
 
     // 쿠키에서 불러온 값이 멘토라면 튕겨냄

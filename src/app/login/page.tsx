@@ -53,6 +53,8 @@ const Login: React.FC = () => {
       } catch (error) {
           // console.error("로그인 실패 : ", error);
           alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+          setId("");
+          setPw("");
       }
   };
 
@@ -70,7 +72,7 @@ const Login: React.FC = () => {
   }
 
   return (
-    <main>
+    <>
       <form onSubmit={handleLogin}>
         <SelectUserType/>
         <div className={styles.loginContainer}>
@@ -114,7 +116,7 @@ const Login: React.FC = () => {
           </button>
         </div>
       </form>
-    </main>
+    </>
   );
 }
 
