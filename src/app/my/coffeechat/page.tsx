@@ -1,79 +1,140 @@
-"use client"
+"use client";
 
 import { useEffect, useState } from "react";
-import styles from "./coffeechat.module.scss"
+import styles from "./coffeechat.module.scss";
 import axios from "axios";
 import Coffeechat from "@/components/Coffeechat";
+import { useUserContext } from "@/context/UserContext";
+import CustomButton from "@/components/CustomButton";
 import { useRouter } from "next/navigation";
 
-const CoffeeChatPage : React.FC =  () => {
+const CoffeeChatPage: React.FC = () => {
+  const router = useRouter();
 
+  const { user } = useUserContext();
 
-    const API_URL = process.env.NEXT_PUBLIC_API_URL;
-    const [coffeechatList, setCoffeechatList] = useState<any[]>([]);
-    const newCoffeechatList : any[] = [];
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const [coffeechatList, setCoffeechatList] = useState<any[]>([]);
+  const newCoffeechatList: any[] = [];
 
-  
-    
-    useEffect(() => {
-        
-        axios.get(`${API_URL}/coffeechat`).then(async (result) => {
-            console.log("data");
-            console.log(result.data.data);
-            await result.data.data.map((coffeechat : any) => {
-                const newCoffeechat = {
-                    coffeechat_id : coffeechat._id,
-                    mentor_id : coffeechat.mentor_id,
-                    mentee_id : coffeechat.mentee_id,
-                    introduce_id : coffeechat.introduce_id,
-                    meeting_date : "today",
-                    wanted : coffeechat.coffee_wanted,
-                    status : coffeechat.coffee_status,
-                }
+  useEffect(() => {
+    if (user?.type === "Mentor") {
+      axios
+        .get(`${API_URL}/coffeechat/mentor/${user?.id}`)
+        .then(async (result) => {
+          await result.data.data.map((el: any) => {
+            const newCoffeechat = {
+              coffeechatId: el.coffeechat.coffeechat_id,
+              introduceId: el.coffeechat.coffeechat_introduce_id,
+              wanted: el.coffeechat.coffeechat_coffee_wanted,
+              status: el.coffeechat.coffeechat_status,
+              meetingDate: el.coffeechat.coffeechat_meeting_date,
+              mentorNickname: el.mentor.mentor_nickname,
+              menteeNickname: el.mentee.mentee_nickname,
+            };
 
-                newCoffeechatList.push(newCoffeechat);
-            })
+            newCoffeechatList.push(newCoffeechat);
+          });
 
-            setCoffeechatList(newCoffeechatList);
+          setCoffeechatList(newCoffeechatList);
 
-            console.log("newCoffeechatList");
-            console.log(newCoffeechatList);
-        }).catch((error) => {
-            console.log(error);
+          console.log("newCoffeechatList");
+          console.log(newCoffeechatList);
         })
-    }, [])
+        .catch((error) => {
+          console.log(error);
+        });
+    } else if (user?.type === "Mentee") {
+      axios
+        .get(`${API_URL}/coffeechat/mentee/${user?.id}`)
+        .then(async (result) => {
+          await result.data.data.map((el: any) => {
+            const newCoffeechat = {
+              coffeechatId: el.coffeechat.coffeechat_id,
+              introduceId: el.coffeechat.coffeechat_introduce_id,
+              wanted: el.coffeechat.coffeechat_coffee_wanted,
+              status: el.coffeechat.coffeechat_status,
+              meetingDate: el.coffeechat.coffeechat_meeting_date,
+              mentorNickname: el.mentor.mentor_nickname,
+              menteeNickname: el.mentee.mentee_nickname,
+            };
 
-    return (
-        <>
-        <main>
-            <div className={styles.wrap}>
-                <h1>CoffeeChat page</h1>
-                <>
+            newCoffeechatList.push(newCoffeechat);
+          });
 
-                {
-                    coffeechatList.map((coffeechat) => {
-                        return (
-                        <>
-                         
-                            <div className={styles.coffeechatContainer}>
-                                <Coffeechat coffeechat_id={coffeechat.coffeechat_id} mentor_id={coffeechat.mentor_id} mentee_id={coffeechat.mentee_id} introduce_id={coffeechat.introduce_id} meeting_date="today" wanted={coffeechat.wanted} status={coffeechat.status}/>
-                            </div>
+          setCoffeechatList(newCoffeechatList);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, []);
 
-                        </>
-                        )
-                    })
-                }
-             
-                </>
-                
-                
-
-            </div>
-        </main>
-           
-        </>
-    )
-}
-
+  return (
+    <>
+      <div className={styles.wrap}>
+        <div className={styles.titleContainer}>
+          <div className={styles.title}>내 커피챗 목록</div>
+        </div>
+        <div className={styles.coffeechatContainer}>
+          <table className={styles.tempContainer}>
+            <thead>
+              <tr>
+                <th>소개글</th>
+                <th>멘티</th>
+                <th>날짜</th>
+                <th>상태</th>
+                <th>채팅</th>
+              </tr>
+            </thead>
+            <tbody>
+              {coffeechatList.map((coffeechat) => (
+                <tr key={coffeechat.coffeechat_id}>
+                  <td>
+                    <p className={styles.titleContainer}>
+                      막연하게 느껴지는 서비스 기획, 핵심은 “이것"입니다
+                      {coffeechat.title}
+                    </p>
+                  </td>
+                  <td>{coffeechat.menteeNickname}</td>
+                  <td>{coffeechat.meetingDate}</td>
+                  <td>
+                    <div
+                      className={`${styles.status} 
+                                        ${coffeechat.status === "신청" ? styles.register : ""}
+                                        ${coffeechat.status === "진행중" ? styles.ongoing : ""}
+                                        ${coffeechat.status === "취소" ? styles.cancel : ""}
+                                        ${coffeechat.status === "완료" ? styles.done : ""}
+                                        `}
+                    >
+                      <p
+                        className={`${styles.statusColor}
+                                                ${coffeechat.status === "신청" ? styles.register : ""}
+                                                ${coffeechat.status === "진행중" ? styles.ongoing : ""}
+                                                ${coffeechat.status === "취소" ? styles.cancel : ""}
+                                                ${coffeechat.status === "완료" ? styles.done : ""}
+                                            
+                                            `}
+                      ></p>
+                      {coffeechat.status}
+                    </div>
+                  </td>
+                  <td>
+                    <CustomButton
+                      content="입장"
+                      onClick={() => {
+                        router.push(`/my/chatting/${coffeechat.coffeechatId}`);
+                      }}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default CoffeeChatPage;

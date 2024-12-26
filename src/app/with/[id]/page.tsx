@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import DBIntroduceTrans from "@/utils/DBIntroduceTrans";
 import DBMentorTrans from "@/utils/DBMentorTrans";

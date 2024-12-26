@@ -17,7 +17,7 @@ export default function useUserData () {
         async function fetchIntroduceData () {
             await axios.get(`${API_URL}/introduce/${user?.id}`).then((result) => {
 
-                const introduce = result.data.mentor_introduce;
+                const introduce = result.data;
                 console.log("introduce");
                 console.log(introduce);
 
