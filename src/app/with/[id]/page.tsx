@@ -5,6 +5,7 @@ import DBMentorTrans from "@/utils/DBMentorTrans";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { use, useEffect, useState } from "react";
+import styles from "./with.module.scss"
 
 interface PageProps {
     params : Promise<{id : string}>;
@@ -50,10 +51,10 @@ const With : React.FC<PageProps> =  ({params}) => {
         fetchIntroduce();
     }, []);
 
-    console.log("해당 멘토 정보", mentor)
-    console.log("소개글 정보", introduce)
+    // console.log("해당 멘토 정보", mentor)
+    // console.log("소개글 정보", introduce)
     return (
-        <main>
+        <main className={styles.main}>
             <h1>With page id:{id}</h1>
             <div>
                 <div>닉네임{mentor?.nickname}</div>

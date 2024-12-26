@@ -1,35 +1,43 @@
-.wantedContainer {
-    border: 2px solid lightgray;
+.wrap {
+
+}
+
+.topContainer {
+    // border: 2px solid lightgray;
     border-radius: 15px;
-    width: 80vw;
-    height: 70vh;
+    width: 70vw;
+    
     display: flex;
-    gap: 30px;
     justify-content: center;
     text-align: center;
+    gap: 50px;
+    padding: 50px;
 
     .dateContainer {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 20px;
     }
     
     .rightItems {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        justify-content: space-between;
+        gap: 30px;
 
         .timeContainer {
             display: flex;
             flex-direction: row;
+            width: fit-content;
+
     
             div {
                 label {
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    height: 50px;
-                    padding: 0 30px;
+                    height: 60px;
+                    padding: 0 40px;
                     background-color: #f3f3f3;
                     color: #6b6b6b;
                     cursor: pointer;
@@ -68,6 +76,9 @@
             flex-direction: row;
             flex-wrap: wrap;
             justify-content: flex-start;
+            gap: 15px;
+            width: fit-content;
+
 
             label {
                 background-color: #f3f3f3;

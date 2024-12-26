@@ -96,13 +96,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   }
 
-
-  useEffect(() => {
-    checkAccessToken();
-  }, [])
-
-  
-
     return (
         <UserContext.Provider value={{
         user,

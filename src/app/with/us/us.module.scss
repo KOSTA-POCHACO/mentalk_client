@@ -1,12 +1,22 @@
-.wrap {
-    padding-top: 50px;
-    height: 100%;
-}
+.main {
+    flex-wrap:wrap;
 
-.favoriteContainer {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 24px;
+    .wrap {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: flex-start;
+        gap: 20px;
+        padding-bottom: 70px;
+
+        .profileContainer {
+            cursor: pointer;
+            border-radius: 15px;
+
+            &:hover {
+                box-shadow: 0px 2px 8px rgba(88, 88, 88, 0.2);
+            }
+        }
+    }
 }

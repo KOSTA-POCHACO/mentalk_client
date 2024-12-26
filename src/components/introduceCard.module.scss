@@ -1,0 +1,100 @@
+.wrap {
+    border: 1px solid lightgray;
+    border-radius: 15px;
+    width: 360px;
+    // min-width: 200px;
+    height: 450px;
+    overflow: hidden;
+    
+    .topContainer {
+        height: 50%;
+        padding: 20px 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        background-color: #f3f3f3;
+                
+        .imgFavorite {
+            display: flex;
+            justify-content: space-between;
+            
+            .imgFrame {
+                width: 70px;
+                height: 70px;
+                background-color: gray;
+                border: 1px solid white;
+                border-radius: 999px;
+                overflow: hidden;
+        
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+        }
+
+        .mentorContainer {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            .nicknameFrame {
+                font-size: 18px;
+                margin-bottom: 5px;
+            }
+
+            .careerFrame {
+                display: flex;
+                align-items: flex-start;
+                gap: 8px;
+
+                span {
+                    color: #959595;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+
+    .bottomContainer {
+        padding: 20px 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .countContainer {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-color);
+            font-weight: bold;
+
+            span {
+                color: #959595;
+                font-size: 14px;
+            }
+        }
+
+        .titleFrame {
+            font-size: 18px;
+        }
+
+        .tagContainer {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            gap: 10px;
+
+            .tagFrame {
+                padding: 10px 15px;
+                background-color: lightgray;
+                border-radius: 999px;
+                height: 34px;
+                width:fit-content;
+                display: flex;
+                align-items: center;
+            }            
+        }
+    }
+}

@@ -28,6 +28,7 @@ export default function useUserData () {
                     reviewCount : introduce.review_count,  
                     coffeechatCount : introduce.coffeechat_count,
                     rating : introduce.introduce_rating,
+                    tag : introduce.tags,
                 }
 
                 setIntroduce(newIntroduce);
