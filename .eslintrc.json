@@ -1,0 +1,28 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "next/typescript",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended" // Prettier 규칙
+  ],
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2021": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-unused-vars": "warn",
+    "react/react-in-jsx-scope": "off",
+    "semi": ["error", "always"],
+    "@typescript-eslint/no-unused-vars": "warn", // 사용하지 않는 변수 경고
+    "quotes": ["error", "double"], // 큰따옴표 강제
+    "prettier/prettier": "error" // Prettier 규칙 위반을 ESLint 에러로 표시
+  }
+}
