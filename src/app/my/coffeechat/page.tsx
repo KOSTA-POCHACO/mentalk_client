@@ -20,31 +20,53 @@ const CoffeeChatPage : React.FC =  () => {
 
     
     useEffect(() => {
-        
-        axios.get(`${API_URL}/coffeechat/mentor/${user?.id}`).then(async (result) => {
-            console.log("result.data.data[0].coffeechat");
-            console.log(result.data.data[0].coffeechat);
-            await result.data.data.map((el : any) => {
-                const newCoffeechat = {
-                    coffeechatId : el.coffeechat.coffeechat_id,
-                    introduceId : el.coffeechat.coffeechat_introduce_id,
-                    wanted : el.coffeechat.coffeechat_coffee_wanted,
-                    status : el.coffeechat.coffeechat_status,
-                    meetingDate : el.coffeechat.coffeechat_meeting_date,
-                    mentorNickname : el.mentor.mentor_nickname,
-                    menteeNickname : el.mentee.mentee_nickname,
-                }
 
-                newCoffeechatList.push(newCoffeechat);
+        if(user?.type === "Mentor"){
+            axios.get(`${API_URL}/coffeechat/mentor/${user?.id}`).then(async (result) => {
+                await result.data.data.map((el : any) => {
+                    const newCoffeechat = {
+                        coffeechatId : el.coffeechat.coffeechat_id,
+                        introduceId : el.coffeechat.coffeechat_introduce_id,
+                        wanted : el.coffeechat.coffeechat_coffee_wanted,
+                        status : el.coffeechat.coffeechat_status,
+                        meetingDate : el.coffeechat.coffeechat_meeting_date,
+                        mentorNickname : el.mentor.mentor_nickname,
+                        menteeNickname : el.mentee.mentee_nickname,
+                    }
+    
+                    newCoffeechatList.push(newCoffeechat);
+                })
+    
+                setCoffeechatList(newCoffeechatList);
+    
+                console.log("newCoffeechatList");
+                console.log(newCoffeechatList);
+            }).catch((error) => {
+                console.log(error);
             })
-
-            setCoffeechatList(newCoffeechatList);
-
-            console.log("newCoffeechatList");
-            console.log(newCoffeechatList);
-        }).catch((error) => {
-            console.log(error);
-        })
+        }else if(user?.type === "Mentee"){
+            axios.get(`${API_URL}/coffeechat/mentee/${user?.id}`).then(async (result) => {
+                await result.data.data.map((el : any) => {
+                    const newCoffeechat = {
+                        coffeechatId : el.coffeechat.coffeechat_id,
+                        introduceId : el.coffeechat.coffeechat_introduce_id,
+                        wanted : el.coffeechat.coffeechat_coffee_wanted,
+                        status : el.coffeechat.coffeechat_status,
+                        meetingDate : el.coffeechat.coffeechat_meeting_date,
+                        mentorNickname : el.mentor.mentor_nickname,
+                        menteeNickname : el.mentee.mentee_nickname,
+                    }
+    
+                    newCoffeechatList.push(newCoffeechat);
+                })
+    
+                setCoffeechatList(newCoffeechatList);
+            }).catch((error) => {
+                console.log(error);
+            })
+        }
+        
+       
     }, [])
 
     return (

@@ -3,7 +3,6 @@
 import Link from "next/link";
 import styles from "./Nav.module.scss";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useUserContext } from "@/context/UserContext";
 import { useRouter } from "next/navigation";
 
@@ -48,9 +47,21 @@ const Nav: React.FC = () => {
                 <h3 onClick={() => {setSidebarOpen(false); router.push("/with/us");}}>멘토 찾기</h3>
                 <h3 onClick={() => {setSidebarOpen(false); router.push("/my");}}>마이페이지</h3>
                 <p onClick={() => {setSidebarOpen(false); router.push("/my");}}>내 정보</p>
-                <p onClick={() => {setSidebarOpen(false); router.push("/my/introduce");}}>내 소개글</p>
-                <p onClick={() => {setSidebarOpen(false); router.push("/my/coffeechat");}}>내 커피챗</p>
-                <p onClick={() => {setSidebarOpen(false); router.push("/my/review");}}>받은 리뷰</p>
+                {
+                  user?.type === "Mentor" ? 
+                  <>
+                  <p onClick={() => {setSidebarOpen(false); router.push("/my/introduce");}}>내 소개글</p>
+                  <p onClick={() => {setSidebarOpen(false); router.push("/my/coffeechat");}}>내 커피챗</p>
+                  <p onClick={() => {setSidebarOpen(false); router.push("/my/review");}}>받은 리뷰</p>
+                  </>
+                  :
+                  <>
+                  <p onClick={() => {setSidebarOpen(false); router.push("/my/favorite");}}>즐겨찾기</p>
+                  <p onClick={() => {setSidebarOpen(false); router.push("/my/coffeechat");}}>내 커피챗</p>
+                  <p onClick={() => {setSidebarOpen(false); router.push("/my/review");}}>내 리뷰</p>
+                  </>
+                }
+               
               </div>
             </div>
           }
