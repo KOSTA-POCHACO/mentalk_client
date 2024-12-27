@@ -68,7 +68,7 @@ const CoffeeChatPage: React.FC = () => {
           console.log(error);
         });
     }
-  }, []);
+  }, [user]);
 
   return (
     <>
@@ -77,11 +77,11 @@ const CoffeeChatPage: React.FC = () => {
           <div className={styles.title}>내 커피챗 목록</div>
         </div>
         <div className={styles.coffeechatContainer}>
-          <table className={styles.tempContainer}>
+          <table className={styles.tableContainer}>
             <thead>
               <tr>
                 <th>소개글</th>
-                <th>멘티</th>
+                <th>{user?.type === "Mentor" ? "멘티" : "멘토"}</th>
                 <th>날짜</th>
                 <th>상태</th>
                 <th>채팅</th>
@@ -96,8 +96,18 @@ const CoffeeChatPage: React.FC = () => {
                       {coffeechat.title}
                     </p>
                   </td>
-                  <td>{coffeechat.menteeNickname}</td>
-                  <td>{coffeechat.meetingDate}</td>
+                  <td>
+                    <div className={styles.nicknameFrame}>
+                      {coffeechat.menteeNickname}
+                    </div>
+                  </td>
+                  <td>
+                    <div className={styles.dateFrame}>
+                      {new Date(coffeechat.meetingDate).toLocaleDateString()}
+                      &nbsp;
+                      {new Date(coffeechat.meetingDate).toLocaleTimeString()}
+                    </div>
+                  </td>
                   <td>
                     <div
                       className={`${styles.status} 
