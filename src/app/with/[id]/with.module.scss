@@ -1,7 +1,53 @@
 .main {
     padding-top: 0;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+
+    .mentorContainer {
+        display: flex;
+        gap: 30px;
+        align-items: center;
+
+        .imgFrame {
+            width: 140px;
+            height: 140px;
+            background-color: gray;
+            border: 1px solid white;
+            border-radius: 999px;
+            overflow: hidden;
+    
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .profileContainer {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            .nickname {
+                font-size: 20px;
+                font-weight: bold;
+            }
+
+            .careerContainer {
+                display: flex;
+                gap: 8px;
+                align-items: center;
+
+                .span {
+                    color: #959595;
+                }
+            }
+        }
+    }
 
     .favorite {
         cursor: pointer;
     }
 }
+
