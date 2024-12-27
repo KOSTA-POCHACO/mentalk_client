@@ -60,14 +60,12 @@ const Login: React.FC = () => {
 
   if (isLogin) {
     return (
-      <>
         <Modal
           title="접근 오류"
           content="이미 로그인 상태입니다. 로그아웃 하시겠습니까?"
           onConfirmClick={logOut}
           onCancelClick={() => router.push("/with/us")}
         />
-      </>
     )
   }
 

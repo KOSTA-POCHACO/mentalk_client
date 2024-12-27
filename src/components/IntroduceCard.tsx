@@ -3,6 +3,7 @@ import styles from "./IntroduceCard.module.scss"
 const IntroduceCard: React.FC<IntroduceProfile> = ({ mentor, introduce }) => {
 
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
+    const MAX_TAGS = 5;
 
     return (
       <>
@@ -44,11 +45,12 @@ const IntroduceCard: React.FC<IntroduceProfile> = ({ mentor, introduce }) => {
               <p className={styles.titleFrame}>{introduce.title}</p>
             </strong>
             <div className={styles.tagContainer}>
-              <div className={styles.tagFrame}>{introduce.tag}</div>
-              <div className={styles.tagFrame}>일단</div>
-              <div className={styles.tagFrame}>대충 만들어놔</div>
-              <div className={styles.tagFrame}>짤리는거 어카미?</div>
-              <div className={styles.tagFrame}>테스트테스트테스트</div>
+              {introduce.tag.slice(0, MAX_TAGS).map((tag, index) => (
+                <div key={index} className={styles.tagFrame}>{tag}</div>
+              ))}
+              {introduce.tag.length > MAX_TAGS && (
+                <div className={styles.tagFrame}>...</div>
+              )}
             </div>
           </div>
         </div>

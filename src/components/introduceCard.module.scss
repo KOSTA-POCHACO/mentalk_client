@@ -46,7 +46,7 @@
 
             .careerFrame {
                 display: flex;
-                align-items: flex-start;
+                align-items: center;
                 gap: 8px;
 
                 span {
@@ -80,21 +80,33 @@
             font-size: 18px;
         }
 
-        .tagContainer {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: flex-start;
-            gap: 10px;
+        // .tagContainer {
+        //     display: flex;
+        //     flex-wrap: wrap;
+        //     align-items: flex-start;
+        //     gap: 10px;
 
-            .tagFrame {
-                padding: 10px 15px;
-                background-color: lightgray;
-                border-radius: 999px;
-                height: 34px;
-                width:fit-content;
-                display: flex;
-                align-items: center;
-            }            
+        //     .tagFrame {
+        //         padding: 10px 15px;
+        //         background-color: lightgray;
+        //         border-radius: 999px;
+        //         height: 34px;
+        //         width:fit-content;
+        //         display: flex;
+        //         align-items: center;
+        //     }            
+        // }
+        .tagContainer {
+        display: flex;
+        gap: 5px;
+        flex-wrap: wrap;
+
+        .tagFrame {
+            padding: 8px 12px;
+            font-size: 0.8rem;
+            border-radius: 30px;
+            background-color: var(--secondary-color);
         }
+    }
     }
 }
