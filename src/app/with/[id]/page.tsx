@@ -19,7 +19,7 @@ const With : React.FC<PageProps> =  ({params}) => {
     const { id } = use(params);
     const [profile, setProfile] = useState<IntroduceProfile>();
     const router = useRouter();
-    const { user, userType, checkAccessToken, logOut } = useUserContext();
+    const { user, userType, checkAccessToken, logOut, isLogin } = useUserContext();
     const [showModal, setShowModal] = useState(false);
     const [isFavorited, setIsFavorited] = useState<boolean>();
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -54,11 +54,14 @@ const With : React.FC<PageProps> =  ({params}) => {
     const handleFavorite = async () => {
         try {
             checkAccessToken();
-            if (userType === "mentee") {
-                if (isFavorited) delFavorite();
-                else addFavorite();
-            } else if (userType === "mentor") {
-                setShowModal(true);
+            if (!isLogin) setShowModal(true);
+            else {
+                if (userType === "mentee") {
+                    if (isFavorited) delFavorite();
+                    else addFavorite();
+                } else if (userType === "mentor") {
+                    setShowModal(true);
+                }
             }
         } catch (error) {
             console.log(error);
@@ -100,55 +103,62 @@ const With : React.FC<PageProps> =  ({params}) => {
             {showModal && (
                 <Modal
                     title="접근 오류"
-                    content="멘티만 이용할 수 있습니다. 로그아웃 하시겠습니까?"
+                    content={
+                        isLogin ?
+                            "멘티만 이용할 수 있습니다. 로그아웃 하시겠습니까?"
+                            : "로그인이 필요합니다. 로그인 하시겠습니까?"
+                    }
                     onConfirmClick={() => {
-                        logOut;
+                        if (isLogin) logOut();
                         setShowModal(false);
                         router.push("/login");
                     }}
                     onCancelClick={() => setShowModal(false)}
                 />
             )}
-                <div className={styles.profileWrap}>
-                    <div className={styles.topContainer}>
-                        <div className={styles.imgFrame}>
-                            <img
-                                src={
-                                    mentor?.profileImg
-                                    ? `${API_URL}/${mentor.profileImg}`
-                                    : "/images/default_profile.png"
-                                }
-                            />
-                        </div>              
-                        <div className={styles.profileContainer}>
-                            <p className={styles.nickname}>{mentor?.nickname}</p>
-                            <p>{mentor?.company}</p>
-                            <div className={styles.careerContainer}>
-                                <p>{mentor?.position}</p>
-                                <span className={styles.span}>|</span>
-                                <p>{mentor?.career}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={styles.bottomContainer}>
-                        <div className={styles.countContainer}>
-                            <p>커피챗 {introduce?.coffeechatCount}회</p>
+            <div className={styles.profileWrap}>
+                <div className={styles.topContainer}>
+                    <div className={styles.imgFrame}>
+                        <img
+                            src={
+                                mentor?.profileImg
+                                ? `${API_URL}/${mentor.profileImg}`
+                                : "/images/default_profile.png"
+                            }
+                        />
+                    </div>              
+                    <div className={styles.profileContainer}>
+                        <p className={styles.nickname}>{mentor?.nickname}</p>
+                        <p>{mentor?.company}</p>
+                        <div className={styles.careerContainer}>
+                            <p>{mentor?.position}</p>
                             <span className={styles.span}>|</span>
-                            <p>리뷰 {introduce?.reviewCount}개</p>
-                            <span className={styles.span}>|</span>
-                            <p>⭐ {introduce?.rating}</p>
-                        </div>
-                        <div className={styles.rightItems}>
-                            <div className={styles.favorite} onClick={handleFavorite}>
-                                <GoHeart/>
-                                <p>{mentor?.favoriteCount}</p>
-                            </div>
-                            <button onClick={() => handleWanted(id)}>커피챗 제안하기</button>
+                            <p>{mentor?.career}</p>
                         </div>
                     </div>
                 </div>
-            <div>
-                <div>제목{introduce?.title}</div>
+                <div className={styles.bottomContainer}>
+                    <div className={styles.countContainer}>
+                        <p>커피챗 {introduce?.coffeechatCount}회</p>
+                        <span className={styles.span}>|</span>
+                        <p>리뷰 {introduce?.reviewCount}개</p>
+                        <span className={styles.span}>|</span>
+                        <p>⭐ {introduce?.rating}</p>
+                    </div>
+                    <div className={styles.rightItems}>
+                        <div className={`${styles.favorite} ${!isFavorited && styles.notFavorite}`} onClick={handleFavorite}>
+                        {isFavorited ?
+                            ( <GoHeartFill style={{ fontSize: "20px" }} /> )
+                            : ( <GoHeart style={{ fontSize: "20px"}} /> )
+                            }
+                            <p>{mentor?.favoriteCount}</p>
+                        </div>
+                        <button onClick={() => handleWanted(id)}>커피챗 제안하기</button>
+                    </div>
+                </div>
+            </div>
+            <div className={styles.introduceContainer}>
+                <p className={styles.title}>{introduce?.title}</p>
                 <div>태그
                     {introduce?.tag.map((tag, index) => (
                         <div key={index} className={styles.tagFrame}>{tag}</div>
