@@ -8,6 +8,7 @@ import { use, useContext, useEffect, useState } from "react";
 import styles from "./with.module.scss"
 import { useUserContext } from "@/context/UserContext";
 import Modal from "@/components/Modal";
+import { GoHeart, GoHeartFill } from "react-icons/go";
 
 interface PageProps {
     params : Promise<{id : string}>;
@@ -94,10 +95,8 @@ const With : React.FC<PageProps> =  ({params}) => {
         checkFavorite();
     }, [id, isFavorited]);
 
-    // console.log("해당 멘토 정보", mentor)
-    // console.log("소개글 정보", introduce)
     return (
-        <main className={styles.main}>
+        <main style={{flexDirection:"column", justifyContent:"flex-start", paddingTop:"0"}}>
             {showModal && (
                 <Modal
                     title="접근 오류"
@@ -110,9 +109,8 @@ const With : React.FC<PageProps> =  ({params}) => {
                     onCancelClick={() => setShowModal(false)}
                 />
             )}
-            <div>
-                <div>
-                    <div className={styles.mentorContainer}>
+                <div className={styles.profileWrap}>
+                    <div className={styles.topContainer}>
                         <div className={styles.imgFrame}>
                             <img
                                 src={
@@ -132,16 +130,23 @@ const With : React.FC<PageProps> =  ({params}) => {
                             </div>
                         </div>
                     </div>
-                    <p>❤️ {mentor?.favoriteCount}</p>
+                    <div className={styles.bottomContainer}>
+                        <div className={styles.countContainer}>
+                            <p>커피챗 {introduce?.coffeechatCount}회</p>
+                            <span className={styles.span}>|</span>
+                            <p>리뷰 {introduce?.reviewCount}개</p>
+                            <span className={styles.span}>|</span>
+                            <p>⭐ {introduce?.rating}</p>
+                        </div>
+                        <div className={styles.rightItems}>
+                            <div className={styles.favorite}>
+                                <GoHeart/>
+                                <p>{mentor?.favoriteCount}</p>
+                            </div>
+                            <button onClick={() => handleWanted(id)}>커피챗 제안하기</button>
+                        </div>
+                    </div>
                 </div>
-                <div className={styles.countContainer}>
-                    <p>커피챗 {introduce?.coffeechatCount}회</p>
-                    <span>|</span>
-                    <p>리뷰 {introduce?.reviewCount}개</p>
-                    <span>|</span>
-                    <p>⭐ {introduce?.rating}</p>
-                </div>
-            </div>
             <div>
                 <div>제목{introduce?.title}</div>
                 <div>태그
@@ -151,7 +156,6 @@ const With : React.FC<PageProps> =  ({params}) => {
                 </div>
                 <div>내용{introduce?.content}</div>
             </div>
-            <button onClick={() => handleWanted(id)}>커피챗 제안하기</button>
             <div className={styles.favorite} onClick={handleFavorite}>즐겨찾기 추가</div>
         </main>
     )

@@ -1,10 +1,15 @@
-.main {
-    padding-top: 0;
+.profileWrap {
     display: flex;
+    background-color: #f3f3f3;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
     flex-direction: column;
-    width: 80%;
+    height: 35vh;
+    padding: 50px 0;
 
-    .mentorContainer {
+    .topContainer {
+        width: 80%;
         display: flex;
         gap: 30px;
         align-items: center;
@@ -32,6 +37,7 @@
             .nickname {
                 font-size: 20px;
                 font-weight: bold;
+                margin-bottom: 10px;
             }
 
             .careerContainer {
@@ -46,8 +52,45 @@
         }
     }
 
-    .favorite {
-        cursor: pointer;
+    .bottomContainer {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        width: 80%;
+    
+        .countContainer {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            color: var(--primary-color);
+            font-weight: bold;
+        
+            .span {
+                color: #959595;
+            }
+        }
+
+        .rightItems {
+            display: flex;
+            gap: 20px;
+
+            .favorite, button {
+                cursor: pointer;
+                color: white;
+                background-color: var(--primary-color);
+                padding: 15px 20px;
+                border-radius: 15px;
+                border: none;
+                font-size: 16px;
+                align-items: center;
+            }
+
+            .favorite {
+                display: flex;
+                gap: 10px;
+            }
+        }
     }
 }
+
 
