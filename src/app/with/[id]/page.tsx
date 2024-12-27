@@ -139,7 +139,7 @@ const With : React.FC<PageProps> =  ({params}) => {
                             <p>⭐ {introduce?.rating}</p>
                         </div>
                         <div className={styles.rightItems}>
-                            <div className={styles.favorite}>
+                            <div className={styles.favorite} onClick={handleFavorite}>
                                 <GoHeart/>
                                 <p>{mentor?.favoriteCount}</p>
                             </div>
@@ -156,7 +156,6 @@ const With : React.FC<PageProps> =  ({params}) => {
                 </div>
                 <div>내용{introduce?.content}</div>
             </div>
-            <div className={styles.favorite} onClick={handleFavorite}>즐겨찾기 추가</div>
         </main>
     )
 }
