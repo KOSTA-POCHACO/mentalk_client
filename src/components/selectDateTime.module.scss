@@ -1,13 +1,13 @@
 .dateContainer {
     width: 430px;
     height: 60px;
-    border: 1px solid #f3f3f3;
+    border: 1px solid var(--secondary-color);
     border-radius: 15px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     color: #6b6b6b;
-    background-color: #f3f3f3;
+    background-color: var(--secondary-color);
     transition: all .2s ease-in-out;
       
     &:hover {

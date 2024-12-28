@@ -159,12 +159,15 @@ const With : React.FC<PageProps> =  ({params}) => {
             </div>
             <div className={styles.introduceContainer}>
                 <p className={styles.title}>{introduce?.title}</p>
-                <div>태그
+                <div className={styles.content}>{introduce?.content}</div>
+                <div className={styles.tagContainer}>
                     {introduce?.tag.map((tag, index) => (
                         <div key={index} className={styles.tagFrame}>{tag}</div>
                     ))}
                 </div>
-                <div>내용{introduce?.content}</div>
+            </div>
+            <div className={styles.reviewContainer}>
+
             </div>
         </main>
     )

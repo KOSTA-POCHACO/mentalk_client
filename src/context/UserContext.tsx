@@ -74,8 +74,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     } catch (error) {
       console.log("리프레시 토큰으로 엑세스 토큰 발급 실패:", error);
 
-      // 로그아웃 요청
-      setIsLogin(false);
+      logOut();
     }
   };
 
