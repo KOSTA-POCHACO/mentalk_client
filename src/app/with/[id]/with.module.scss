@@ -1,6 +1,6 @@
 .profileWrap {
     display: flex;
-    background-color: #f3f3f3;
+    background-color: var(--secondary-color);
     width: 100%;
     justify-content: space-between;
     align-items: center;
@@ -9,7 +9,7 @@
     padding: 50px 0;
 
     .topContainer {
-        width: 80%;
+        width: 60%;
         display: flex;
         gap: 30px;
         align-items: center;
@@ -46,7 +46,7 @@
                 align-items: center;
 
                 .span {
-                    color: #959595;
+                    opacity: .4;
                 }
             }
         }
@@ -56,7 +56,7 @@
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
-        width: 80%;
+        width: 60%;
     
         .countContainer {
             display: flex;
@@ -66,21 +66,21 @@
             font-weight: bold;
         
             .span {
-                color: #959595;
+                opacity: .4;
             }
         }
 
         .rightItems {
             display: flex;
-            gap: 20px;
+            gap: 10px;
 
             .favorite, button {
                 cursor: pointer;
                 color: white;
                 background-color: var(--primary-color);
-                padding: 15px 20px;
+                padding: 10px 15px;
                 border-radius: 15px;
-                border: none;
+                border: 1px solid var(--primary-color);
                 font-size: 16px;
                 align-items: center;
             }
@@ -89,8 +89,42 @@
                 display: flex;
                 gap: 10px;
             }
+            
+            .notFavorite {
+                background-color: var(--secondary-color);
+                border: 1px solid var(--primary-color);
+                color: var(--primary-color);
+            }
         }
     }
 }
 
+.introduceContainer {
+    width: 60%;
+    padding: 50px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 
+    .title {
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    .content {
+        line-height: 26px;
+    }
+
+    .tagContainer {
+        display: flex;
+        gap: 5px;
+        flex-wrap: wrap;
+
+        .tagFrame {
+            padding: 10px 15px;
+            font-size: 14px;
+            border-radius: 30px;
+            background-color: var(--secondary-color);
+        }
+    }
+}

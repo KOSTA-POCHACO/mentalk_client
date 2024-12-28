@@ -37,8 +37,8 @@
                     justify-content: center;
                     align-items: center;
                     height: 60px;
-                    padding: 0 40px;
-                    background-color: #f3f3f3;
+                    padding: 0 px;
+                    background-color: var(--secondary-color);
                     color: #6b6b6b;
                     cursor: pointer;
                     transition: all .2s ease-in-out;
@@ -81,7 +81,7 @@
 
 
             label {
-                background-color: #f3f3f3;
+                background-color: var(--secondary-color);
                 color: #6b6b6b;
                 border-radius: 30px; 
                 width: fit-content;
