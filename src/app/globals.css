@@ -55,11 +55,13 @@ main {
 }
 
 .myPageContent {
+  height: 100%;
+  width: 100%;
   padding-left: 200px;
 }
 
 @media screen and (max-width: 768px) {
-  .myPage {
+  .myPageContent {
     padding-left: 0;
   }
 }
