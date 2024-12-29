@@ -61,7 +61,7 @@ main {
 }
 
 @media screen and (max-width: 768px) {
-  .myPage {
+  .myPageContent {
     padding-left: 0;
   }
 }
