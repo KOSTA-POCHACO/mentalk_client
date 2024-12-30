@@ -2,6 +2,32 @@
     height: calc(100% - 70px);
 }
 
+.infoContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.profileContainer {
+    padding: 0 20px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .profileImg {
+        width: 50px;
+        height: 50px;
+        border-radius: 999px;
+        overflow: hidden;
+        background-color: lightgray;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}
+
 .chattingBoard {
     background-color: #b2c7d9;
     height: 70%;
@@ -50,6 +76,8 @@
     padding: 10px;
     display: flex;
     flex-direction: column;
+    border-radius: 0 0 15px 15px;
+
 
     .input {
         width: 100%;

@@ -14,9 +14,9 @@ const CoffeeChatPage: React.FC = () => {
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const [coffeechatList, setCoffeechatList] = useState<any[]>([]);
-  const newCoffeechatList: any[] = [];
 
   useEffect(() => {
+    const newCoffeechatList: any[] = [];
     if (user?.type === "Mentor") {
       axios
         .get(`${API_URL}/coffeechat/mentor/${user?.id}`)
@@ -177,7 +177,7 @@ const CoffeeChatPage: React.FC = () => {
                     ) : (
                       ""
                     )}
-                    {coffeechat.status === "진행" ? (
+                    {coffeechat.status === "진행" || coffeechat.status === "완료" ? (
                       <CustomButton
                         content="커피챗 입장하기"
                         onClick={() => {

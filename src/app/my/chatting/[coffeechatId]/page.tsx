@@ -6,11 +6,18 @@ import { io, Socket } from "socket.io-client";
 import { useUserContext } from "@/context/UserContext";
 import { useParams } from "next/navigation";
 import axios from "axios";
+import CustomButton from "@/components/CustomButton";
 
 interface Chat {
   userId: string;
   message: string;
   time: string;
+}
+
+interface Receiver {
+  id: string;
+  nickname: string;
+  profileImg: string;
 }
 
 const ChattingPage: React.FC = () => {
@@ -21,6 +28,11 @@ const ChattingPage: React.FC = () => {
 
   const { user } = useUserContext();
 
+  const [receiver, setReceiver] = useState<Receiver>({
+    id: "",
+    nickname: "",
+    profileImg: "",
+  });
   const [coffeechatState, setCoffeechatState] = useState<string>("");
   const { coffeechatId } = useParams<{ coffeechatId: string }>();
 
@@ -104,6 +116,16 @@ const ChattingPage: React.FC = () => {
     });
   }
 
+  function handleCompleteClick() {
+    const data = {
+      coffee_status: "완료",
+    };
+    axios.put(`${API_URL}/coffeechat/${coffeechatId}`, data).then((result) => {
+      console.log(result);
+      setCoffeechatState("완료");
+    });
+  }
+
   useEffect(() => {
     // TODO : 여기 나중에 백엔드랑 합의 보고 포트 결정
     const newSocket = io("http://localhost:8081");
@@ -145,10 +167,52 @@ const ChattingPage: React.FC = () => {
     }
   }, [coffeechatId]);
 
-  // 커피챗 상태 불러옴
+  // 커피챗 정보 불러옴
+  // -> 커피챗 상태 저장
+  // -> 커피챗 상대 정보 저장
   useEffect(() => {
     if (coffeechatId) {
-      axios.get(`${API_URL}/coffeechat/${coffeechatId}`).then((result) => {});
+      axios
+        .get(`${API_URL}/coffeechat/${coffeechatId}`)
+        .then((result) => {
+          setCoffeechatState(result.data.data.coffee_status);
+
+          if (user?.type === "Mentor") {
+            return result.data.data.mentee_id;
+          } else {
+            return result.data.data.mentor_id;
+          }
+        })
+        .then((result) => {
+          console.log("result");
+          console.log(result);
+          return axios.get(
+            `${API_URL}/${user?.type === "Mentor" ? "mentee" : "mentor"}/${result}`,
+          );
+        })
+        .then((result) => {
+          console.log("result.data");
+          console.log(result.data);
+
+          if (user?.type === "Mentor") {
+            const newReceiver: Receiver = {
+              id: result.data.mentee_id,
+              nickname: result.data.mentee_nickname,
+              profileImg: result.data.mentee_img,
+            };
+            setReceiver(newReceiver);
+          } else {
+            const newReceiver: Receiver = {
+              id: result.data.mentor_id,
+              nickname: result.data.mentor_nickname,
+              profileImg: result.data.mentor_img,
+            };
+            setReceiver(newReceiver);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }, [coffeechatId]);
 
@@ -167,7 +231,23 @@ const ChattingPage: React.FC = () => {
   return (
     <>
       <div className={styles.wrap}>
-        <div className={styles.profileContainer}></div>
+        <div className={styles.infoContainer}>
+          <div className={styles.profileContainer}>
+            <div className={styles.profileImg}>
+              <img src={`${API_URL}/${receiver.profileImg}`} alt="" />
+            </div>
+            <p>{receiver?.nickname}</p>
+          </div>
+          {
+            coffeechatState === "완료" ? "" : <CustomButton
+            content="종료"
+            backgroundColor="var(--danger-color)"
+            onClick={handleCompleteClick}
+          />
+          }
+          
+        </div>
+
         <div
           ref={chattingBoardRef}
           className={styles.chattingBoard}
@@ -215,10 +295,15 @@ const ChattingPage: React.FC = () => {
         >
           <textarea
             className={styles.input}
-            placeholder="메시지 입력"
+            placeholder={
+              coffeechatState === "완료"
+                ? "종료된 커피챗입니다."
+                : "메시지 입력"
+            }
             value={message}
             onChange={handleChange}
             onKeyDown={handleEnterPress}
+            readOnly={coffeechatState === "완료" ? true : false}
           />
           <button type="submit" className={styles.sendBtn}>
             보내기
