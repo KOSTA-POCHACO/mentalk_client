@@ -1,51 +1,58 @@
-.wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    max-width: 700px;
+.review {
+    width: 366px;
+    height: 300px;
     border: 1px solid lightgray;
     border-radius: 15px;
-    padding: 20px;
-    overflow: hidden;
-}
-
-
-.profileContainer {
+    padding: 30px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: space-between;
 
-    .infoContainer {
+    .wrap {
         display: flex;
-        align-items: center;
-        gap: 10px;
-        font-weight: bold;
-        width: 70%;
-        overflow: hidden;
-
-        .profileImg {
-            width: 50px;
-            height: 50px;
-            border-radius: 999px;
-            background-color: lightgray;
-            border: 1px solid white;
+        flex-direction: column;
+        gap: 20px;
+                    
+        .topContainer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+    
+            .profile {
+                display: flex;
+                gap: 10px;
+                align-items: center;
+                font-weight: bold;
+            }
+    
+            .imgFrame {
+                width: 50px;
+                height: 50px;
+                background-color: gray;
+                border: 1px solid white;
+                border-radius: 999px;
+                overflow: hidden;
+        
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
         }
 
-        .nickname {
-            width: 60%;
-            overflow: hidden;
-            white-space: nowrap;
+        .content {
             text-overflow: ellipsis;
-            word-break: break-all;
+            overflow: hidden;
+            word-break: break-word;
+            display:-webkit-box;
+            -webkit-line-clamp: 6; // 원하는 라인수
+            -webkit-box-orient: vertical
         }
-
-
-
     }
 
-
-}
-
-.contentContainer {
-    line-height: 1.5;
+    .date {
+        text-align: right;
+        color: gray;
+    }
 }
