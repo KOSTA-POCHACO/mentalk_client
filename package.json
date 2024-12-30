@@ -10,6 +10,10 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.0",
+    "@tiptap/extension-link": "^2.10.4",
+    "@tiptap/pm": "^2.10.4",
+    "@tiptap/react": "^2.10.4",
+    "@tiptap/starter-kit": "^2.10.4",
     "@types/react-datepicker": "^6.2.0",
     "axios": "^1.7.9",
     "cookies-next": "^5.0.2",
@@ -26,7 +30,8 @@
     "react-router-dom": "^7.0.2",
     "sass": "^1.82.0",
     "socket.io": "^4.8.1",
-    "socket.io-client": "^4.8.1"
+    "socket.io-client": "^4.8.1",
+    "tiptap-markdown": "^0.8.10"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",

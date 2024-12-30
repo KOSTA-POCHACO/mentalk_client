@@ -74,7 +74,7 @@ const CoffeeChatPage: React.FC = () => {
     <>
       <div className={styles.wrap}>
         <div className={styles.titleContainer}>
-          <div className={styles.title}>내 커피챗 목록</div>
+          {/* <div className={styles.title}>내 커피챗 목록</div> */}
         </div>
         <div className={styles.coffeechatContainer}>
           <table className={styles.tableContainer}>
@@ -141,6 +141,13 @@ const CoffeeChatPage: React.FC = () => {
               ))}
             </tbody>
           </table>
+          {coffeechatList.length === 0 || !coffeechatList ? (
+            <div className={styles.messageContainer}>
+              등록된 커피챗이 없습니다.
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </>

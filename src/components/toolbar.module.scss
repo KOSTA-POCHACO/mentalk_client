@@ -1,0 +1,45 @@
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 5px 10px;
+
+    button {
+        border: none;
+    }
+
+
+    .itemBox {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        height: 100%;
+
+        .toolbarBtn {
+            width: 30px;
+            height: 30px;
+            background-size: 26px;
+            background-repeat: no-repeat;
+            background-position: center;
+
+            &:not(:last-child) {
+                margin-right: 10px;
+            }
+        }
+
+        .none {
+            background-color: #ffffff;
+        }
+
+        .active {
+            background-color: #e7e7e7;
+        }
+    }
+
+    .line {
+        width: 1px;
+        height: 25px;
+        margin: 0 15px;
+        background-color: #cacad6;
+    }
+}
