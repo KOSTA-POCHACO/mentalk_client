@@ -70,9 +70,8 @@
         padding: 10px;
         gap: 5px;
         border: lightgray 1px solid;
-        border-radius: 999px;
+        border-radius: 15px;
         align-items: center;
-
 
         strong {
             width: 100px;
@@ -87,33 +86,38 @@
             border: none;
             outline: none;
         }
+
+
     }
 
     .item.readonly {
         background-color: #f3f3f3;
         color: gray;
     }
-}
 
-.positionContainer {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    width: 400px;
-    padding: 10px;
+    .positionContainer {
 
-
-    .item {
         display: flex;
-        padding: 10px 20px;
+        width: 400px;
+        flex-wrap: wrap;
         gap: 5px;
-        border: lightgray 1px solid;
-        border-radius: 999px;
-        align-items: center;
+
+        button {
+            white-space: nowrap;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 999px;
+            background-color: var(--secondary-color);
+            cursor: pointer;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        .active {
+            background-color: var(--primary-color);
+            color: white;
+        }
     }
-
-
 }
 
 .buttonContainer {

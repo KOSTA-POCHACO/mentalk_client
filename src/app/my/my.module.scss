@@ -46,7 +46,7 @@
         padding: 10px;
         gap: 5px;
         border: lightgray 1px solid;
-        border-radius: 999px;
+        border-radius: 15px;
         align-items: center;
 
         strong {
@@ -67,15 +67,15 @@
     width: 400px;
     padding: 10px;
 
-
     .item {
         display: flex;
         padding: 10px 20px;
         gap: 5px;
         border: lightgray 1px solid;
-        border-radius: 999px;
+        border-radius: 15px;
         align-items: center;
     }
+
 }
 
 .editBtn {
