@@ -1,0 +1,130 @@
+.profileWrap {
+    display: flex;
+    background-color: var(--secondary-color);
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    height: 35vh;
+    padding: 50px 0;
+
+    .topContainer {
+        width: 60%;
+        display: flex;
+        gap: 30px;
+        align-items: center;
+
+        .imgFrame {
+            width: 140px;
+            height: 140px;
+            background-color: gray;
+            border: 1px solid white;
+            border-radius: 999px;
+            overflow: hidden;
+    
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .profileContainer {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            .nickname {
+                font-size: 20px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+
+            .careerContainer {
+                display: flex;
+                gap: 8px;
+                align-items: center;
+
+                .span {
+                    opacity: .4;
+                }
+            }
+        }
+    }
+
+    .bottomContainer {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        width: 60%;
+    
+        .countContainer {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            color: var(--primary-color);
+            font-weight: bold;
+        
+            .span {
+                opacity: .4;
+            }
+        }
+
+        .rightItems {
+            display: flex;
+            gap: 10px;
+
+            .favorite, button {
+                cursor: pointer;
+                color: white;
+                background-color: var(--primary-color);
+                padding: 10px 15px;
+                border-radius: 15px;
+                border: 1px solid var(--primary-color);
+                font-size: 16px;
+                align-items: center;
+            }
+
+            .favorite {
+                display: flex;
+                gap: 10px;
+            }
+            
+            .notFavorite {
+                background-color: var(--secondary-color);
+                border: 1px solid var(--primary-color);
+                color: var(--primary-color);
+            }
+        }
+    }
+}
+
+.introduceContainer {
+    width: 60%;
+    padding: 50px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    .title {
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    .content {
+        line-height: 26px;
+    }
+
+    .tagContainer {
+        display: flex;
+        gap: 5px;
+        flex-wrap: wrap;
+
+        .tagFrame {
+            padding: 10px 15px;
+            font-size: 14px;
+            border-radius: 30px;
+            background-color: var(--secondary-color);
+        }
+    }
+}

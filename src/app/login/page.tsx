@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaUser } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import styles from "./login.module.scss";
@@ -9,13 +9,14 @@ import Link from 'next/link';
 import { useRouter } from "next/navigation";
 import SelectUserType from "@/components/SelectUserType";
 import { useUserContext } from '@/context/UserContext';
+import Modal from '@/components/Modal';
 
 const Login: React.FC = () => {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
   const router = useRouter();
-  const { userType, setUserType, setIsLogin, setUser } = useUserContext();
-
+  const { userType, setUserType, isLogin, setIsLogin, setUser, logOut } = useUserContext();
+  
   // 아이디 입력 핸들러
   const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setId(e.target.value);
@@ -26,43 +27,47 @@ const Login: React.FC = () => {
     setPw(e.target.value);
   };
   
-// 로그인 요청 핸들러
-    const handleLogin = async (e: React.FormEvent) => {
-        e.preventDefault(); // 폼 제출 시 페이지 리로드 방지
+  // 로그인 요청 핸들러
+  const handleLogin = async (e: React.FormEvent) => {
+      e.preventDefault();
+      try {
+          const data = userType === "mentor"
+              ? { mentor_id: id, mentor_pw: pw }
+              : { mentee_id: id, mentee_pw: pw };
 
-        // userType에 따라 데이터를 다르게 설정
-        const data =
-          userType === "mentor"
-              ? { mentor_id: id, mentor_pw: pw } // 멘토일 때
-              : { mentee_id: id, mentee_pw: pw }; // 멘티일 때
+          await axios.post(
+              `http://localhost:8080/login/${userType}`,
+              data,
+              { withCredentials: true }
+          );
 
-        // 로그인 요청
-        axios.post(
-            `http://localhost:8080/login/${userType}`,
-            data,
-            {
-                withCredentials: true, // 쿠키 포함
-            }
-        ).then(() => {
-            // 로그인 성공 요청
-            return axios({
-              url: `http://localhost:8080/login/${userType}/success`,
-              method: "GET",
-              withCredentials: true,
-            })
-        }).then((result) => {
-            // 로그인 성공
-            setIsLogin(true);
-            setUser(result.data, userType);
-            setUserType(userType);
-            // 로그인 성공 후 리다이렉트
-            router.push("/with/us");
+          const result = await axios.get(
+              `http://localhost:8080/login/${userType}/success`,
+              { withCredentials: true }
+          );
 
-        }).catch((error) => {
-          console.error("로그인 실패 : ", error);
-        });
+          setIsLogin(true);
+          setUser(result.data, userType);
+          setUserType(userType);
+          router.push("/with/us");
+      } catch (error) {
+          // console.error("로그인 실패 : ", error);
+          alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+          setId("");
+          setPw("");
+      }
+  };
 
-    };
+  if (isLogin) {
+    return (
+        <Modal
+          title="접근 오류"
+          content="이미 로그인 상태입니다. 로그아웃 하시겠습니까?"
+          onConfirmClick={logOut}
+          onCancelClick={() => router.push("/with/us")}
+        />
+    )
+  }
 
   return (
     <>

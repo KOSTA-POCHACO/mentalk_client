@@ -4,7 +4,11 @@ import DBIntroduceTrans from "@/utils/DBIntroduceTrans";
 import DBMentorTrans from "@/utils/DBMentorTrans";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { use, useEffect, useState } from "react";
+import { use, useContext, useEffect, useState } from "react";
+import styles from "./with.module.scss"
+import { useUserContext } from "@/context/UserContext";
+import Modal from "@/components/Modal";
+import { GoHeart, GoHeartFill } from "react-icons/go";
 
 interface PageProps {
     params : Promise<{id : string}>;
@@ -12,61 +16,159 @@ interface PageProps {
 
 const With : React.FC<PageProps> =  ({params}) => {
 
-    // Next.js 13 부터는 params가 Promise 객체로 변환되기 때문에
-    // use() 훅을 사용해 비동기적으로 처리 후 사용
     const { id } = use(params);
+    const [profile, setProfile] = useState<IntroduceProfile>();
     const router = useRouter();
-    const [mentor, setMentor] = useState<Mentor | null>(null);
-    const [introduce, setIntroduce] = useState<Introduce | null>(null);
+    const { user, userType, checkAccessToken, logOut, isLogin } = useUserContext();
+    const [showModal, setShowModal] = useState(false);
+    const [isFavorited, setIsFavorited] = useState<boolean>();
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+    const mentor = profile?.mentor;
+    const introduce = profile?.introduce;
 
     const handleWanted = (id: string) => {
         router.push(`/wanted/${id}`);
     }
 
-    useEffect(() => {
-        const API_URL = process.env.NEXT_PUBLIC_API_URL;
+    const addFavorite = async () => {
+        try {
+            await axios.post(`${API_URL}/favorite/${id}`, { mentee_id: user?.id });
+            setIsFavorited(true);
+            console.log("즐겨찾기 추가");
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
-        const fetchMentorData = async () => {
+    const delFavorite = async () => {
+        try {
+            await axios.delete(`${API_URL}/favorite/${id}`, { data: { mentee_id: user?.id } });
+            setIsFavorited(false);
+            console.log("즐겨찾기 삭제");
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const handleFavorite = async () => {
+        try {
+            checkAccessToken();
+            if (!isLogin) setShowModal(true);
+            else {
+                if (userType === "mentee") {
+                    if (isFavorited) delFavorite();
+                    else addFavorite();
+                } else if (userType === "mentor") {
+                    setShowModal(true);
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+
+        const fetchProfile = async () => {
             try {
-                const mentor = await axios.get(`${API_URL}/mentor/${id}`);
-                setMentor(DBMentorTrans(mentor.data));
+                const res = await axios.get(`${API_URL}/introduce/${id}`);
+                const data = res.data;
+
+                setProfile({
+                    mentor: DBMentorTrans(data),
+                    introduce: DBIntroduceTrans(data),
+                });                
             } catch (error) {
                 console.log(error);
             }
         };
 
-        const fetchIntroduce = async () => {
-            // console.log("여긴 타니?")
+        const checkFavorite = async () => {
             try {
-                const introduce = await axios.get(`${API_URL}/introduce/${id}`);
-                setIntroduce(DBIntroduceTrans(introduce.data.mentor_introduce))
-                // console.log("이건 나오니?", introduce)
+                const res = await axios.get(`${API_URL}/favorite/${id}/${user?.id}`);
+                setIsFavorited(res.data.check);
+
             } catch (error) {
                 console.log(error);
             }
         }
 
-        fetchMentorData();
-        fetchIntroduce();
-    }, []);
+        fetchProfile();
+        checkFavorite();
+    }, [id, isFavorited]);
 
-    console.log("해당 멘토 정보", mentor)
-    console.log("소개글 정보", introduce)
     return (
-        <main>
-            <h1>With page id:{id}</h1>
-            <div>
-                <div>닉네임{mentor?.nickname}</div>
-                <div>회사{mentor?.company}</div>
-                <div>직군{mentor?.position}</div>
-                <div>경력{mentor?.career}</div>
+        <main style={{flexDirection:"column", justifyContent:"flex-start", paddingTop:"0"}}>
+            {showModal && (
+                <Modal
+                    title="접근 오류"
+                    content={
+                        isLogin ?
+                            "멘티만 이용할 수 있습니다. 로그아웃 하시겠습니까?"
+                            : "로그인이 필요합니다. 로그인 하시겠습니까?"
+                    }
+                    onConfirmClick={() => {
+                        if (isLogin) logOut();
+                        setShowModal(false);
+                        router.push("/login");
+                    }}
+                    onCancelClick={() => setShowModal(false)}
+                />
+            )}
+            <div className={styles.profileWrap}>
+                <div className={styles.topContainer}>
+                    <div className={styles.imgFrame}>
+                        <img
+                            src={
+                                mentor?.profileImg
+                                ? `${API_URL}/${mentor.profileImg}`
+                                : "/images/default_profile.png"
+                            }
+                        />
+                    </div>              
+                    <div className={styles.profileContainer}>
+                        <p className={styles.nickname}>{mentor?.nickname}</p>
+                        <p>{mentor?.company}</p>
+                        <div className={styles.careerContainer}>
+                            <p>{mentor?.position}</p>
+                            <span className={styles.span}>|</span>
+                            <p>{mentor?.career}</p>
+                        </div>
+                    </div>
+                </div>
+                <div className={styles.bottomContainer}>
+                    <div className={styles.countContainer}>
+                        <p>커피챗 {introduce?.coffeechatCount}회</p>
+                        <span className={styles.span}>|</span>
+                        <p>리뷰 {introduce?.reviewCount}개</p>
+                        <span className={styles.span}>|</span>
+                        <p>⭐ {introduce?.rating}</p>
+                    </div>
+                    <div className={styles.rightItems}>
+                        <div className={`${styles.favorite} ${!isFavorited && styles.notFavorite}`} onClick={handleFavorite}>
+                        {isFavorited ?
+                            ( <GoHeartFill style={{ fontSize: "20px" }} /> )
+                            : ( <GoHeart style={{ fontSize: "20px"}} /> )
+                            }
+                            <p>{mentor?.favoriteCount}</p>
+                        </div>
+                        <button onClick={() => handleWanted(id)}>커피챗 제안하기</button>
+                    </div>
+                </div>
             </div>
+            <div className={styles.introduceContainer}>
+                <p className={styles.title}>{introduce?.title}</p>
+                <div className={styles.content}>{introduce?.content}</div>
+                <div className={styles.tagContainer}>
+                    {introduce?.tag.map((tag, index) => (
+                        <div key={index} className={styles.tagFrame}>{tag}</div>
+                    ))}
+                </div>
+            </div>
+            <div className={styles.reviewContainer}>
 
-            <div>
-                <div>제목{introduce?.title}</div>
-                <div>내용{introduce?.content}</div>
             </div>
-            <button onClick={() => handleWanted(id)}>커피챗 제안하기</button>
         </main>
     )
 }

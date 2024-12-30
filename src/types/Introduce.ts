@@ -4,5 +4,6 @@ type Introduce = {
     content: string;
     reviewCount : number;
     coffeechatCount : number;
-    rating : number;
+    rating: number;
+    tag: string[];
 }
