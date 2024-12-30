@@ -9,6 +9,7 @@ import styles from "./with.module.scss"
 import { useUserContext } from "@/context/UserContext";
 import Modal from "@/components/Modal";
 import { GoHeart, GoHeartFill } from "react-icons/go";
+import Review from "@/components/Review";
 
 interface PageProps {
     params : Promise<{id : string}>;
@@ -205,28 +206,17 @@ const With : React.FC<PageProps> =  ({params}) => {
             <div className={styles.reviewWrap}>
                 <p className={styles.reviewTitle}>{mentor?.nickname} 멘토와의 <span>커피챗 후기</span></p>
                 <div className={styles.reviewContainer}>
-                    {review.length > 0 ?
-                        ( `${review.map((review, index) => (
-                            <div className={styles.review} key={index}>
-                                <div className={styles.wrap}>
-                                    <div className={styles.topContainer}>
-                                        <div className={styles.profile}>
-                                            <div className={styles.imgFrame}>
-                                                <img src={
-                                                    review.menteeImg
-                                                        ? `${API_URL}/${review.menteeImg}`
-                                                        : "/images/default_profile.png"
-                                                } />
-                                            </div>
-                                            <p>{review.menteeNickname}</p>
-                                        </div>
-                                        <p>{"⭐️".repeat(review.rating)}</p>
-                                    </div>
-                                    <p className={styles.content}>{review.content}이 포스팅은 왜 안좋은 리뷰 밖에 없어여 이 포스팅은 왜 안좋은 리뷰 밖에 없어여 이 포스팅은 왜 안좋은 리뷰 밖에 없어여 이 포스팅은 왜 안좋은 리뷰 밖에 없어여 이 포스팅은 왜 안좋은 리뷰 밖에 없어여 이 포스팅은 왜 안좋은 리뷰 밖에 없어여 </p>
-                                </div>
-                                <p className={styles.date}>{review.date}</p>
-                            </div>
-                        ))}`
+                    {review.length > 0 ? (
+                      review.map((item, index) => (
+                        <Review
+                          key={index}
+                          menteeImg={item.menteeImg}
+                          menteeNickname={item.menteeNickname}
+                          content={item.content}
+                          rating={item.rating}
+                          date={item.date}
+                        />
+                      ))
                     ) : (
                         <p>작성된 후기가 없습니다.</p>
                     ) 
