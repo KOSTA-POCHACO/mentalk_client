@@ -4,7 +4,7 @@ import DBIntroduceTrans from "@/utils/DBIntroduceTrans";
 import DBMentorTrans from "@/utils/DBMentorTrans";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { use, useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./with.module.scss"
 import { useUserContext } from "@/context/UserContext";
 import Modal from "@/components/Modal";
@@ -17,19 +17,19 @@ interface PageProps {
 
 const With : React.FC<PageProps> =  ({params}) => {
 
-    const { id } = use(params);
-    const [profile, setProfile] = useState<IntroduceProfile>();
+    const [id, setId] = useState<string | null>(null);
+    const [profile, setProfile] = useState<IntroduceProfile | null>(null);
     const router = useRouter();
     const { user, userType, checkAccessToken, logOut, isLogin } = useUserContext();
     const [showModal, setShowModal] = useState(false);
-    const [isFavorited, setIsFavorited] = useState<boolean>();
+    const [isFavorited, setIsFavorited] = useState<boolean>(false);
     const [review, setReview] = useState<Review[]>([]);
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
     const mentor = profile?.mentor;
     const introduce = profile?.introduce;
 
-    const handleWanted = (id: string) => {
+    const handleWanted = (id: string | null) => {
         router.push(`/wanted/${id}`);
     }
 
@@ -69,8 +69,18 @@ const With : React.FC<PageProps> =  ({params}) => {
             console.log(error);
         }
     }
+    
+    useEffect(() => {
+      const fetchData = async () => {
+        const resolvedParams = await params;
+        setId(resolvedParams.id);
+      };
+
+      fetchData();
+    }, [params]);
 
     useEffect(() => {
+        if (!id) return;
 
         const fetchProfile = async () => {
             try {
@@ -102,9 +112,9 @@ const With : React.FC<PageProps> =  ({params}) => {
     }, [id, isFavorited]);
 
     useEffect(() => {
+        if (!introduce?.introduceId) return;
 
         const getReviews = async () => {
-            if (!introduce?.introduceId) return;
             try {
                 const res = await axios.get(`${API_URL}/review/introduce/${introduce?.introduceId}`);
                 const data = res.data;
