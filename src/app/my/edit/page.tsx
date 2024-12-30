@@ -30,32 +30,12 @@ const Edit: React.FC = () => {
   const [modalMessage, setModalMessage] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const [formData, setFormData] = useState<Partial<Mentor | Mentee | null>>({});
+  const [formData, setFormData] = useState<Partial<Mentor | Mentee | null>>({
+    position: [],
+  });
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
-
-    if (name == "position") {
-      const updatePosition = value.split(", ").map((item) => item.trim());
-      console.log("updatePosition?");
-      console.log(updatePosition);
-
-      if (updatePosition.length > 3) {
-        setModalMessage("희망 직무는 세개까지만 등록할 수 있습니다.");
-        setIsModalOpen(true);
-        return;
-      }
-
-      setFormData((prevState) => ({
-        ...prevState,
-        position: updatePosition,
-      }));
-
-      console.log("formDATA?");
-      console.log(formData);
-
-      return;
-    }
 
     setFormData((prevState) => ({
       ...prevState,
@@ -79,7 +59,8 @@ const Edit: React.FC = () => {
     }
 
     if (userType === "mentee") {
-      data.append(`mentee_position`, formData?.position || []);
+      console.log(JSON.stringify(formData?.position));
+      data.append(`mentee_position`, JSON.stringify(formData?.position || []));
     }
 
     // 다른 폼 데이터 추가
@@ -107,7 +88,7 @@ const Edit: React.FC = () => {
       });
   }
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     // 파일 가져오기
     const file = e.target.files?.[0];
     if (file) {
@@ -123,7 +104,22 @@ const Edit: React.FC = () => {
       };
       reader.readAsDataURL(file);
     }
-  };
+  }
+
+  function addWish(selectedPosition: string) {
+    setFormData((prevState) => {
+      // prevState가 null인 경우 초기값 설정
+      const currentPosition = prevState?.position || [];
+      return {
+        ...prevState,
+        position: currentPosition.includes(selectedPosition)
+          ? currentPosition.filter((el) => el !== selectedPosition) // 이미 존재하면 추가하지 않음
+          : [...currentPosition, selectedPosition], // 새로운 항목 추가
+      };
+    });
+
+    console.log(formData);
+  }
 
   // 멘토면
   if (user?.type === "Mentor") {
@@ -337,7 +333,64 @@ const Edit: React.FC = () => {
                   <p>
                     <strong>희망 직무</strong>
                   </p>
-                  <input
+
+                  <div className={styles.positionContainer}>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        addWish(e.currentTarget.innerText);
+                      }}
+                      className={`${formData?.position?.includes("프론트엔드 개발자") ? styles.active : ""}`}
+                    >
+                      프론트엔드 개발자
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        addWish(e.currentTarget.innerText);
+                      }}
+                      className={`${formData?.position?.includes("백엔드 개발자") ? styles.active : ""}`}
+                    >
+                      백엔드 개발자
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        addWish(e.currentTarget.innerText);
+                      }}
+                      className={`${formData?.position?.includes("데이터 엔지니어") ? styles.active : ""}`}
+                    >
+                      데이터 엔지니어
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        addWish(e.currentTarget.innerText);
+                      }}
+                      className={`${formData?.position?.includes("풀스택 개발자") ? styles.active : ""}`}
+                    >
+                      풀스택 개발자
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        addWish(e.currentTarget.innerText);
+                      }}
+                      className={`${formData?.position?.includes("웹 퍼블리셔") ? styles.active : ""}`}
+                    >
+                      웹 퍼블리셔
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        addWish(e.currentTarget.innerText);
+                      }}
+                      className={`${formData?.position?.includes("UI/UX 디자이너") ? styles.active : ""}`}
+                    >
+                      UI/UX 디자이너
+                    </button>
+                  </div>
+                  {/* <input
                     name="position"
                     placeholder="변경할 직무를 입력하세요"
                     value={`${
@@ -346,7 +399,7 @@ const Edit: React.FC = () => {
                         : ""
                     }`}
                     onChange={handleChange}
-                  />
+                  /> */}
                 </div>
               </div>
 

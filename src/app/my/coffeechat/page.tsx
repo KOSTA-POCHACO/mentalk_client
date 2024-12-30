@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import styles from "./coffeechat.module.scss";
 import axios from "axios";
-import Coffeechat from "@/components/Coffeechat";
 import { useUserContext } from "@/context/UserContext";
 import CustomButton from "@/components/CustomButton";
 import { useRouter } from "next/navigation";

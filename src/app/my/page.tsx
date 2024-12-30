@@ -24,18 +24,19 @@ const My: React.FC = () => {
   });
 
   useEffect(() => {
+    console.log("my에서 부른 user");
     console.log(user);
 
     if (!isLogin) {
       setModalData({
         title: "잘못된 접근입니다.",
         content: "접근 권한이 없습니다.",
-        onConfirmClick: () => router.back(),
-        onCancelClick: () => router.back(),
+        onConfirmClick: () => router.push("/"),
+        onCancelClick: () => router.push("/"),
       });
       setIsModalOpen(true);
     }
-  }, []);
+  }, [user]);
 
   if (!isLogin) {
     return (
@@ -125,6 +126,8 @@ const My: React.FC = () => {
   if (user?.type === "Mentee") {
     // 멘티로 타입 변환
     const mentee = user as Mentee;
+    console.log("멘티쓰");
+    console.log(mentee);
 
     // 멘티 마이페이지
     return (
