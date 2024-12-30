@@ -69,6 +69,35 @@ const CoffeeChatPage: React.FC = () => {
     }
   }, [user]);
 
+  function handleAcceptClick(coffeechatId: string) {
+    const data = {
+      coffee_status: "진행",
+    };
+
+    axios
+      .put(`${API_URL}/coffeechat/${coffeechatId}`, data)
+      .then((result) => {
+        console.log("커피챗이 수정되었습니다");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  function handleDeniedClick(coffeechatId: string) {
+    const data = {
+      coffee_status: "취소",
+    };
+    axios
+      .put(`${API_URL}/coffeechat/${coffeechatId}`, data)
+      .then((result) => {
+        console.log("커피챗이 수정되었습니다");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   return (
     <>
       <div className={styles.wrap}>
@@ -83,7 +112,7 @@ const CoffeeChatPage: React.FC = () => {
                 <th>{user?.type === "Mentor" ? "멘티" : "멘토"}</th>
                 <th>날짜</th>
                 <th>상태</th>
-                <th>채팅</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -111,7 +140,7 @@ const CoffeeChatPage: React.FC = () => {
                     <div
                       className={`${styles.status} 
                                         ${coffeechat.status === "신청" ? styles.register : ""}
-                                        ${coffeechat.status === "진행중" ? styles.ongoing : ""}
+                                        ${coffeechat.status === "진행" ? styles.ongoing : ""}
                                         ${coffeechat.status === "취소" ? styles.cancel : ""}
                                         ${coffeechat.status === "완료" ? styles.done : ""}
                                         `}
@@ -119,7 +148,7 @@ const CoffeeChatPage: React.FC = () => {
                       <p
                         className={`${styles.statusColor}
                                                 ${coffeechat.status === "신청" ? styles.register : ""}
-                                                ${coffeechat.status === "진행중" ? styles.ongoing : ""}
+                                                ${coffeechat.status === "진행" ? styles.ongoing : ""}
                                                 ${coffeechat.status === "취소" ? styles.cancel : ""}
                                                 ${coffeechat.status === "완료" ? styles.done : ""}
                                             
@@ -129,12 +158,37 @@ const CoffeeChatPage: React.FC = () => {
                     </div>
                   </td>
                   <td>
-                    <CustomButton
-                      content="입장"
-                      onClick={() => {
-                        router.push(`/my/chatting/${coffeechat.coffeechatId}`);
-                      }}
-                    />
+                    {coffeechat.status === "신청" ? (
+                      <div className={styles.buttonContainer}>
+                        <CustomButton
+                          content="수락"
+                          onClick={() => {
+                            handleAcceptClick(coffeechat.coffeechatId);
+                          }}
+                        />
+                        <CustomButton
+                          content="거절"
+                          backgroundColor="var(--danger-color)"
+                          onClick={() => {
+                            handleDeniedClick(coffeechat.coffeechatId);
+                          }}
+                        />
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                    {coffeechat.status === "진행" ? (
+                      <CustomButton
+                        content="커피챗 입장하기"
+                        onClick={() => {
+                          router.push(
+                            `/my/chatting/${coffeechat.coffeechatId}`,
+                          );
+                        }}
+                      />
+                    ) : (
+                      ""
+                    )}
                   </td>
                 </tr>
               ))}

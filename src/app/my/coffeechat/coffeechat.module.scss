@@ -81,6 +81,7 @@
 
     td {
         max-width: 200px;
+        min-width: 80px;
     }
 
 
@@ -112,7 +113,8 @@
         display: flex;
         align-items: center;
         gap: 5px;
-        min-width: 80px;
+        min-width: 70px;
+
 
         .statusColor {
             width: 10px;
@@ -151,6 +153,12 @@
 
     .status.done {
         background-color: rgba(var(--done-color-rgb), 0.3)
+    }
+
+    .buttonContainer {
+        display: flex;
+        gap: 10px;
+
     }
 
 
