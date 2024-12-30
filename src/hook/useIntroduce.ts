@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useUserContext } from "@/context/UserContext";
 import axios from "axios";
@@ -48,4 +48,3 @@ export default function useUserData () {
     return introduce;
     
 }
-

@@ -8,10 +8,31 @@ import Modal from "@/components/Modal";
 import CustomButton from "@/components/CustomButton";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { EditorContent, useEditor } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import Link from "@tiptap/extension-link";
+import { Markdown } from "tiptap-markdown";
+import Toolbar from "@/components/toolbar";
 
 const Introduce: React.FC = () => {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const { user, userType, isLogin, checkAccessToken } = useUserContext();
+
+  const [content, setContent] = useState("");
+
+  const editor = useEditor({
+    extensions: [
+      StarterKit,
+      Link.extend({ inclusive: false }).configure({
+        openOnClick: false,
+      }),
+      Markdown,
+    ],
+    content: content,
+    onUpdate({ editor }) {
+      setContent(editor.getHTML());
+    },
+  });
 
   const router = useRouter();
 
@@ -59,6 +80,10 @@ const Introduce: React.FC = () => {
 
     if (introduceData) {
       setFormData(introduceData);
+
+      console.log("introduceData");
+      console.log(introduceData);
+      setContent(introduceData.content);
     } else {
     }
   }, [introduceData]);
@@ -158,8 +183,6 @@ const Introduce: React.FC = () => {
         // 멘티가 접근하면 화면 안 띄움
         userType === "mentor" ? (
           <div className={styles.wrap}>
-            <h1>소개글 수정</h1>
-
             <div className={styles.inputContainer}>
               <input
                 type="text"
@@ -177,6 +200,14 @@ const Introduce: React.FC = () => {
             </div>
             <div className={styles.buttonContainer}>
               <CustomButton content="수정" onClick={handleSubmit} />
+              <CustomButton
+                content="취소"
+                backgroundColor={"var(--secondary-color)"}
+                color="black"
+                onClick={() => {
+                  router.push("/my/introduce");
+                }}
+              />
             </div>
           </div>
         ) : (
