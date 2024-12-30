@@ -22,6 +22,7 @@ const With : React.FC<PageProps> =  ({params}) => {
     const { user, userType, checkAccessToken, logOut, isLogin } = useUserContext();
     const [showModal, setShowModal] = useState(false);
     const [isFavorited, setIsFavorited] = useState<boolean>();
+    const [review, setReview] = useState<Review[]>([]);
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
     const mentor = profile?.mentor;
@@ -96,7 +97,41 @@ const With : React.FC<PageProps> =  ({params}) => {
 
         fetchProfile();
         checkFavorite();
+
     }, [id, isFavorited]);
+
+    useEffect(() => {
+
+        const getReviews = async () => {
+            if (!introduce?.introduceId) return;
+            try {
+                const res = await axios.get(`${API_URL}/review/introduce/${introduce?.introduceId}`);
+                const data = res.data;
+                // console.log(data.reviews);
+
+                const reviews = data.reviews.map((item: any) => ({
+                    reviewId: item._id,
+                    coffeechatId: item.coffeechat_id,
+                    introduceId: item.introduce_id,
+                    mentorId: item.mentor_id,
+                    menteeId: item.mentee_id,
+                    menteeImg: item.mentee_img,
+                    menteeNickname: item.mentee_nickname,
+                    content: item.review_content,
+                    rating: item.review_rating,
+                    date: item.createdAt,
+                }));
+
+                setReview(reviews);
+
+            } catch (error) {
+                console.log("작성된 리뷰가 없습니다.", error);
+            }
+        }
+
+        getReviews();
+
+    },[introduce?.introduceId])
 
     return (
         <main style={{flexDirection:"column", justifyContent:"flex-start", paddingTop:"0"}}>
@@ -166,8 +201,32 @@ const With : React.FC<PageProps> =  ({params}) => {
                     ))}
                 </div>
             </div>
-            <div className={styles.reviewContainer}>
-
+            <div className={styles.line}></div>
+            <div className={styles.reviewWrap}>
+                <p className={styles.reviewTitle}>{mentor?.nickname} 멘토와의 <span>커피챗 후기</span></p>
+                <div className={styles.reviewContainer}>
+                    {review.map((review, index) => (
+                        <div className={styles.review} key={index}>
+                            <div className={styles.wrap}>
+                                <div className={styles.topContainer}>
+                                    <div className={styles.profile}>
+                                        <div className={styles.imgFrame}>
+                                            <img src={
+                                                review.menteeImg
+                                                    ? `${API_URL}/${review.menteeImg}`
+                                                    : "/images/default_profile.png"
+                                            } />
+                                        </div>
+                                        <p>{review.menteeNickname}</p>
+                                    </div>
+                                    <p>{"⭐️".repeat(review.rating)}</p>
+                                </div>
+                                <p className={styles.content}>{review.content}이 포스팅은 왜 안좋은 리뷰 밖에 없어여 이 포스팅은 왜 안좋은 리뷰 밖에 없어여 이 포스팅은 왜 안좋은 리뷰 밖에 없어여 이 포스팅은 왜 안좋은 리뷰 밖에 없어여 이 포스팅은 왜 안좋은 리뷰 밖에 없어여 이 포스팅은 왜 안좋은 리뷰 밖에 없어여 </p>
+                            </div>
+                            <p className={styles.date}>{review.date}</p>
+                        </div>
+                    ))}
+                </div>
             </div>
         </main>
     )

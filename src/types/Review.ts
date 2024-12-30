@@ -1,5 +1,12 @@
 type Review = {
-    coffeechatId : string;
+    reviewId: string;
+    coffeechatId: string;
+    introduceId: string;
+    mentorId: string;
+    menteeId: string;
+    menteeImg: string;
+    menteeNickname: string;
     content : string;
-    rating : number;
+    rating: number;
+    date: string;
 }

@@ -1,4 +1,5 @@
 type Introduce = {
+    introduceId: string;
     mentorId : string;
     title : string;
     content: string;

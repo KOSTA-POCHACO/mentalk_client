@@ -1,112 +1,135 @@
-.wrap {
-
-}
-
-.topContainer {
-    // border: 2px solid lightgray;
-    border-radius: 15px;
-    width: 70vw;
-    
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    gap: 50px;
+.form {
+    width: 55vw;
     padding: 50px;
 
-    .dateContainer {
+    .topContainer {
+        // border: 2px solid lightgray;
         display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
-    
-    .rightItems {
-        display: flex;
-        flex-direction: column;
         justify-content: space-between;
-        gap: 30px;
+        text-align: center;
+        gap: 50px;
 
-        .timeContainer {
+        .dateContainer {
             display: flex;
-            flex-direction: row;
-            width: fit-content;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .rightItems {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 30px;
 
-    
-            div {
+            .timeContainer {
+                display: flex;
+                flex-direction: row;
+                width: fit-content;
+
+        
+                div {
+                    label {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 60px;
+                        padding: 0 30px;
+                        background-color: var(--secondary-color);
+                        color: #6b6b6b;
+                        cursor: pointer;
+                        transition: all .2s ease-in-out;
+                        
+                        &:hover {
+                            background-color: #ddd;
+                        }
+                    }
+                }
+
+                :first-child {
+                    label {
+                        border-radius: 15px 0 0 15px;
+                    }
+                }
+        
+                :last-child {
+                    label {
+                        border-radius: 0 15px 15px 0;
+                    }
+                }
+        
+                input[type="radio"] {
+                    display: none;
+                }
+
+                input[type="radio"]:checked + label {
+                    background-color: var(--primary-color);
+                    color: white;
+                }
+            }
+
+            .tagContainer {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                gap: 15px 10px;
+                width: fit-content;
+
+
                 label {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    height: 60px;
-                    padding: 0 px;
                     background-color: var(--secondary-color);
                     color: #6b6b6b;
-                    cursor: pointer;
+                    border-radius: 30px; 
+                    width: fit-content;
+                    padding: 10px 15px;
+                    display: flex;
+                    align-items: center;
                     transition: all .2s ease-in-out;
+                    cursor: pointer;
                     
                     &:hover {
                         background-color: #ddd;
                     }
                 }
-            }
 
-            :first-child {
-                label {
-                    border-radius: 15px 0 0 15px;
-                }
-            }
-    
-            :last-child {
-                label {
-                    border-radius: 0 15px 15px 0;
-                }
-            }
-    
-            input[type="radio"] {
-                display: none;
-            }
-
-            input[type="radio"]:checked + label {
-                background-color: var(--primary-color);
-                color: white;
-            }
-        }
-
-        .tagContainer {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: flex-start;
-            gap: 15px;
-            width: fit-content;
-
-
-            label {
-                background-color: var(--secondary-color);
-                color: #6b6b6b;
-                border-radius: 30px; 
-                width: fit-content;
-                height: 50px;
-                padding: 0 30px;
-                display: flex;
-                align-items: center;
-                transition: all .2s ease-in-out;
-                cursor: pointer;
-                
-                &:hover {
-                    background-color: #ddd;
-                }
-                
-                
                 input[type="checkbox"] {
                     display: none;
-                    
-                    &:checked {
-                        background-color: var(--primary-color);
-                    }
                 }
 
+                input[type="checkbox"]:checked + label {
+                    background-color: var(--primary-color);
+                    color: white;
+                }
             }
         }
+        
     }
-    
+
+    .content {
+        height: 350px;
+        border: 1px solid lightgray;
+        border-radius: 15px;
+        width: 100%;
+        margin: 30px 0;
+        padding: 30px;
+        font-size: 14px;
+        line-height: 26px;
+        resize: none;
+
+        &:focus-within {
+            outline: 1px solid var(--primary-color);
+
+        }
+    }
+
+    button {
+        padding: 15px 20px;
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 15px;
+        border: none;
+        cursor: pointer;
+        font-size: 12pt;
+        float: right;
+    }
 }
