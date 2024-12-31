@@ -3,14 +3,23 @@
 멘토와 멘티를 이어주는 커피챗 매칭 서비스
 
 2025 올해의 컬러 **PANTONE 17-1230 Mocha Mousse** 컬러를 포인트 컬러로 사용하여 커피 색상을 연상시켜 부드럽고 편안한 느낌을 줌
+
 ![팬톤](https://github.com/user-attachments/assets/ce64bccf-0532-41ad-a4ff-ed4da39c6d69)
+
+<br>
+<br>
+
+
+
 
 <br>
 <br>
 
 # 기술 스택
 
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=TypeScript&logoColor=white)
+<!-- 
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=TypeScript&logoColor=white) -->
+![Languages](https://img.shields.io/github/languages/top/KOSTA-POCHACO/mentalk_client)
 ![SCSS](https://img.shields.io/badge/SCSS-CC6699?style=flat&logo=sass&logoColor=white)
 ![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat&logo=nextdotjs&logoColor=white)
 ![Socket.io](https://img.shields.io/badge/Sokcet.io-010101?style=flat&logo=socketdotio&logoColor=white)
