@@ -6,28 +6,30 @@
 ![팬톤](https://github.com/user-attachments/assets/ce64bccf-0532-41ad-a4ff-ed4da39c6d69)
 
 <br>
+<br>
 
 # 기술 스택
 
-FE
-<br>
-<code>Next.js</code> `TypeScript` `SCSS` `Socket.io` `axios`
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=TypeScript&logoColor=white)
+![SCSS](https://img.shields.io/badge/SCSS-CC6699?style=flat&logo=sass&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat&logo=nextdotjs&logoColor=white)
+![Socket.io](https://img.shields.io/badge/Sokcet.io-010101?style=flat&logo=socketdotio&logoColor=white)
 
-BE
-<br>
-`MongoDB` `Node.js` `Express` `JavaScript`
-
-TOOL
-<br>
-`Swagger` `Postman` `Figma` `Notion` `ERD-Cloud`
+![Notion](https://img.shields.io/badge/Notion-000000?style=flat&logo=notion&logoColor=white)
+![Figma](https://img.shields.io/badge/Figma-F24E1E?style=flat&logo=figma&logoColor=white)
+![Postman](https://img.shields.io/badge/Postman-FF6C37?style=flat&logo=postman&logoColor=white)
 
 <br>
 
 ## **Team POCHACO**
 
-김미래(PM, FE, Design), 임새별(FE, BE(채팅 구현), Design)
+`UI/UX Design / Front-End`
+<br>
+김미래(PM), 임새별
 
-박준성(BE), 박하성(BE)
+`Back-End`
+<br>
+박준성, 박하성, 임새별
 
 <br>
 
@@ -35,11 +37,11 @@ TOOL
 
 <strong>2024.12.04 ~ 2024.12.30</strong>
 
-1주차 (12.04 ~12.11) : 브레인 스토밍 및 주제 선정, 산출물 (ERD, 플로우차트, 화면설계도) 제작
+`1주차 (12.04 ~12.11)` : 브레인 스토밍 및 주제 선정, 산출물 (ERD, 플로우차트, 화면설계도) 제작
 
-2, 3주차 (12.12 ~ 12.27) : 기능 구현
+`2, 3주차 (12.12 ~ 12.27)` : 기능 구현
 
-4주차 (12.30 ~ 12.31) : 테스트
+`4주차 (12.30 ~ 12.31)` : 테스트
 
 <br>
 
