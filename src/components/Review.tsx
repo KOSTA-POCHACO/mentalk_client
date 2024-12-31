@@ -29,7 +29,7 @@ const Review : React.FC<ReviewProps> = ({menteeImg, menteeNickname, content, rat
                 </div>
                 <p>{"⭐️".repeat(rating)}</p>
               </div>
-              <p className={styles.content}>{content}이 포스팅은 왜 안좋은 리뷰 밖에 없어여 이 포스팅은 왜 안좋은 리뷰 밖에 없어여 이 포스팅은 왜 안좋은 리뷰 밖에 없어여 이 포스팅은 왜 안좋은 리뷰 밖에 없어여 이 포스팅은 왜 안좋은 리뷰 밖에 없어여 이 포스팅은 왜 안좋은 리뷰 밖에 없어여 </p>
+              <p className={styles.content}>{content}</p>
             </div>
             <p className={styles.date}>{date}</p>
           </div>            
