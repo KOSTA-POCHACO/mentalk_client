@@ -36,12 +36,12 @@ const Nav: React.FC = () => {
           내 커피챗
         </Link>
         {/* <Link href={"/my/chatting"} className={ pathname === "/my/chatting" ? styles.active : ""}>채팅</Link> */}
-        <Link
+        {/* <Link
           href={"/my/review"}
           className={pathname === "/my/review" ? styles.active : ""}
         >
           받은 리뷰
-        </Link>
+        </Link> */}
       </nav>
     );
   }
@@ -71,12 +71,12 @@ const Nav: React.FC = () => {
         >
           커피챗
         </Link>
-        <Link
+        {/* <Link
           href={"/my/review"}
           className={pathname === "/my/review" ? styles.active : ""}
         >
           내 리뷰
-        </Link>
+        </Link> */}
       </nav>
     );
   }
